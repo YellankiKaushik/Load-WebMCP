@@ -124,6 +124,20 @@ utilization: 78.4%
 
 The final valid plan may include non-blocking `FRAGILE_ELEVATED` review warnings for `PKG-106` and `MED-901`. These are warnings, not hard validation failures.
 
+## Latest Local Verification
+
+The 2026-08-31 documentation reconciliation pass reran the release gate without changing application logic:
+
+```text
+pnpm run build      PASS
+pnpm run typecheck  PASS
+pnpm run lint       PASS, 0 errors and 5 existing Fast Refresh warnings
+pnpm run test       PASS, 2 test files and 28 tests
+git diff --check    PASS
+```
+
+`.env` remained ignored and untracked. No committed secret values were found in the tracked tree.
+
 ## Architecture
 
 The current stack is preserved:

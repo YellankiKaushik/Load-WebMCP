@@ -38,7 +38,16 @@ The repository has previously been synchronized to `origin/main` using normal Gi
 - Real Supabase keys must not be committed.
 - `SUPABASE_SERVICE_ROLE_KEY` must remain server-only.
 
-Current verification for this pass is recorded in the final operator response.
+Current verification for the 2026-08-31 documentation reconciliation pass:
+
+```text
+.env ignored: yes
+.env tracked: no
+tracked-tree secret values found: no
+credential rotation required: no
+```
+
+The only tracked env-like file remains `.env.example`, which is expected and must contain placeholders only.
 
 ## Live Supabase Verification
 
@@ -202,18 +211,18 @@ These are review warnings, not hard validation violations. They do not indicate 
 Required verification commands for this documentation update:
 
 ```text
-pnpm run build
-pnpm run typecheck
-pnpm run lint
-pnpm run test
-git diff --check
+pnpm run build      PASS
+pnpm run typecheck  PASS
+pnpm run lint       PASS, 0 errors and 5 existing Fast Refresh warnings
+pnpm run test       PASS, 2 test files and 28 tests
+git diff --check    PASS
 ```
 
-Results are recorded in the final operator response.
+The build retained known non-blocking Vite/TanStack and chunk-size warnings. No tests were changed during this documentation-only reconciliation.
 
 ## Remaining Blockers
 
-None known after live Supabase and real WebMCP verification, assuming build, typecheck, lint, tests, and `git diff --check` remain green.
+None known after live Supabase and real WebMCP verification. Build, typecheck, lint, tests, and `git diff --check` were green in the 2026-08-31 reconciliation pass.
 
 ## Remaining Safety Notes
 

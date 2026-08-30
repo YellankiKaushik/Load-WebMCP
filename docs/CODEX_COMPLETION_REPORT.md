@@ -250,21 +250,30 @@ The verified live workflow confirms this invariant in the application and databa
 
 ## Current Verification Commands
 
-The latest documentation reconciliation pass reran the required local checks after updating status documents:
+The 2026-08-31 documentation reconciliation pass reran the required local checks without modifying application logic, planner behavior, validator behavior, database authority semantics, WebMCP tool definitions, or UI architecture:
 
 ```text
-pnpm run build
-pnpm run typecheck
-pnpm run lint
-pnpm run test
-git diff --check
+pnpm run build      PASS
+pnpm run typecheck  PASS
+pnpm run lint       PASS, 0 errors and 5 existing Fast Refresh warnings
+pnpm run test       PASS, 2 test files and 28 tests
+git diff --check    PASS
 ```
 
-Results are recorded in the final operator response for this update.
+The build retained the known non-blocking Vite/TanStack and chunk-size warnings. No tests were modified during this documentation-only reconciliation.
+
+Secret safety was rechecked for this pass:
+
+```text
+.env ignored: yes
+.env tracked: no
+committed secret values found: no
+credential rotation required: no
+```
 
 ## Remaining Risks
 
-P0 blockers: none known after live Supabase and real WebMCP verification, assuming build/lint/typecheck/tests remain green.
+P0 blockers: none known after live Supabase and real WebMCP verification. Build, lint, typecheck, tests, and `git diff --check` were green in the 2026-08-31 reconciliation pass.
 
 P1 before final submission:
 

@@ -249,6 +249,20 @@ second commit -> ALREADY_EXECUTED
 - Run the WebMCP judge workflow once in the final demo environment.
 - Treat fragile elevation messages as warnings, not failures.
 
+## Latest Local Verification
+
+The 2026-08-31 documentation reconciliation pass reran the required local quality gate without changing application logic, planner behavior, validator behavior, database authority semantics, WebMCP tool definitions, or UI architecture:
+
+```text
+pnpm run build      PASS
+pnpm run typecheck  PASS
+pnpm run lint       PASS, 0 errors and 5 existing Fast Refresh warnings
+pnpm run test       PASS, 2 test files and 28 tests
+git diff --check    PASS
+```
+
+`.env` remained ignored and untracked, and no committed secret values were found in the tracked tree.
+
 ## Remaining Blockers
 
-None known after the live Supabase and real WebMCP verification, assuming local verification commands remain green.
+None known after the live Supabase and real WebMCP verification. The latest local verification commands are green.
