@@ -3828,14 +3828,14 @@ Target architecture extracts domain logic from inherited pages. The key maintain
 
 # 45. Risk Summary
 
-| Risk                                              | Severity                   | Owner   | Status              |
-| ------------------------------------------------- | -------------------------- | ------- | ------------------- |
-| RISK-001 upstream license-file gap                | High                       | Kaushik | Open                |
-| RISK-002 WebMCP experimental API                  | High                       | Kaushik | Open/managed        |
-| RISK-003 approval enforcement not implemented yet | Critical until implemented | Kaushik | Open                |
-| RISK-004 planner invalidity/scope                 | High                       | Kaushik | Open                |
-| RISK-005 public session isolation                 | High                       | Kaushik | Open                |
-| RISK-006 approval not human-presence attestation  | Medium/High conceptual     | Kaushik | Accepted limitation |
+| Risk                                              | Severity                   | Owner   | Status                                                  |
+| ------------------------------------------------- | -------------------------- | ------- | ------------------------------------------------------- |
+| RISK-001 upstream license-file gap                | High                       | Kaushik | Open                                                    |
+| RISK-002 WebMCP experimental API                  | High                       | Kaushik | Open/managed                                            |
+| RISK-003 approval enforcement not implemented yet | Critical until implemented | Kaushik | Implemented locally; live Supabase RPC verification TBD |
+| RISK-004 planner invalidity/scope                 | High                       | Kaushik | Open                                                    |
+| RISK-005 public session isolation                 | High                       | Kaushik | Open                                                    |
+| RISK-006 approval not human-presence attestation  | Medium/High conceptual     | Kaushik | Accepted limitation                                     |
 
 ---
 
