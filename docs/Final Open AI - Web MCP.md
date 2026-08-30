@@ -44,18 +44,18 @@ This file is the authoritative master architecture for LoadGuard 3D and is maint
 
 This document deliberately separates verified current implementation from the hackathon target architecture.
 
-| Marker | Meaning |
-|---|---|
-| `[CURRENT]` | Verified in the upstream SmartLoad-3D codebase as of 2026-08-30. |
-| `[TARGET]` | Approved LoadGuard 3D hackathon design to be implemented. |
-| `[REQUIRED]` | Expected for the LoadGuard 3D MVP. |
-| `[CONDITIONAL]` | Include only when applicable. |
-| `[EVIDENCE]` | Requires measurable or independently verifiable evidence. |
-| `[OWNER]` | Accountable person/team. |
-| `[DECISION]` | Architectural decision or trade-off. |
-| `[RISK]` | Technical/business/security risk. |
-| `[TBD]` | Information is not yet known or not yet implemented. |
-| `[N/A]` | Deliberately not applicable to the hackathon MVP. |
+| Marker          | Meaning                                                          |
+| --------------- | ---------------------------------------------------------------- |
+| `[CURRENT]`     | Verified in the upstream SmartLoad-3D codebase as of 2026-08-30. |
+| `[TARGET]`      | Approved LoadGuard 3D hackathon design to be implemented.        |
+| `[REQUIRED]`    | Expected for the LoadGuard 3D MVP.                               |
+| `[CONDITIONAL]` | Include only when applicable.                                    |
+| `[EVIDENCE]`    | Requires measurable or independently verifiable evidence.        |
+| `[OWNER]`       | Accountable person/team.                                         |
+| `[DECISION]`    | Architectural decision or trade-off.                             |
+| `[RISK]`        | Technical/business/security risk.                                |
+| `[TBD]`         | Information is not yet known or not yet implemented.             |
+| `[N/A]`         | Deliberately not applicable to the hackathon MVP.                |
 
 > **Accuracy rule:** No target-state statement in this document should be represented as implemented evidence until the corresponding code, test, deployment, or runtime observation exists.
 
@@ -65,20 +65,20 @@ This document deliberately separates verified current implementation from the ha
 
 ## 0.1 Document Identity `[REQUIRED]`
 
-| Field | Value |
-|---|---|
-| Document ID | `LG3D-ARCH-001` |
-| Project | LoadGuard 3D |
-| System | LoadGuard 3D |
-| Target repository | `TBD — fork/target repository has not yet been created` |
-| Upstream repository | `https://github.com/Namdevx/SmartLoad-3D` |
-| Document version | `0.3` |
-| Target system version | `0.1.0-hackathon` |
-| Upstream package version | `0.0.0` |
-| Status | Draft |
-| Classification | Public |
-| Created | 2026-08-30 |
-| Updated | 2026-08-30 |
+| Field                    | Value                                                   |
+| ------------------------ | ------------------------------------------------------- |
+| Document ID              | `LG3D-ARCH-001`                                         |
+| Project                  | LoadGuard 3D                                            |
+| System                   | LoadGuard 3D                                            |
+| Target repository        | `TBD — fork/target repository has not yet been created` |
+| Upstream repository      | `https://github.com/Namdevx/SmartLoad-3D`               |
+| Document version         | `0.3`                                                   |
+| Target system version    | `0.1.0-hackathon`                                       |
+| Upstream package version | `0.0.0`                                                 |
+| Status                   | Draft                                                   |
+| Classification           | Public                                                  |
+| Created                  | 2026-08-30                                              |
+| Updated                  | 2026-08-30                                              |
 
 ## 0.2 Document Purpose `[REQUIRED]`
 
@@ -95,47 +95,48 @@ The document is intentionally conservative. Production-grade controls that do no
 
 ## 0.3 Intended Audience `[REQUIRED]`
 
-| Audience | Why They Need This Document |
-|---|---|
-| Project engineer | Build order, interfaces, state model, tests, deployment |
-| Hackathon reviewer | Understand WebMCP leverage and implementation boundaries |
-| Frontend engineer | 3D rendering, shared UI state, WebMCP registration |
-| Backend/data engineer | Supabase schema, RLS, plan transitions, ledger |
-| Security reviewer | Human-approval boundary, session isolation, write controls |
-| QA engineer | Deterministic planner/validator and critical end-to-end workflow |
-| Future maintainer | Separate inherited SmartLoad code from LoadGuard additions |
+| Audience              | Why They Need This Document                                      |
+| --------------------- | ---------------------------------------------------------------- |
+| Project engineer      | Build order, interfaces, state model, tests, deployment          |
+| Hackathon reviewer    | Understand WebMCP leverage and implementation boundaries         |
+| Frontend engineer     | 3D rendering, shared UI state, WebMCP registration               |
+| Backend/data engineer | Supabase schema, RLS, plan transitions, ledger                   |
+| Security reviewer     | Human-approval boundary, session isolation, write controls       |
+| QA engineer           | Deterministic planner/validator and critical end-to-end workflow |
+| Future maintainer     | Separate inherited SmartLoad code from LoadGuard additions       |
 
 ## 0.4 Ownership `[OWNER]`
 
-| Area | Owner |
-|---|---|
-| Product | Kaushik |
-| Architecture | Kaushik |
-| Frontend | Kaushik |
-| Load-planning domain | Kaushik |
-| Supabase/data | Kaushik |
-| WebMCP integration | Kaushik |
-| Security | Kaushik |
+| Area                  | Owner   |
+| --------------------- | ------- |
+| Product               | Kaushik |
+| Architecture          | Kaushik |
+| Frontend              | Kaushik |
+| Load-planning domain  | Kaushik |
+| Supabase/data         | Kaushik |
+| WebMCP integration    | Kaushik |
+| Security              | Kaushik |
 | Deployment/operations | Kaushik |
-| Documentation | Kaushik |
+| Documentation         | Kaushik |
 
 ## 0.5 Review and Approval
 
-| Role | Name/Team | Status | Date |
-|---|---|---|---|
-| Author | Kaushik | Drafting | 2026-08-30 |
-| Architecture reviewer | TBD | Pending | TBD |
-| Security reviewer | TBD | Pending | TBD |
-| Operations reviewer | TBD | Pending | TBD |
-| Approver | Kaushik | Pending implementation verification | TBD |
+| Role                  | Name/Team | Status                              | Date       |
+| --------------------- | --------- | ----------------------------------- | ---------- |
+| Author                | Kaushik   | Drafting                            | 2026-08-30 |
+| Architecture reviewer | TBD       | Pending                             | TBD        |
+| Security reviewer     | TBD       | Pending                             | TBD        |
+| Operations reviewer   | TBD       | Pending                             | TBD        |
+| Approver              | Kaushik   | Pending implementation verification | TBD        |
 
 ## 0.6 Revision History
 
-| Version | Date | Author | Description |
-|---|---|---|---|
-| 0.1 | 2026-08-30 | Kaushik | Initial architecture derived from SmartLoad-3D baseline and finalized LoadGuard 3D concept |
-| 0.2 | 2026-08-30 | Kaushik | Completeness audit against master template; added missing governance, component, RPC, messaging, health, dependency, multi-tenant-N/A, and documentation-completion coverage |
-| 0.3 | 2026-08-30 | Kaushik | Concept-integration audit; explicitly mapped SmartLoad-3D + IncidentGuard design principles, added structured provenance, model-text-is-not-authorization control, trust vocabulary, visible tool-effect requirements, and WebMCP standards guardrails |
+| Version              | Date       | Author  | Description                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| -------------------- | ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0.1                  | 2026-08-30 | Kaushik | Initial architecture derived from SmartLoad-3D baseline and finalized LoadGuard 3D concept                                                                                                                                                                                                                                                                                                                                               |
+| 0.2                  | 2026-08-30 | Kaushik | Completeness audit against master template; added missing governance, component, RPC, messaging, health, dependency, multi-tenant-N/A, and documentation-completion coverage                                                                                                                                                                                                                                                             |
+| 0.3                  | 2026-08-30 | Kaushik | Concept-integration audit; explicitly mapped SmartLoad-3D + IncidentGuard design principles, added structured provenance, model-text-is-not-authorization control, trust vocabulary, visible tool-effect requirements, and WebMCP standards guardrails                                                                                                                                                                                   |
+| 0.3-current-evidence | 2026-08-30 | Codex   | [CURRENT] Completion pass verified React 19/TanStack Start implementation, server-only Supabase authority layer, deterministic planner/validator tests, WebMCP registration through `document.modelContext`, no WebMCP approval tool, TRK-042/MED-901 fixture, README/license/report updates. Runtime Supabase migration execution and live WebMCP browser smoke test remain [TBD] until project credentials/browser host are available. |
 
 ---
 
@@ -238,37 +239,37 @@ The IncidentGuard design contributes the interaction and trust model:
 
 ### Integration Matrix
 
-| Design element | SmartLoad-3D contribution | IncidentGuard-derived contribution | LoadGuard 3D result |
-|---|---|---|---|
-| Domain | Truck/package loading | Consequential operational workflow | Human-authorized load planning |
-| Visual state | 3D truck + boxes | Shared human/agent state | Active vs candidate/proposed 3D load |
-| Agent interface | None | Explicit website-defined capabilities | Seven WebMCP tools |
-| Planning | Basic client stacking | Domain primitives + agent workflow | Deterministic planner + validation |
-| Authority | Direct CRUD | Human approval gate | `STAGED → APPROVED → EXECUTED` |
-| Mutation integrity | Direct writes | Exact approved snapshot | Commit accepts only `proposal_id` |
-| Trust semantics | None | Read-only/untrusted distinction | Current WebMCP hints + app-owned authority labels |
-| Traceability | Console/toasts | Visible action history | Structured action ledger |
-| Demo | 3D visualization | Block-before-approval moment | Pre-approval rejection + post-approval 3D activation |
-| Reliability | Existing UI | Deterministic scenario/reset | `TRK-042` + `MED-901` reset fixture |
+| Design element     | SmartLoad-3D contribution | IncidentGuard-derived contribution    | LoadGuard 3D result                                  |
+| ------------------ | ------------------------- | ------------------------------------- | ---------------------------------------------------- |
+| Domain             | Truck/package loading     | Consequential operational workflow    | Human-authorized load planning                       |
+| Visual state       | 3D truck + boxes          | Shared human/agent state              | Active vs candidate/proposed 3D load                 |
+| Agent interface    | None                      | Explicit website-defined capabilities | Seven WebMCP tools                                   |
+| Planning           | Basic client stacking     | Domain primitives + agent workflow    | Deterministic planner + validation                   |
+| Authority          | Direct CRUD               | Human approval gate                   | `STAGED → APPROVED → EXECUTED`                       |
+| Mutation integrity | Direct writes             | Exact approved snapshot               | Commit accepts only `proposal_id`                    |
+| Trust semantics    | None                      | Read-only/untrusted distinction       | Current WebMCP hints + app-owned authority labels    |
+| Traceability       | Console/toasts            | Visible action history                | Structured action ledger                             |
+| Demo               | 3D visualization          | Block-before-approval moment          | Pre-approval rejection + post-approval 3D activation |
+| Reliability        | Existing UI               | Deterministic scenario/reset          | `TRK-042` + `MED-901` reset fixture                  |
 
 ## 1.4 Architecture at a Glance
 
-| Dimension | Current | Target |
-|---|---|---|
-| Architecture style | Browser SPA with direct Supabase data access | Modular browser SPA + Supabase-backed state machine |
-| Primary language | TypeScript | TypeScript + SQL/PLpgSQL for protected transitions |
-| Frontend | React 18.2 + Vite | React 18.2 + Vite |
-| 3D | Three.js + React Three Fiber + Drei | Same, extended for active/candidate state |
-| Backend | Supabase client direct to Postgres | Supabase Auth/Postgres/Realtime + protected RPC functions |
-| Database | Supabase Postgres `boxes` | Extended `boxes`, `trucks`, `load_plans`, `load_plan_items`, `action_ledger` |
-| Cache | N/A | N/A |
-| Messaging | Supabase Realtime subscription | Supabase Realtime subscription |
-| Hosting | Upstream has successful Vercel status | Vercel target deployment |
-| Authentication | Not verified | Supabase anonymous auth |
-| Authorization | RLS status not verified | RLS by `auth.uid()` + protected plan transitions |
-| WebMCP | None | `document.modelContext.registerTool()` |
-| CI/CD | Vercel status visible upstream; CI not verified | GitHub Actions + Vercel deployment target |
-| Observability | Browser console/toasts | Structured action ledger + browser/hosting/Supabase logs |
+| Dimension          | Current                                         | Target                                                                       |
+| ------------------ | ----------------------------------------------- | ---------------------------------------------------------------------------- |
+| Architecture style | Browser SPA with direct Supabase data access    | Modular browser SPA + Supabase-backed state machine                          |
+| Primary language   | TypeScript                                      | TypeScript + SQL/PLpgSQL for protected transitions                           |
+| Frontend           | React 18.2 + Vite                               | React 18.2 + Vite                                                            |
+| 3D                 | Three.js + React Three Fiber + Drei             | Same, extended for active/candidate state                                    |
+| Backend            | Supabase client direct to Postgres              | Supabase Auth/Postgres/Realtime + protected RPC functions                    |
+| Database           | Supabase Postgres `boxes`                       | Extended `boxes`, `trucks`, `load_plans`, `load_plan_items`, `action_ledger` |
+| Cache              | N/A                                             | N/A                                                                          |
+| Messaging          | Supabase Realtime subscription                  | Supabase Realtime subscription                                               |
+| Hosting            | Upstream has successful Vercel status           | Vercel target deployment                                                     |
+| Authentication     | Not verified                                    | Supabase anonymous auth                                                      |
+| Authorization      | RLS status not verified                         | RLS by `auth.uid()` + protected plan transitions                             |
+| WebMCP             | None                                            | `document.modelContext.registerTool()`                                       |
+| CI/CD              | Vercel status visible upstream; CI not verified | GitHub Actions + Vercel deployment target                                    |
+| Observability      | Browser console/toasts                          | Structured action ledger + browser/hosting/Supabase logs                     |
 
 ---
 
@@ -292,25 +293,25 @@ LoadGuard 3D solves a narrow version of this problem by making the loading websi
 
 ## 2.2 Business Goals
 
-| ID | Goal | Success Metric | Owner |
-|---|---|---|---|
-| BG-001 | Demonstrate non-trivial WebMCP leverage | Judge can complete end-to-end scenario through registered tools | Kaushik |
-| BG-002 | Demonstrate human-agent collaboration | Commit is blocked before human approval and succeeds after approval | Kaushik |
-| BG-003 | Produce a memorable visual demo | Candidate/active plan changes are visible in 3D during the demo | Kaushik |
-| BG-004 | Ship within hackathon timeframe | Public live app + public repo + required demo materials before deadline | Kaushik |
+| ID     | Goal                                    | Success Metric                                                          | Owner   |
+| ------ | --------------------------------------- | ----------------------------------------------------------------------- | ------- |
+| BG-001 | Demonstrate non-trivial WebMCP leverage | Judge can complete end-to-end scenario through registered tools         | Kaushik |
+| BG-002 | Demonstrate human-agent collaboration   | Commit is blocked before human approval and succeeds after approval     | Kaushik |
+| BG-003 | Produce a memorable visual demo         | Candidate/active plan changes are visible in 3D during the demo         | Kaushik |
+| BG-004 | Ship within hackathon timeframe         | Public live app + public repo + required demo materials before deadline | Kaushik |
 
 ## 2.3 Technical Goals
 
-| ID | Goal | Measurement |
-|---|---|---|
-| TG-001 | Use current WebMCP imperative API | Tools registered via `document.modelContext` and discoverable in supported environment |
-| TG-002 | Deterministic planning | Identical normalized input and algorithm version produce identical candidate coordinates |
-| TG-003 | Deterministic validation | Same plan returns same violation set and score |
-| TG-004 | Enforce plan authority boundary | `commit_load_plan` fails for non-APPROVED proposal |
-| TG-005 | Prevent mutation substitution | Commit accepts only proposal ID and executes stored proposal snapshot |
-| TG-006 | Keep judge scenario repeatable | Reset restores exact seed truck/package/plan state |
-| TG-007 | Preserve session isolation | Browser sessions cannot read/write another authenticated session's demo rows under RLS |
-| TG-008 | Keep frontend responsive | `[TBD/EVIDENCE]` measure planner and 3D performance after implementation |
+| ID     | Goal                              | Measurement                                                                              |
+| ------ | --------------------------------- | ---------------------------------------------------------------------------------------- |
+| TG-001 | Use current WebMCP imperative API | Tools registered via `document.modelContext` and discoverable in supported environment   |
+| TG-002 | Deterministic planning            | Identical normalized input and algorithm version produce identical candidate coordinates |
+| TG-003 | Deterministic validation          | Same plan returns same violation set and score                                           |
+| TG-004 | Enforce plan authority boundary   | `commit_load_plan` fails for non-APPROVED proposal                                       |
+| TG-005 | Prevent mutation substitution     | Commit accepts only proposal ID and executes stored proposal snapshot                    |
+| TG-006 | Keep judge scenario repeatable    | Reset restores exact seed truck/package/plan state                                       |
+| TG-007 | Preserve session isolation        | Browser sessions cannot read/write another authenticated session's demo rows under RLS   |
+| TG-008 | Keep frontend responsive          | `[TBD/EVIDENCE]` measure planner and 3D performance after implementation                 |
 
 ## 2.4 Non-Goals `[REQUIRED]`
 
@@ -368,13 +369,13 @@ LoadGuard explicitly does **not** attempt to:
 
 ## 2.7 Assumptions
 
-| ID | Assumption | Impact if False | Owner | Status |
-|---|---|---|---|---|
-| ASM-001 | Judges can access a WebMCP-capable environment | Core agent workflow cannot be demonstrated | Kaushik | Confirmed by challenge docs |
-| ASM-002 | SmartLoad-3D can be forked under its stated MIT licensing intent | Must replace/rewrite upstream code if licensing is not acceptable | Kaushik | Risk: root LICENSE not found upstream |
-| ASM-003 | Supabase anonymous auth can isolate demo sessions without collecting PII | Need alternate session model | Kaushik | Confirmed capability, implementation pending |
-| ASM-004 | One deterministic truck scenario is sufficient to demonstrate product thesis | Broader scenario support would be needed | Kaushik | Design decision |
-| ASM-005 | WebMCP agent uses declared tools for consequential operation in judge flow | UI-clicking agent could weaken the human-only approval distinction | Kaushik | Documented limitation |
+| ID      | Assumption                                                                   | Impact if False                                                    | Owner   | Status                                       |
+| ------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------- | -------------------------------------------- |
+| ASM-001 | Judges can access a WebMCP-capable environment                               | Core agent workflow cannot be demonstrated                         | Kaushik | Confirmed by challenge docs                  |
+| ASM-002 | SmartLoad-3D can be forked under its stated MIT licensing intent             | Must replace/rewrite upstream code if licensing is not acceptable  | Kaushik | Risk: root LICENSE not found upstream        |
+| ASM-003 | Supabase anonymous auth can isolate demo sessions without collecting PII     | Need alternate session model                                       | Kaushik | Confirmed capability, implementation pending |
+| ASM-004 | One deterministic truck scenario is sufficient to demonstrate product thesis | Broader scenario support would be needed                           | Kaushik | Design decision                              |
+| ASM-005 | WebMCP agent uses declared tools for consequential operation in judge flow   | UI-clicking agent could weaken the human-only approval distinction | Kaushik | Documented limitation                        |
 
 ## 2.8 Constraints
 
@@ -412,13 +413,13 @@ LoadGuard explicitly does **not** attempt to:
 
 ## 3.1 Stakeholder Register
 
-| Stakeholder | Concerns | Decisions Influenced |
-|---|---|---|
-| Warehouse/load operator | Safety, clarity, reversibility, approval | Candidate vs active plan, approval UX |
-| AI agent | Clear tools, schemas, predictable outputs | WebMCP interface design |
-| Hackathon judge | WebMCP leverage, execution, originality | Demo flow, deterministic scenario |
-| Engineering owner | Build speed, maintainability | React/Vite reuse, small backend |
-| Security reviewer | Agent authority, tampering, public demo isolation | Immutable proposal, RLS, commit checks |
+| Stakeholder             | Concerns                                          | Decisions Influenced                   |
+| ----------------------- | ------------------------------------------------- | -------------------------------------- |
+| Warehouse/load operator | Safety, clarity, reversibility, approval          | Candidate vs active plan, approval UX  |
+| AI agent                | Clear tools, schemas, predictable outputs         | WebMCP interface design                |
+| Hackathon judge         | WebMCP leverage, execution, originality           | Demo flow, deterministic scenario      |
+| Engineering owner       | Build speed, maintainability                      | React/Vite reuse, small backend        |
+| Security reviewer       | Agent authority, tampering, public demo isolation | Immutable proposal, RLS, commit checks |
 
 ## 3.2 Architecture Drivers `[REQUIRED]`
 
@@ -489,6 +490,7 @@ LoadGuard explicitly does **not** attempt to:
 
 **Statement:** demo uses synthetic trucks/packages and stores no customer PII.  
 **Rationale:** reduces security/privacy scope and improves repeatability.
+
 ### AP-007 — Model Text Is Never Authorization
 
 **Statement:** Natural-language agent output, conversation history, or a tool argument such as `approved: true` MUST NOT authorize an active load mutation.  
@@ -512,31 +514,30 @@ LoadGuard explicitly does **not** attempt to:
 **Statement:** LoadGuard MUST NOT present experimental proposals as standardized WebMCP guarantees.  
 **Enforcement:** use `document.modelContext.registerTool`, JSON Schema, `readOnlyHint`, and `untrustedContentHint` only where supported/appropriate; do not depend on or advertise `consequentialHint` unless the target browser/spec later standardizes it and the architecture is revised.
 
-
 ---
 
 # 4. Requirements Baseline
 
 ## 4.1 Functional Requirements
 
-| ID | Requirement | Priority | Acceptance Criteria |
-|---|---|---|---|
-| FR-001 | Load state inspection | High | Agent receives truck, active boxes, positions, utilization, active plan ID |
-| FR-002 | Constraint inspection | High | Agent receives fragility, weight, dimensions, stop order, priority, truck limits |
-| FR-003 | Candidate planning | High | System creates deterministic candidate coordinates without modifying active plan |
-| FR-004 | Plan validation | High | System returns bounds, collision, fragility, weight, unloading-order violations |
-| FR-005 | Stage plan | High | Candidate becomes persisted `STAGED` proposal with immutable items/hash |
-| FR-006 | Pre-approval rejection | Critical | Commit of `STAGED` plan returns `APPROVAL_REQUIRED` and leaves active state unchanged |
-| FR-007 | Human approval | Critical | Operator can approve exact staged plan from UI |
-| FR-008 | Exact plan commit | Critical | Approved plan commits stored coordinates only; fresh coordinates are not accepted |
-| FR-009 | 3D active/candidate visibility | High | Human can distinguish active and proposed positions |
-| FR-010 | Action ledger | High | Agent/human/system state transitions are recorded and visible |
-| FR-011 | Judge reset | High | Reset restores deterministic `TRK-042` + `MED-901` scenario |
-| FR-012 | Session isolation | High | Authenticated anonymous user sees only own demo rows |
-| FR-013 | WebMCP graceful fallback | Medium | Non-WebMCP browser continues to support normal human UI and shows capability status |
-| FR-014 | Structured provenance | High | Operational tool results identify source type, truck/state revision, observation time, and computation version where applicable |
-| FR-015 | Visible agent/tool effects | High | Material WebMCP investigation/planning/staging/commit actions are reflected in the shared workspace and ledger |
-| FR-016 | No model-authorized commit | Critical | Agent text or agent-supplied approval fields can never move a proposal to APPROVED or bypass protected commit checks |
+| ID     | Requirement                    | Priority | Acceptance Criteria                                                                                                             |
+| ------ | ------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| FR-001 | Load state inspection          | High     | Agent receives truck, active boxes, positions, utilization, active plan ID                                                      |
+| FR-002 | Constraint inspection          | High     | Agent receives fragility, weight, dimensions, stop order, priority, truck limits                                                |
+| FR-003 | Candidate planning             | High     | System creates deterministic candidate coordinates without modifying active plan                                                |
+| FR-004 | Plan validation                | High     | System returns bounds, collision, fragility, weight, unloading-order violations                                                 |
+| FR-005 | Stage plan                     | High     | Candidate becomes persisted `STAGED` proposal with immutable items/hash                                                         |
+| FR-006 | Pre-approval rejection         | Critical | Commit of `STAGED` plan returns `APPROVAL_REQUIRED` and leaves active state unchanged                                           |
+| FR-007 | Human approval                 | Critical | Operator can approve exact staged plan from UI                                                                                  |
+| FR-008 | Exact plan commit              | Critical | Approved plan commits stored coordinates only; fresh coordinates are not accepted                                               |
+| FR-009 | 3D active/candidate visibility | High     | Human can distinguish active and proposed positions                                                                             |
+| FR-010 | Action ledger                  | High     | Agent/human/system state transitions are recorded and visible                                                                   |
+| FR-011 | Judge reset                    | High     | Reset restores deterministic `TRK-042` + `MED-901` scenario                                                                     |
+| FR-012 | Session isolation              | High     | Authenticated anonymous user sees only own demo rows                                                                            |
+| FR-013 | WebMCP graceful fallback       | Medium   | Non-WebMCP browser continues to support normal human UI and shows capability status                                             |
+| FR-014 | Structured provenance          | High     | Operational tool results identify source type, truck/state revision, observation time, and computation version where applicable |
+| FR-015 | Visible agent/tool effects     | High     | Material WebMCP investigation/planning/staging/commit actions are reflected in the shared workspace and ledger                  |
+| FR-016 | No model-authorized commit     | Critical | Agent text or agent-supplied approval fields can never move a proposal to APPROVED or bypass protected commit checks            |
 
 ### Requirement Detail — FR-006 Pre-Approval Rejection
 
@@ -561,53 +562,53 @@ LoadGuard explicitly does **not** attempt to:
 
 ### Performance
 
-| ID | Requirement |
-|---|---|
+| ID           | Requirement                                                                                                                                                |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | NFR-PERF-001 | `[TARGET][EVIDENCE TBD]` candidate planning for judge dataset should complete without perceptible multi-second UI blocking; benchmark after implementation |
-| NFR-PERF-002 | `[TARGET][EVIDENCE TBD]` 3D scene should remain interactive for the final judge dataset |
+| NFR-PERF-002 | `[TARGET][EVIDENCE TBD]` 3D scene should remain interactive for the final judge dataset                                                                    |
 
 ### Availability
 
-| ID | Requirement |
-|---|---|
+| ID          | Requirement                                                                                           |
+| ----------- | ----------------------------------------------------------------------------------------------------- |
 | NFR-AVL-001 | Public demo must be reachable during judging; no formal production availability percentage is claimed |
 
 ### Scalability
 
-| ID | Requirement |
-|---|---|
+| ID            | Requirement                                                                                         |
+| ------------- | --------------------------------------------------------------------------------------------------- |
 | NFR-SCALE-001 | MVP targets a single truck and a bounded synthetic package set; maximum tested package count is TBD |
 
 ### Security
 
-| ID | Requirement |
-|---|---|
-| NFR-SEC-001 | Active plan cannot be changed through `commit_load_plan` unless stored proposal is approved |
-| NFR-SEC-002 | Staged plan items cannot be modified after approval without invalidating approval |
-| NFR-SEC-003 | Demo data is isolated by authenticated anonymous user ID using RLS |
-| NFR-SEC-004 | Supabase client configuration comes from environment variables, not hard-coded project-specific source values |
+| ID          | Requirement                                                                                                                                            |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| NFR-SEC-001 | Active plan cannot be changed through `commit_load_plan` unless stored proposal is approved                                                            |
+| NFR-SEC-002 | Staged plan items cannot be modified after approval without invalidating approval                                                                      |
+| NFR-SEC-003 | Demo data is isolated by authenticated anonymous user ID using RLS                                                                                     |
+| NFR-SEC-004 | Supabase client configuration comes from environment variables, not hard-coded project-specific source values                                          |
 | NFR-SEC-005 | Approval is derived only from server-owned application state produced by the human approval path; model text/conversation context is non-authoritative |
-| NFR-SEC-006 | No reusable approval credential/token is exposed to the WebMCP agent; commit re-verifies the stored exact proposal |
+| NFR-SEC-006 | No reusable approval credential/token is exposed to the WebMCP agent; commit re-verifies the stored exact proposal                                     |
 
 ### Recoverability
 
-| ID | Requirement |
-|---|---|
+| ID          | Requirement                                                                             |
+| ----------- | --------------------------------------------------------------------------------------- |
 | NFR-REC-001 | Judge scenario must be recoverable through deterministic reset without manual DB repair |
 
 ### Maintainability
 
-| ID | Requirement |
-|---|---|
+| ID          | Requirement                                                                                       |
+| ----------- | ------------------------------------------------------------------------------------------------- |
 | NFR-MNT-001 | Planner, validator, WebMCP registration, proposal state, and UI rendering remain separate modules |
 
 ### Observability
 
-| ID | Requirement |
-|---|---|
-| NFR-OBS-001 | Every stage/approve/commit/reject/reset event produces a structured action-ledger entry |
+| ID          | Requirement                                                                                                                                        |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NFR-OBS-001 | Every stage/approve/commit/reject/reset event produces a structured action-ledger entry                                                            |
 | NFR-OBS-002 | Tool outputs that drive operational decisions include provenance/state-revision metadata sufficient to correlate them to proposal and ledger state |
-| NFR-OBS-003 | Action ledger stores events and outcomes only; hidden model reasoning/chain-of-thought is never requested or persisted |
+| NFR-OBS-003 | Action ledger stores events and outcomes only; hidden model reasoning/chain-of-thought is never requested or persisted                             |
 
 ## 4.3 Quality Attribute Scenarios
 
@@ -649,15 +650,15 @@ Measured response: TBD
 
 ## 4.4 Requirements Traceability
 
-| Requirement | Architecture Decision | Component | Test | Runtime Evidence |
-|---|---|---|---|---|
-| FR-001 | ADR-003 | CMP-MCP-001 / CMP-DB-001 | TEST-INT-001 | Tool output + UI |
-| FR-003 | ADR-004 | CMP-PLAN-001 | TEST-UNIT-001 | Candidate plan |
-| FR-004 | ADR-004 | CMP-VAL-001 | TEST-UNIT-010 | Validation panel |
-| FR-006 | ADR-002 | CMP-AUTHZ-001 | TEST-E2E-003 | Blocked ledger event |
-| FR-008 | ADR-002 | CMP-AUTHZ-001 / CMP-DB-001 | TEST-E2E-004 | Active plan + DB state |
-| FR-009 | ADR-001 | CMP-3D-001 | TEST-E2E-002 | 3D scene |
-| FR-012 | ADR-005 | CMP-DB-001 | TEST-SEC-001 | RLS test |
+| Requirement | Architecture Decision | Component                  | Test          | Runtime Evidence       |
+| ----------- | --------------------- | -------------------------- | ------------- | ---------------------- |
+| FR-001      | ADR-003               | CMP-MCP-001 / CMP-DB-001   | TEST-INT-001  | Tool output + UI       |
+| FR-003      | ADR-004               | CMP-PLAN-001               | TEST-UNIT-001 | Candidate plan         |
+| FR-004      | ADR-004               | CMP-VAL-001                | TEST-UNIT-010 | Validation panel       |
+| FR-006      | ADR-002               | CMP-AUTHZ-001              | TEST-E2E-003  | Blocked ledger event   |
+| FR-008      | ADR-002               | CMP-AUTHZ-001 / CMP-DB-001 | TEST-E2E-004  | Active plan + DB state |
+| FR-009      | ADR-001               | CMP-3D-001                 | TEST-E2E-002  | 3D scene               |
+| FR-012      | ADR-005               | CMP-DB-001                 | TEST-SEC-001  | RLS test               |
 
 ---
 
@@ -698,21 +699,21 @@ Owned by LoadGuard 3D:
 
 ## 5.2 Actors
 
-| Actor | Type | Description | Authentication |
-|---|---|---|---|
-| Load operator | Human | Reviews active/candidate plan and approves/rejects proposal | Supabase anonymous session in MVP |
-| WebMCP agent | System acting for user | Calls declared page tools to inspect/plan/stage/commit | Shares page/session context; no separate app credential |
-| LoadGuard system | System | Validates state transitions, data, and plan commit | Internal |
-| Judge/demo viewer | Human | Evaluates experience; may be the load operator | Anonymous session |
+| Actor             | Type                   | Description                                                 | Authentication                                          |
+| ----------------- | ---------------------- | ----------------------------------------------------------- | ------------------------------------------------------- |
+| Load operator     | Human                  | Reviews active/candidate plan and approves/rejects proposal | Supabase anonymous session in MVP                       |
+| WebMCP agent      | System acting for user | Calls declared page tools to inspect/plan/stage/commit      | Shares page/session context; no separate app credential |
+| LoadGuard system  | System                 | Validates state transitions, data, and plan commit          | Internal                                                |
+| Judge/demo viewer | Human                  | Evaluates experience; may be the load operator              | Anonymous session                                       |
 
 ## 5.3 External Systems
 
-| ID | System | Owner | Purpose | Protocol | Criticality |
-|---|---|---|---|---|---|
-| DEP-001 | WebMCP-capable ChatGPT/Chrome environment | OpenAI/Chrome | Discover/invoke page tools | Browser API | Critical to agent demo |
-| DEP-002 | Supabase | Supabase | Auth, Postgres, Realtime, RPC | HTTPS/WSS/Postgres platform | Critical |
-| DEP-003 | Vercel | Vercel | Static SPA hosting/deployment | HTTPS | Critical |
-| DEP-004 | GitHub | GitHub | Source control and public submission repo | HTTPS/Git | High |
+| ID      | System                                    | Owner         | Purpose                                   | Protocol                    | Criticality            |
+| ------- | ----------------------------------------- | ------------- | ----------------------------------------- | --------------------------- | ---------------------- |
+| DEP-001 | WebMCP-capable ChatGPT/Chrome environment | OpenAI/Chrome | Discover/invoke page tools                | Browser API                 | Critical to agent demo |
+| DEP-002 | Supabase                                  | Supabase      | Auth, Postgres, Realtime, RPC             | HTTPS/WSS/Postgres platform | Critical               |
+| DEP-003 | Vercel                                    | Vercel        | Static SPA hosting/deployment             | HTTPS                       | Critical               |
+| DEP-004 | GitHub                                    | GitHub        | Source control and public submission repo | HTTPS/Git                   | High                   |
 
 ## 5.4 System Context Diagram `[REQUIRED]`
 
@@ -769,36 +770,36 @@ The approval control is intentionally not exposed as a WebMCP tool. This is an a
 
 ## 6.2 Major Architecture Decisions
 
-| Decision | Choice | Reason |
-|---|---|---|
-| Application structure | React/Vite modular SPA | Fastest reuse of upstream code |
-| 3D rendering | React Three Fiber + Three.js | Already implemented upstream |
-| Persistence | Supabase Postgres | Already integrated; realtime support |
-| Session identity | Supabase Anonymous Auth | No PII/sign-up; enables RLS owner UUID |
-| Protected transitions | Supabase SQL/RPC functions | Atomic state checks without separate server framework |
-| WebMCP | Imperative `document.modelContext.registerTool()` | Current documented API and direct page integration |
-| Planning | Deterministic TypeScript heuristic | Reliable, explainable, fast to test |
-| Deployment | Vercel + Supabase | Minimal operational overhead |
+| Decision              | Choice                                            | Reason                                                |
+| --------------------- | ------------------------------------------------- | ----------------------------------------------------- |
+| Application structure | React/Vite modular SPA                            | Fastest reuse of upstream code                        |
+| 3D rendering          | React Three Fiber + Three.js                      | Already implemented upstream                          |
+| Persistence           | Supabase Postgres                                 | Already integrated; realtime support                  |
+| Session identity      | Supabase Anonymous Auth                           | No PII/sign-up; enables RLS owner UUID                |
+| Protected transitions | Supabase SQL/RPC functions                        | Atomic state checks without separate server framework |
+| WebMCP                | Imperative `document.modelContext.registerTool()` | Current documented API and direct page integration    |
+| Planning              | Deterministic TypeScript heuristic                | Reliable, explainable, fast to test                   |
+| Deployment            | Vercel + Supabase                                 | Minimal operational overhead                          |
 
 ## 6.3 Technology Stack
 
-| Layer | Technology | Version | Purpose |
-|---|---|---:|---|
-| Language | TypeScript | project compiler config TBD | SPA/domain/WebMCP |
-| UI framework | React | 18.2.0 current | Components/state |
-| Build tool | Vite | dependency version determined by lockfile/package resolution | Dev/build |
-| Router | react-router-dom | ^6.26.2 | Client routing |
-| 3D | three | ^0.160.1 | Geometry/rendering |
-| 3D React binding | @react-three/fiber | ^8.15.19 | React scene |
-| 3D helpers | @react-three/drei | ^9.88.13 | Orbit controls/helpers |
-| Data client | @supabase/supabase-js | ^2.50.0 | Auth/Data/Realtime/RPC |
-| Server-state helper | @tanstack/react-query | ^5.56.2 | Query/mutation lifecycle |
-| Validation | zod | ^3.23.8 | Runtime input/schema validation |
-| Charts | recharts | ^2.12.7 | Existing dashboard/reporting |
-| Styling | Tailwind ecosystem | current repo config | UI |
-| WebMCP | Browser API | experimental | Agent capability exposure |
-| Database | Supabase Postgres | managed / exact server version TBD | Durable state |
-| Hosting | Vercel | managed | SPA deployment |
+| Layer               | Technology            |                                                      Version | Purpose                         |
+| ------------------- | --------------------- | -----------------------------------------------------------: | ------------------------------- |
+| Language            | TypeScript            |                                  project compiler config TBD | SPA/domain/WebMCP               |
+| UI framework        | React                 |                                               18.2.0 current | Components/state                |
+| Build tool          | Vite                  | dependency version determined by lockfile/package resolution | Dev/build                       |
+| Router              | react-router-dom      |                                                      ^6.26.2 | Client routing                  |
+| 3D                  | three                 |                                                     ^0.160.1 | Geometry/rendering              |
+| 3D React binding    | @react-three/fiber    |                                                     ^8.15.19 | React scene                     |
+| 3D helpers          | @react-three/drei     |                                                     ^9.88.13 | Orbit controls/helpers          |
+| Data client         | @supabase/supabase-js |                                                      ^2.50.0 | Auth/Data/Realtime/RPC          |
+| Server-state helper | @tanstack/react-query |                                                      ^5.56.2 | Query/mutation lifecycle        |
+| Validation          | zod                   |                                                      ^3.23.8 | Runtime input/schema validation |
+| Charts              | recharts              |                                                      ^2.12.7 | Existing dashboard/reporting    |
+| Styling             | Tailwind ecosystem    |                                          current repo config | UI                              |
+| WebMCP              | Browser API           |                                                 experimental | Agent capability exposure       |
+| Database            | Supabase Postgres     |                           managed / exact server version TBD | Durable state                   |
+| Hosting             | Vercel                |                                                      managed | SPA deployment                  |
 
 **License note:** upstream README states MIT, but a root `LICENSE` file was not found during verification. LoadGuard must include an explicit root MIT license file and preserve required upstream attribution before submission.
 
@@ -829,12 +830,12 @@ Dependency direction rule: the planner and validator must not import React compo
 
 ## 7.2 Container Architecture `[REQUIRED]`
 
-| ID | Container | Responsibility | Technology | Owner |
-|---|---|---|---|---|
-| CTR-001 | LoadGuard Web SPA | UI, WebMCP registration, client domain execution | React/Vite | Kaushik |
-| CTR-002 | Supabase Backend | Identity, persistent state, RLS, realtime, protected transitions | Supabase/Postgres | Kaushik |
-| CTR-003 | Vercel Hosting | Serve built SPA | Vercel | Kaushik |
-| CTR-004 | WebMCP Agent Runtime | Discover and invoke browser tools | ChatGPT/Chrome | External |
+| ID      | Container            | Responsibility                                                   | Technology        | Owner    |
+| ------- | -------------------- | ---------------------------------------------------------------- | ----------------- | -------- |
+| CTR-001 | LoadGuard Web SPA    | UI, WebMCP registration, client domain execution                 | React/Vite        | Kaushik  |
+| CTR-002 | Supabase Backend     | Identity, persistent state, RLS, realtime, protected transitions | Supabase/Postgres | Kaushik  |
+| CTR-003 | Vercel Hosting       | Serve built SPA                                                  | Vercel            | Kaushik  |
+| CTR-004 | WebMCP Agent Runtime | Discover and invoke browser tools                                | ChatGPT/Chrome    | External |
 
 ## 7.3 C4 Container Diagram
 
@@ -879,12 +880,12 @@ flowchart TD
 
 ## 7.5 Dependency Criticality
 
-| Dependency | Criticality | Failure Impact | Fallback |
-|---|---|---|---|
-| WebMCP browser support | Critical for agent path | Human UI still works; no agent tool invocation | Capability warning + human-only mode |
-| Supabase | Critical | Cannot load/stage/approve/commit persisted demo state | Show dependency error; local static sample may render but not qualify as full workflow |
-| Vercel | Critical for live demo | Public app unavailable | Redeploy/alternate host if prepared |
-| Three.js renderer | High | Core visual demo degraded | Package table can still show data but demo quality drops |
+| Dependency             | Criticality             | Failure Impact                                        | Fallback                                                                               |
+| ---------------------- | ----------------------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| WebMCP browser support | Critical for agent path | Human UI still works; no agent tool invocation        | Capability warning + human-only mode                                                   |
+| Supabase               | Critical                | Cannot load/stage/approve/commit persisted demo state | Show dependency error; local static sample may render but not qualify as full workflow |
+| Vercel                 | Critical for live demo  | Public app unavailable                                | Redeploy/alternate host if prepared                                                    |
+| Three.js renderer      | High                    | Core visual demo degraded                             | Package table can still show data but demo quality drops                               |
 
 ---
 
@@ -892,12 +893,12 @@ flowchart TD
 
 ## 8.1 `CMP-WEB-001 — LoadGuard Web SPA`
 
-| Field | Value |
-|---|---|
-| Repository | Target fork TBD |
-| Runtime | Browser |
+| Field           | Value             |
+| --------------- | ----------------- |
+| Repository      | Target fork TBD   |
+| Runtime         | Browser           |
 | Deployment unit | Vite static build |
-| Criticality | Critical |
+| Criticality     | Critical          |
 
 ### Purpose
 
@@ -969,15 +970,15 @@ Expose LoadGuard domain capabilities to the user's browser agent.
 
 ### Tool Catalogue
 
-| Tool | Read-only hint | Operational mutation | Notes |
-|---|---:|---:|---|
-| `get_load_state` | true | No | Normalized active truck/load state |
-| `get_package_constraints` | true | No | Constraints for all/specified packages |
-| `create_load_plan` | false | Candidate UI state only | Generates candidate; does not activate |
-| `validate_load_plan` | true | No | Validates stored/provided candidate ID |
-| `stage_load_plan` | false | Yes | Persists immutable proposal |
-| `commit_load_plan` | false | Yes | Applies exact approved proposal |
-| `get_action_ledger` | true | No | Returns recent events |
+| Tool                      | Read-only hint |    Operational mutation | Notes                                  |
+| ------------------------- | -------------: | ----------------------: | -------------------------------------- |
+| `get_load_state`          |           true |                      No | Normalized active truck/load state     |
+| `get_package_constraints` |           true |                      No | Constraints for all/specified packages |
+| `create_load_plan`        |          false | Candidate UI state only | Generates candidate; does not activate |
+| `validate_load_plan`      |           true |                      No | Validates stored/provided candidate ID |
+| `stage_load_plan`         |          false |                     Yes | Persists immutable proposal            |
+| `commit_load_plan`        |          false |                     Yes | Applies exact approved proposal        |
+| `get_action_ledger`       |           true |                      No | Returns recent events                  |
 
 `untrustedContentHint` is not planned for MVP because all returned domain data is application-controlled synthetic data. If package notes or external data are later added, re-evaluate.
 
@@ -1020,14 +1021,14 @@ No random values may influence plan coordinates. Existing `monthlyVolumeData`/da
 
 ### Hard Validation Rules
 
-| ID | Rule | Failure Code |
-|---|---|---|
-| BR-VAL-001 | Package must remain within truck bounds | `OUT_OF_BOUNDS` |
-| BR-VAL-002 | Axis-aligned package volumes must not overlap | `COLLISION` |
-| BR-VAL-003 | Total package weight must not exceed truck max weight when configured | `OVER_WEIGHT` |
-| BR-VAL-004 | A fragile box must not support a heavier incompatible box | `FRAGILE_SUPPORT` |
+| ID         | Rule                                                                                                            | Failure Code         |
+| ---------- | --------------------------------------------------------------------------------------------------------------- | -------------------- |
+| BR-VAL-001 | Package must remain within truck bounds                                                                         | `OUT_OF_BOUNDS`      |
+| BR-VAL-002 | Axis-aligned package volumes must not overlap                                                                   | `COLLISION`          |
+| BR-VAL-003 | Total package weight must not exceed truck max weight when configured                                           | `OVER_WEIGHT`        |
+| BR-VAL-004 | A fragile box must not support a heavier incompatible box                                                       | `FRAGILE_SUPPORT`    |
 | BR-VAL-005 | Earlier-stop package must not be blocked from rear door by a later-stop package with overlapping Y/Z projection | `STOP_ORDER_BLOCKED` |
-| BR-VAL-006 | Positive finite dimensions and weight are required | `INVALID_PACKAGE` |
+| BR-VAL-006 | Positive finite dimensions and weight are required                                                              | `INVALID_PACKAGE`    |
 
 ### Blocking Definition
 
@@ -1137,17 +1138,17 @@ Reset must delete/recreate only the current authenticated demo user's rows and r
 
 The detailed descriptions in §§8.1–8.9 are supplemented by this matrix so every significant component answers the template's mandatory operational questions: ownership, inputs/outputs, dependencies, data, interfaces, configuration, security, concurrency/idempotency, failure/recovery, timeout/retry, observability, performance/capacity, testing, deployment/rollback, runbook, limitations/debt, ADRs, and open questions.
 
-| Component | Owner / Runtime | Inputs → Outputs | Dependencies / Owned State | Security & Concurrency | Failure / Recovery | Verification / Ops |
-|---|---|---|---|---|---|---|
-| `CMP-WEB-001` SPA | Kaushik / browser / Vercel | Human + WebMCP + Supabase + domain results → UI, domain commands, RPC calls | React/Router/Query/domain/WebMCP/Supabase/3D; transient UI/candidate state only | Browser untrusted; no service-role key; disable duplicate in-flight mutations; backend revision is authoritative | dependency errors explicit; reload/refetch/reset; Vercel rollback | component/E2E + shared-state assertions; `RB-001`; perf evidence TBD; ADR-001/003 |
-| `CMP-3D-001` Renderer | Kaushik / browser WebGL | truck + active/candidate positions → visual scene | R3F/drei/Three.js; owns no authoritative data | render normalized numeric data only; no writes/idempotency | renderer failure does not imply plan execution; table/state fallback; reload | render smoke/coordinate mapping/overlay tests; bounded package count; RISK-007 |
-| `CMP-MCP-001` WebMCP Registry | Kaushik / page context | schema-validated tool calls → concise structured results + visible app changes | `document.modelContext` + shared domain/data services; no data ownership | exposes only declared tools; approval is not agent tool; underlying idempotency; bounded/cancellable network work | human UI remains usable if WebMCP unavailable | schema/annotation/tool-name/browser-agent tests; RISK-002; ADR-003/006 |
-| `CMP-PLAN-001` Planner | Kaushik / TypeScript domain | canonical truck/packages/active state → deterministic candidate plan | domain types + validator; no React/Supabase; no persistent data | pure/reentrant; same input ⇒ same output; bounded validated data | never mutates active state; returns explicit no-fit/invalid result; recomputable | golden fixtures/repeat equality; benchmark final seed; TD-002; ADR-004 |
-| `CMP-VAL-001` Validator | Kaushik / TypeScript domain | truck + placement set → violations/warnings/summary | geometry/rules only; owns no data | pure/reentrant; fail closed on malformed/non-finite data | hard violation blocks stage/commit; recompute from stored plan | rule matrix tests; O(n²) acceptable only for bounded MVP; ADR-004 |
-| `CMP-AUTHZ-001` State Machine | Kaushik / client workflow + protected DB transaction | staged plan + human approval + proposal-ID commit → protected state transitions | Supabase, canonical hash, revision, ownership; owns proposal approval/status fields | RLS/owner check + exact hash; no `approved=true`; atomic commit; duplicate executed commit does not reapply | unapproved/stale/changed/foreign plans fail closed; transaction rollback prevents partial mutation | pre-approval rejection/hash mismatch/stale/duplicate/cross-session tests; RISK-003/006; ADR-002/005 |
-| `CMP-DB-001` Supabase | Kaushik config / managed platform | auth/data/realtime/RPC → sessions, rows, notifications, RPC results | hosted Auth/Postgres/Realtime; owns target persistent tables | anonymous identity + RLS + least-privilege RPC grants; no service-role credential in browser | protected writes fail closed; synthetic reset/reseed; vendor logs | migration/RLS/RPC/clean-session integration tests; RISK-005/008/009; ADR-005 |
-| `CMP-LEDGER-001` Ledger | Kaushik / DB + SPA | app lifecycle events → chronological structured history | Supabase/session; owns `action_ledger` | RLS; no prompts/tokens/chain-of-thought; ledger does not authorize | write failures surfaced; reset may recreate synthetic history | event-shape/sequence/isolation tests; not compliance-grade audit |
-| `CMP-DEMO-001` Judge Scenario | Kaushik / deterministic fixture + reset | owner-scoped reset → canonical `TRK-042` + `MED-901` state | DB, fixtures, planner/validator | owner-scoped idempotent reset; no arbitrary owner reset | explicit reset failure; fixture can be re-applied | seed invariant/reset idempotency/clean-browser tests; exact final fixture metrics TBD |
+| Component                     | Owner / Runtime                                      | Inputs → Outputs                                                                | Dependencies / Owned State                                                          | Security & Concurrency                                                                                            | Failure / Recovery                                                                                 | Verification / Ops                                                                                  |
+| ----------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `CMP-WEB-001` SPA             | Kaushik / browser / Vercel                           | Human + WebMCP + Supabase + domain results → UI, domain commands, RPC calls     | React/Router/Query/domain/WebMCP/Supabase/3D; transient UI/candidate state only     | Browser untrusted; no service-role key; disable duplicate in-flight mutations; backend revision is authoritative  | dependency errors explicit; reload/refetch/reset; Vercel rollback                                  | component/E2E + shared-state assertions; `RB-001`; perf evidence TBD; ADR-001/003                   |
+| `CMP-3D-001` Renderer         | Kaushik / browser WebGL                              | truck + active/candidate positions → visual scene                               | R3F/drei/Three.js; owns no authoritative data                                       | render normalized numeric data only; no writes/idempotency                                                        | renderer failure does not imply plan execution; table/state fallback; reload                       | render smoke/coordinate mapping/overlay tests; bounded package count; RISK-007                      |
+| `CMP-MCP-001` WebMCP Registry | Kaushik / page context                               | schema-validated tool calls → concise structured results + visible app changes  | `document.modelContext` + shared domain/data services; no data ownership            | exposes only declared tools; approval is not agent tool; underlying idempotency; bounded/cancellable network work | human UI remains usable if WebMCP unavailable                                                      | schema/annotation/tool-name/browser-agent tests; RISK-002; ADR-003/006                              |
+| `CMP-PLAN-001` Planner        | Kaushik / TypeScript domain                          | canonical truck/packages/active state → deterministic candidate plan            | domain types + validator; no React/Supabase; no persistent data                     | pure/reentrant; same input ⇒ same output; bounded validated data                                                  | never mutates active state; returns explicit no-fit/invalid result; recomputable                   | golden fixtures/repeat equality; benchmark final seed; TD-002; ADR-004                              |
+| `CMP-VAL-001` Validator       | Kaushik / TypeScript domain                          | truck + placement set → violations/warnings/summary                             | geometry/rules only; owns no data                                                   | pure/reentrant; fail closed on malformed/non-finite data                                                          | hard violation blocks stage/commit; recompute from stored plan                                     | rule matrix tests; O(n²) acceptable only for bounded MVP; ADR-004                                   |
+| `CMP-AUTHZ-001` State Machine | Kaushik / client workflow + protected DB transaction | staged plan + human approval + proposal-ID commit → protected state transitions | Supabase, canonical hash, revision, ownership; owns proposal approval/status fields | RLS/owner check + exact hash; no `approved=true`; atomic commit; duplicate executed commit does not reapply       | unapproved/stale/changed/foreign plans fail closed; transaction rollback prevents partial mutation | pre-approval rejection/hash mismatch/stale/duplicate/cross-session tests; RISK-003/006; ADR-002/005 |
+| `CMP-DB-001` Supabase         | Kaushik config / managed platform                    | auth/data/realtime/RPC → sessions, rows, notifications, RPC results             | hosted Auth/Postgres/Realtime; owns target persistent tables                        | anonymous identity + RLS + least-privilege RPC grants; no service-role credential in browser                      | protected writes fail closed; synthetic reset/reseed; vendor logs                                  | migration/RLS/RPC/clean-session integration tests; RISK-005/008/009; ADR-005                        |
+| `CMP-LEDGER-001` Ledger       | Kaushik / DB + SPA                                   | app lifecycle events → chronological structured history                         | Supabase/session; owns `action_ledger`                                              | RLS; no prompts/tokens/chain-of-thought; ledger does not authorize                                                | write failures surfaced; reset may recreate synthetic history                                      | event-shape/sequence/isolation tests; not compliance-grade audit                                    |
+| `CMP-DEMO-001` Judge Scenario | Kaushik / deterministic fixture + reset              | owner-scoped reset → canonical `TRK-042` + `MED-901` state                      | DB, fixtures, planner/validator                                                     | owner-scoped idempotent reset; no arbitrary owner reset                                                           | explicit reset failure; fixture can be re-applied                                                  | seed invariant/reset idempotency/clean-browser tests; exact final fixture metrics TBD               |
 
 Configuration, timeout, retry, observability, performance, deployment, rollback, recovery, and open-question details referenced by this matrix are defined in §§9, 15–19, 21–23, 26–30, and 43 and must be updated when implementation values become known.
 
@@ -1284,14 +1285,14 @@ Any error rolls back all active-position changes.
 
 ## 10.1 Interface Catalogue
 
-| ID | Interface | Type | Consumer | Version |
-|---|---|---|---|---|
-| API-WMCP-001 | LoadGuard WebMCP tool surface | Browser/WebMCP | User agent | v1 MVP |
-| API-DB-001 | Supabase Data API | HTTPS | SPA | managed |
-| API-DB-002 | Supabase Realtime | WSS | SPA | managed |
-| API-RPC-001 | `approve_load_plan` | Postgres RPC | Human UI | v1 |
-| API-RPC-002 | `commit_load_plan` | Postgres RPC | WebMCP adapter | v1 |
-| API-RPC-003 | `reset_demo` | Postgres RPC | Human UI | v1 |
+| ID           | Interface                     | Type           | Consumer       | Version |
+| ------------ | ----------------------------- | -------------- | -------------- | ------- |
+| API-WMCP-001 | LoadGuard WebMCP tool surface | Browser/WebMCP | User agent     | v1 MVP  |
+| API-DB-001   | Supabase Data API             | HTTPS          | SPA            | managed |
+| API-DB-002   | Supabase Realtime             | WSS            | SPA            | managed |
+| API-RPC-001  | `approve_load_plan`           | Postgres RPC   | Human UI       | v1      |
+| API-RPC-002  | `commit_load_plan`            | Postgres RPC   | WebMCP adapter | v1      |
+| API-RPC-003  | `reset_demo`                  | Postgres RPC   | Human UI       | v1      |
 
 ## 10.2 WebMCP Interface Standards
 
@@ -1494,17 +1495,17 @@ The final request signature is TBD; it must not accept an arbitrary owner UUID. 
 
 ### Error Catalogue
 
-| Code | Meaning | Retryable |
-|---|---|---:|
-| `INVALID_INPUT` | Schema/domain validation failed | No |
-| `NOT_FOUND` | Truck/plan/package not found in session | No |
-| `INVALID_PLAN` | Hard validation violations exist | No until replanned |
-| `APPROVAL_REQUIRED` | Proposal is not approved | Yes after human approval |
-| `PLAN_CHANGED` | Approved snapshot/hash mismatch | No; restage/reapprove |
-| `STALE_PLAN` | Truck revision changed after planning | No; replan |
-| `ALREADY_EXECUTED` | Proposal was already committed | No |
-| `FORBIDDEN` | RLS/ownership check failed | No |
-| `DEPENDENCY_UNAVAILABLE` | Supabase/network unavailable | Yes |
+| Code                     | Meaning                                 |                Retryable |
+| ------------------------ | --------------------------------------- | -----------------------: |
+| `INVALID_INPUT`          | Schema/domain validation failed         |                       No |
+| `NOT_FOUND`              | Truck/plan/package not found in session |                       No |
+| `INVALID_PLAN`           | Hard validation violations exist        |       No until replanned |
+| `APPROVAL_REQUIRED`      | Proposal is not approved                | Yes after human approval |
+| `PLAN_CHANGED`           | Approved snapshot/hash mismatch         |    No; restage/reapprove |
+| `STALE_PLAN`             | Truck revision changed after planning   |               No; replan |
+| `ALREADY_EXECUTED`       | Proposal was already committed          |                       No |
+| `FORBIDDEN`              | RLS/ownership check failed              |                       No |
+| `DEPENDENCY_UNAVAILABLE` | Supabase/network unavailable            |                      Yes |
 
 ## 10.5 API Compatibility
 
@@ -1522,6 +1523,7 @@ Target tests validate:
 - domain result shapes
 
 ---
+
 # 11. Event-Driven and Messaging Architecture `[CONDITIONAL]`
 
 ## 11.1 Messaging Overview
@@ -1593,14 +1595,14 @@ Authoritative stores:
 
 ## 12.2 Data Ownership
 
-| Domain | System of Record | Owner | Consumers |
-|---|---|---|---|
-| Session identity | Supabase Auth | LoadGuard project | SPA/RLS |
-| Truck config | `trucks` | LoadGuard | UI/planner/agent |
-| Package constraints | `boxes` | LoadGuard | UI/planner/validator/agent |
-| Staged/approved plans | `load_plans` + `load_plan_items` | LoadGuard | UI/agent/commit RPC |
-| Active positions | `boxes.position` + `trucks.active_plan_id` | LoadGuard | 3D renderer/agent |
-| Ledger | `action_ledger` | LoadGuard | UI/agent |
+| Domain                | System of Record                           | Owner             | Consumers                  |
+| --------------------- | ------------------------------------------ | ----------------- | -------------------------- |
+| Session identity      | Supabase Auth                              | LoadGuard project | SPA/RLS                    |
+| Truck config          | `trucks`                                   | LoadGuard         | UI/planner/agent           |
+| Package constraints   | `boxes`                                    | LoadGuard         | UI/planner/validator/agent |
+| Staged/approved plans | `load_plans` + `load_plan_items`           | LoadGuard         | UI/agent/commit RPC        |
+| Active positions      | `boxes.position` + `trucks.active_plan_id` | LoadGuard         | 3D renderer/agent          |
+| Ledger                | `action_ledger`                            | LoadGuard         | UI/agent                   |
 
 ## 12.3 Conceptual Data Model
 
@@ -1637,16 +1639,16 @@ erDiagram
 
 **Purpose:** store per-session truck configuration and active plan revision.
 
-| Column | Type | Nullable | Description |
-|---|---|---:|---|
-| `id` | text | No | Stable demo truck ID, e.g. `TRK-042` |
-| `owner_id` | uuid | No | `auth.uid()` owner |
-| `dimensions` | jsonb | No | `{length,width,height}` in cm |
-| `max_weight_kg` | numeric | Yes | Optional total weight ceiling |
-| `active_plan_id` | uuid | Yes | Current executed plan |
-| `revision` | bigint | No | Incremented on active-state commit/reset |
-| `created_at` | timestamptz | No | Creation time |
-| `updated_at` | timestamptz | No | Last update |
+| Column           | Type        | Nullable | Description                              |
+| ---------------- | ----------- | -------: | ---------------------------------------- |
+| `id`             | text        |       No | Stable demo truck ID, e.g. `TRK-042`     |
+| `owner_id`       | uuid        |       No | `auth.uid()` owner                       |
+| `dimensions`     | jsonb       |       No | `{length,width,height}` in cm            |
+| `max_weight_kg`  | numeric     |      Yes | Optional total weight ceiling            |
+| `active_plan_id` | uuid        |      Yes | Current executed plan                    |
+| `revision`       | bigint      |       No | Incremented on active-state commit/reset |
+| `created_at`     | timestamptz |       No | Creation time                            |
+| `updated_at`     | timestamptz |       No | Last update                              |
 
 Constraints:
 
@@ -1658,83 +1660,83 @@ Constraints:
 
 **Purpose:** retain upstream table naming while extending package constraints.
 
-| Column | Type | Nullable | Description |
-|---|---|---:|---|
-| `id` | text | No | Package identifier |
-| `owner_id` | uuid | No | Auth owner |
-| `truck_id` | text | No | Truck assignment |
-| `dimensions` | jsonb | No | cm dimensions |
-| `weight` | numeric | No | kg |
-| `destination` | text | No | Human-readable destination |
-| `delivery_stop` | integer | No | 1 = earliest unload |
-| `is_fragile` | boolean | No | Fragility constraint |
-| `priority` | text | No | `normal/high/urgent` |
-| `max_stack_weight_kg` | numeric | Yes | Optional supported load |
-| `keep_upright` | boolean | No | v1 planner does not rotate, but constraint is explicit |
-| `position` | jsonb | Yes | Active `{x,y,z}` position in cm |
-| `created_at` | timestamptz | No | Creation time |
-| `updated_at` | timestamptz | No | Last update |
+| Column                | Type        | Nullable | Description                                            |
+| --------------------- | ----------- | -------: | ------------------------------------------------------ |
+| `id`                  | text        |       No | Package identifier                                     |
+| `owner_id`            | uuid        |       No | Auth owner                                             |
+| `truck_id`            | text        |       No | Truck assignment                                       |
+| `dimensions`          | jsonb       |       No | cm dimensions                                          |
+| `weight`              | numeric     |       No | kg                                                     |
+| `destination`         | text        |       No | Human-readable destination                             |
+| `delivery_stop`       | integer     |       No | 1 = earliest unload                                    |
+| `is_fragile`          | boolean     |       No | Fragility constraint                                   |
+| `priority`            | text        |       No | `normal/high/urgent`                                   |
+| `max_stack_weight_kg` | numeric     |      Yes | Optional supported load                                |
+| `keep_upright`        | boolean     |       No | v1 planner does not rotate, but constraint is explicit |
+| `position`            | jsonb       |      Yes | Active `{x,y,z}` position in cm                        |
+| `created_at`          | timestamptz |       No | Creation time                                          |
+| `updated_at`          | timestamptz |       No | Last update                                            |
 
 ### `load_plans`
 
-| Column | Type | Nullable | Description |
-|---|---|---:|---|
-| `id` | uuid | No | Proposal ID |
-| `owner_id` | uuid | No | Session owner |
-| `truck_id` | text | No | Target truck |
-| `base_truck_revision` | bigint | No | Revision used for planning |
-| `status` | text | No | state-machine value |
-| `algorithm_version` | text | No | e.g. `planner-v1` |
-| `utilization_pct` | numeric | No | Candidate utilization |
-| `total_weight_kg` | numeric | No | Candidate total weight |
-| `validation_summary` | jsonb | No | Hard violation/warning summary |
-| `plan_hash` | text | No | Canonical snapshot digest |
-| `approved_hash` | text | Yes | Hash captured at human approval |
-| `created_at` | timestamptz | No | Created |
-| `staged_at` | timestamptz | Yes | Staged |
-| `approved_at` | timestamptz | Yes | Human approval |
-| `executed_at` | timestamptz | Yes | Commit time |
+| Column                | Type        | Nullable | Description                     |
+| --------------------- | ----------- | -------: | ------------------------------- |
+| `id`                  | uuid        |       No | Proposal ID                     |
+| `owner_id`            | uuid        |       No | Session owner                   |
+| `truck_id`            | text        |       No | Target truck                    |
+| `base_truck_revision` | bigint      |       No | Revision used for planning      |
+| `status`              | text        |       No | state-machine value             |
+| `algorithm_version`   | text        |       No | e.g. `planner-v1`               |
+| `utilization_pct`     | numeric     |       No | Candidate utilization           |
+| `total_weight_kg`     | numeric     |       No | Candidate total weight          |
+| `validation_summary`  | jsonb       |       No | Hard violation/warning summary  |
+| `plan_hash`           | text        |       No | Canonical snapshot digest       |
+| `approved_hash`       | text        |      Yes | Hash captured at human approval |
+| `created_at`          | timestamptz |       No | Created                         |
+| `staged_at`           | timestamptz |      Yes | Staged                          |
+| `approved_at`         | timestamptz |      Yes | Human approval                  |
+| `executed_at`         | timestamptz |      Yes | Commit time                     |
 
 ### `load_plan_items`
 
-| Column | Type | Nullable | Description |
-|---|---|---:|---|
-| `plan_id` | uuid | No | FK to load plan |
-| `owner_id` | uuid | No | Session owner |
-| `box_id` | text | No | Box/package ID |
-| `x` | numeric | No | cm |
-| `y` | numeric | No | cm |
-| `z` | numeric | No | cm |
-| `sequence` | integer | No | Stable canonical ordering |
+| Column     | Type    | Nullable | Description               |
+| ---------- | ------- | -------: | ------------------------- |
+| `plan_id`  | uuid    |       No | FK to load plan           |
+| `owner_id` | uuid    |       No | Session owner             |
+| `box_id`   | text    |       No | Box/package ID            |
+| `x`        | numeric |       No | cm                        |
+| `y`        | numeric |       No | cm                        |
+| `z`        | numeric |       No | cm                        |
+| `sequence` | integer |       No | Stable canonical ordering |
 
 Primary key: `(plan_id, box_id)`.
 
 ### `action_ledger`
 
-| Column | Type | Nullable | Description |
-|---|---|---:|---|
-| `id` | uuid | No | Event ID |
-| `owner_id` | uuid | No | Session owner |
-| `truck_id` | text | Yes | Related truck |
-| `plan_id` | uuid | Yes | Related proposal |
-| `actor` | text | No | `agent/human/system` |
-| `event_type` | text | No | inspect/plan/validate/stage/approve/reject/commit/reset |
-| `tool_name` | text | Yes | WebMCP tool if applicable |
-| `result` | text | No | success/blocked/failed |
-| `summary` | text | No | Short human-readable record |
-| `metadata` | jsonb | Yes | Safe structured details |
-| `created_at` | timestamptz | No | Event time |
+| Column       | Type        | Nullable | Description                                             |
+| ------------ | ----------- | -------: | ------------------------------------------------------- |
+| `id`         | uuid        |       No | Event ID                                                |
+| `owner_id`   | uuid        |       No | Session owner                                           |
+| `truck_id`   | text        |      Yes | Related truck                                           |
+| `plan_id`    | uuid        |      Yes | Related proposal                                        |
+| `actor`      | text        |       No | `agent/human/system`                                    |
+| `event_type` | text        |       No | inspect/plan/validate/stage/approve/reject/commit/reset |
+| `tool_name`  | text        |      Yes | WebMCP tool if applicable                               |
+| `result`     | text        |       No | success/blocked/failed                                  |
+| `summary`    | text        |       No | Short human-readable record                             |
+| `metadata`   | jsonb       |      Yes | Safe structured details                                 |
+| `created_at` | timestamptz |       No | Event time                                              |
 
 ## 12.6 Data Dictionary
 
-| Field | Business Meaning | Type | Classification | Validation |
-|---|---|---|---|---|
-| `owner_id` | Anonymous browser-session user | UUID | Internal identifier | equals `auth.uid()` |
-| `delivery_stop` | Unload order | integer | Synthetic operational | >=1 |
-| `priority` | Package handling priority | enum-like text | Synthetic operational | normal/high/urgent |
-| `position` | Active load coordinate | JSON/3 numbers | Synthetic operational | finite, validator checked |
-| `plan_hash` | Digest of canonical staged plan | text | Integrity metadata | generated from canonical snapshot |
-| `approved_hash` | Plan digest operator approved | text | Authorization metadata | must equal commit snapshot |
+| Field           | Business Meaning                | Type           | Classification         | Validation                        |
+| --------------- | ------------------------------- | -------------- | ---------------------- | --------------------------------- |
+| `owner_id`      | Anonymous browser-session user  | UUID           | Internal identifier    | equals `auth.uid()`               |
+| `delivery_stop` | Unload order                    | integer        | Synthetic operational  | >=1                               |
+| `priority`      | Package handling priority       | enum-like text | Synthetic operational  | normal/high/urgent                |
+| `position`      | Active load coordinate          | JSON/3 numbers | Synthetic operational  | finite, validator checked         |
+| `plan_hash`     | Digest of canonical staged plan | text           | Integrity metadata     | generated from canonical snapshot |
+| `approved_hash` | Plan digest operator approved   | text           | Authorization metadata | must equal commit snapshot        |
 
 ## 12.7 Transaction Model
 
@@ -1757,12 +1759,12 @@ Isolation level: `TBD — use managed Postgres default unless testing shows need
 
 Target indexes:
 
-| Index | Table | Columns | Reason |
-|---|---|---|---|
-| `idx_trucks_owner` | trucks | owner_id | RLS-scoped lookup |
-| `idx_boxes_owner_truck` | boxes | owner_id, truck_id | load-state query |
-| `idx_plans_owner_truck_created` | load_plans | owner_id, truck_id, created_at desc | recent proposals |
-| `idx_ledger_owner_created` | action_ledger | owner_id, created_at desc | recent ledger |
+| Index                           | Table         | Columns                             | Reason            |
+| ------------------------------- | ------------- | ----------------------------------- | ----------------- |
+| `idx_trucks_owner`              | trucks        | owner_id                            | RLS-scoped lookup |
+| `idx_boxes_owner_truck`         | boxes         | owner_id, truck_id                  | load-state query  |
+| `idx_plans_owner_truck_created` | load_plans    | owner_id, truck_id, created_at desc | recent proposals  |
+| `idx_ledger_owner_created`      | action_ledger | owner_id, created_at desc           | recent ledger     |
 
 `[EVIDENCE]` Query-plan evidence is TBD after schema implementation.
 
@@ -1792,11 +1794,11 @@ Next reset deletes/reseeds session-owned demo data
 
 ## 12.11 Retention Policy
 
-| Data | Retention | Reason | Deletion Process |
-|---|---|---|---|
-| Synthetic demo state | Until reset or project cleanup | Demo continuity | `reset_demo` / project maintenance |
-| Anonymous auth users | TBD | Supabase anonymous sessions may accumulate | Scheduled/admin cleanup only if needed post-hackathon |
-| Action ledger | Same as demo state for MVP | Visible workflow history | reset deletes session ledger |
+| Data                 | Retention                      | Reason                                     | Deletion Process                                      |
+| -------------------- | ------------------------------ | ------------------------------------------ | ----------------------------------------------------- |
+| Synthetic demo state | Until reset or project cleanup | Demo continuity                            | `reset_demo` / project maintenance                    |
+| Anonymous auth users | TBD                            | Supabase anonymous sessions may accumulate | Scheduled/admin cleanup only if needed post-hackathon |
+| Action ledger        | Same as demo state for MVP     | Visible workflow history                   | reset deletes session ledger                          |
 
 No customer/legal retention requirement exists.
 
@@ -1875,14 +1877,14 @@ No name, email, phone, address, or real package/customer data is required.
 
 ## 13.2 Asset Inventory
 
-| Asset | Classification | Owner | Impact if Compromised |
-|---|---|---|---|
-| Active load state | Synthetic operational | LoadGuard | Demo correctness compromised |
-| Approved plan state | Authorization metadata | LoadGuard | Core thesis defeated |
-| Supabase project config | Public client config | LoadGuard | Low alone; relies on RLS |
-| Supabase service-role secret | Secret | LoadGuard | Full backend compromise |
-| Source repo | Public | LoadGuard | Integrity/supply-chain risk if write access compromised |
-| Action ledger | Synthetic audit-like data | LoadGuard | Demo history falsified |
+| Asset                        | Classification            | Owner     | Impact if Compromised                                   |
+| ---------------------------- | ------------------------- | --------- | ------------------------------------------------------- |
+| Active load state            | Synthetic operational     | LoadGuard | Demo correctness compromised                            |
+| Approved plan state          | Authorization metadata    | LoadGuard | Core thesis defeated                                    |
+| Supabase project config      | Public client config      | LoadGuard | Low alone; relies on RLS                                |
+| Supabase service-role secret | Secret                    | LoadGuard | Full backend compromise                                 |
+| Source repo                  | Public                    | LoadGuard | Integrity/supply-chain risk if write access compromised |
+| Action ledger                | Synthetic audit-like data | LoadGuard | Demo history falsified                                  |
 
 ## 13.3 Attack Surface
 
@@ -1900,17 +1902,17 @@ No file uploads, webhook receivers, shell execution, or user-defined code are pl
 
 ## 13.4 Threat Model
 
-| ID | Asset | Threat | Impact | Likelihood | Control |
-|---|---|---|---|---|---|
-| THR-001 | Active plan | Agent commits before approval | High | Medium | commit RPC status check |
-| THR-002 | Approved plan | Coordinates altered after approval | High | Medium | immutable staged items + approved hash |
-| THR-003 | Active plan | Replay/double commit | Medium | Medium | one-time state transition + row lock |
-| THR-004 | Session data | Another judge modifies session rows | High | Medium | anonymous auth + RLS owner_id |
-| THR-005 | DB | Hard-coded/incorrect client configuration | Medium | Current known | env config + new project |
-| THR-006 | Planner | NaN/extreme dimensions break rendering | Medium | Medium | Zod + finite/positive bounds |
-| THR-007 | WebMCP | Experimental API changes | Medium | High | adapter + feature detection + current docs |
+| ID      | Asset             | Threat                                                             | Impact            | Likelihood            | Control                                                                      |
+| ------- | ----------------- | ------------------------------------------------------------------ | ----------------- | --------------------- | ---------------------------------------------------------------------------- |
+| THR-001 | Active plan       | Agent commits before approval                                      | High              | Medium                | commit RPC status check                                                      |
+| THR-002 | Approved plan     | Coordinates altered after approval                                 | High              | Medium                | immutable staged items + approved hash                                       |
+| THR-003 | Active plan       | Replay/double commit                                               | Medium            | Medium                | one-time state transition + row lock                                         |
+| THR-004 | Session data      | Another judge modifies session rows                                | High              | Medium                | anonymous auth + RLS owner_id                                                |
+| THR-005 | DB                | Hard-coded/incorrect client configuration                          | Medium            | Current known         | env config + new project                                                     |
+| THR-006 | Planner           | NaN/extreme dimensions break rendering                             | Medium            | Medium                | Zod + finite/positive bounds                                                 |
+| THR-007 | WebMCP            | Experimental API changes                                           | Medium            | High                  | adapter + feature detection + current docs                                   |
 | THR-008 | Approval boundary | Agent uses generic UI actuation instead of WebMCP to click Approve | High conceptually | Environment dependent | documented scope/limitation; approval is human-only in declared tool surface |
-| THR-009 | Supply chain | vulnerable dependency | Medium | Medium | npm audit/dependency scan target |
+| THR-009 | Supply chain      | vulnerable dependency                                              | Medium            | Medium                | npm audit/dependency scan target                                             |
 
 ## 13.5 Authentication
 
@@ -1940,11 +1942,11 @@ Additional plan-state restrictions prevent normal writes from altering staged/ap
 
 ### Permission Matrix
 
-| Role | Resource | Read | Write | Delete | Execute protected commit |
-|---|---|---:|---:|---:|---:|
-| Anonymous authenticated operator session | own truck/boxes | Yes | Yes within policies | Yes/reset scope | Through RPC |
-| WebMCP agent sharing session | same app-exposed reads | Yes | Only exposed tool operations | No direct app tool | commit RPC via tool |
-| Unauthenticated public | user-owned data | No | No | No | No |
+| Role                                     | Resource               | Read |                        Write |             Delete | Execute protected commit |
+| ---------------------------------------- | ---------------------- | ---: | ---------------------------: | -----------------: | -----------------------: |
+| Anonymous authenticated operator session | own truck/boxes        |  Yes |          Yes within policies |    Yes/reset scope |              Through RPC |
+| WebMCP agent sharing session             | same app-exposed reads |  Yes | Only exposed tool operations | No direct app tool |      commit RPC via tool |
+| Unauthenticated public                   | user-owned data        |   No |                           No |                 No |                       No |
 
 The difference between human and agent is application capability exposure, not a different JWT role.
 
@@ -2079,10 +2081,10 @@ Required before submission:
 
 ## 13.16 Security Exceptions
 
-| ID | Risk | Reason | Compensating Control | Expiry |
-|---|---|---|---|---|
-| SEC-EX-001 | Human approval is not cryptographic proof of human gesture | Browser agent and human share page/session | Approval omitted from WebMCP surface; server still requires stored approval | Revisit post-hackathon |
-| SEC-EX-002 | Anonymous identity is not employee identity | Demo requires zero-signup flow | Synthetic data + session RLS | Revisit for production use |
+| ID         | Risk                                                       | Reason                                     | Compensating Control                                                        | Expiry                     |
+| ---------- | ---------------------------------------------------------- | ------------------------------------------ | --------------------------------------------------------------------------- | -------------------------- |
+| SEC-EX-001 | Human approval is not cryptographic proof of human gesture | Browser agent and human share page/session | Approval omitted from WebMCP surface; server still requires stored approval | Revisit post-hackathon     |
+| SEC-EX-002 | Anonymous identity is not employee identity                | Demo requires zero-signup flow             | Synthetic data + session RLS                                                | Revisit for production use |
 
 ---
 
@@ -2120,21 +2122,21 @@ Never log:
 
 ## 15.1 Environment Matrix
 
-| Environment | Purpose | Data | Access |
-|---|---|---|---|
-| Local | Development | Synthetic | Developer |
-| Preview | Pull-request/manual verification | Synthetic | Developer/reviewer |
-| Production demo | Hackathon judging | Synthetic per anonymous session | Public |
+| Environment     | Purpose                          | Data                            | Access             |
+| --------------- | -------------------------------- | ------------------------------- | ------------------ |
+| Local           | Development                      | Synthetic                       | Developer          |
+| Preview         | Pull-request/manual verification | Synthetic                       | Developer/reviewer |
+| Production demo | Hackathon judging                | Synthetic per anonymous session | Public             |
 
 No separate enterprise staging environment is required for MVP.
 
 ## 15.2 Cloud/Platform Architecture
 
-| Platform | Purpose | Region |
-|---|---|---|
-| Vercel | SPA hosting | TBD by project configuration |
+| Platform | Purpose                | Region                                      |
+| -------- | ---------------------- | ------------------------------------------- |
+| Vercel   | SPA hosting            | TBD by project configuration                |
 | Supabase | Auth/Postgres/Realtime | Choose one project region; exact region TBD |
-| GitHub | Source/CI | Managed |
+| GitHub   | Source/CI              | Managed                                     |
 
 ## 15.3 Deployment Diagram
 
@@ -2162,11 +2164,11 @@ flowchart TB
 
 ## 15.5 Port and Protocol Matrix
 
-| Source | Destination | Port | Protocol | Purpose |
-|---|---|---:|---|---|
-| Browser | Vercel | 443 | HTTPS | Load app/assets |
-| Browser SPA | Supabase | 443 | HTTPS | Auth/Data/RPC |
-| Browser SPA | Supabase Realtime | 443 | WSS | Change notifications |
+| Source      | Destination       | Port | Protocol | Purpose              |
+| ----------- | ----------------- | ---: | -------- | -------------------- |
+| Browser     | Vercel            |  443 | HTTPS    | Load app/assets      |
+| Browser SPA | Supabase          |  443 | HTTPS    | Auth/Data/RPC        |
+| Browser SPA | Supabase Realtime |  443 | WSS      | Change notifications |
 
 ## 15.6 Compute Architecture
 
@@ -2236,13 +2238,13 @@ No request/second capacity claim is made before testing.
 
 ## 16.2 Performance Targets
 
-| Metric | Target |
-|---|---|
-| Planner latency | TBD after benchmark; target should be comfortably interactive for judge dataset |
-| Validator latency | TBD; expected lower than planner |
-| Commit RPC | TBD/EVIDENCE |
-| Initial page load | TBD/EVIDENCE |
-| 3D frame rate | TBD/EVIDENCE on target laptop/browser |
+| Metric            | Target                                                                          |
+| ----------------- | ------------------------------------------------------------------------------- |
+| Planner latency   | TBD after benchmark; target should be comfortably interactive for judge dataset |
+| Validator latency | TBD; expected lower than planner                                                |
+| Commit RPC        | TBD/EVIDENCE                                                                    |
+| Initial page load | TBD/EVIDENCE                                                                    |
+| 3D frame rate     | TBD/EVIDENCE on target laptop/browser                                           |
 
 ## 16.3 Scaling Strategy
 
@@ -2260,12 +2262,12 @@ N/A for browser SPA. Planner scale is limited by client CPU; database project ti
 
 ## 16.4 Bottlenecks
 
-| Resource | Known/Expected Limit | Impact | Mitigation |
-|---|---|---|---|
-| Browser 3D scene | package count / mesh draw complexity | low FPS | bounded demo set; instancing only if needed |
-| Planner | O(n²) collision/constraint validation possible | UI blocking for large n | bounded n; Web Worker later if needed |
-| Realtime refetch | every box change may trigger refetch | redundant requests | invalidate scoped query; batch if needed |
-| Supabase free tier | vendor quota | demo unavailable if exhausted | monitor usage; avoid high-frequency polling |
+| Resource           | Known/Expected Limit                           | Impact                        | Mitigation                                  |
+| ------------------ | ---------------------------------------------- | ----------------------------- | ------------------------------------------- |
+| Browser 3D scene   | package count / mesh draw complexity           | low FPS                       | bounded demo set; instancing only if needed |
+| Planner            | O(n²) collision/constraint validation possible | UI blocking for large n       | bounded n; Web Worker later if needed       |
+| Realtime refetch   | every box change may trigger refetch           | redundant requests            | invalidate scoped query; batch if needed    |
+| Supabase free tier | vendor quota                                   | demo unavailable if exhausted | monitor usage; avoid high-frequency polling |
 
 ## 16.5 Connection Pools
 
@@ -2281,11 +2283,11 @@ TanStack Query caches server reads in browser memory. Exact stale times are impl
 
 Required before final doc approval:
 
-| Scenario | Dataset | P50 | P95 | Result |
-|---|---|---|---|---|
-| create candidate plan | final judge seed | TBD | TBD | TBD |
-| validate plan | final judge seed | TBD | TBD | TBD |
-| render active plan | final judge seed | FPS TBD | FPS TBD | TBD |
+| Scenario              | Dataset          | P50     | P95     | Result |
+| --------------------- | ---------------- | ------- | ------- | ------ |
+| create candidate plan | final judge seed | TBD     | TBD     | TBD    |
+| validate plan         | final judge seed | TBD     | TBD     | TBD    |
+| render active plan    | final judge seed | FPS TBD | FPS TBD | TBD    |
 
 ---
 
@@ -2302,16 +2304,16 @@ Maximum tolerable data loss: Full demo-session state is tolerable because it can
 
 ## 17.2 Failure Mode Catalogue
 
-| ID | Failure | Detection | Impact | Recovery |
-|---|---|---|---|---|
-| FM-001 | WebMCP unavailable | feature detection | agent path unavailable | show instructions/status; human mode continues |
-| FM-002 | Supabase unavailable | query/RPC error | state unavailable | retry bounded; show dependency error |
-| FM-003 | Realtime disconnect | subscription state | stale UI possible | refetch on reconnect/manual refresh |
-| FM-004 | Invalid plan | validator | cannot stage/commit | replan |
-| FM-005 | Commit before approval | RPC response | no active mutation | expected blocked state |
-| FM-006 | Stale plan | revision mismatch | proposal invalid | regenerate/restage |
-| FM-007 | Partial commit attempt | transaction error | must not partially apply | rollback transaction |
-| FM-008 | 3D renderer exception | React/browser error | visual demo failure | reload/reset; table state remains source-readable |
+| ID     | Failure                | Detection           | Impact                   | Recovery                                          |
+| ------ | ---------------------- | ------------------- | ------------------------ | ------------------------------------------------- |
+| FM-001 | WebMCP unavailable     | feature detection   | agent path unavailable   | show instructions/status; human mode continues    |
+| FM-002 | Supabase unavailable   | query/RPC error     | state unavailable        | retry bounded; show dependency error              |
+| FM-003 | Realtime disconnect    | subscription state  | stale UI possible        | refetch on reconnect/manual refresh               |
+| FM-004 | Invalid plan           | validator           | cannot stage/commit      | replan                                            |
+| FM-005 | Commit before approval | RPC response        | no active mutation       | expected blocked state                            |
+| FM-006 | Stale plan             | revision mismatch   | proposal invalid         | regenerate/restage                                |
+| FM-007 | Partial commit attempt | transaction error   | must not partially apply | rollback transaction                              |
+| FM-008 | 3D renderer exception  | React/browser error | visual demo failure      | reload/reset; table state remains source-readable |
 
 ## 17.3 Timeout Strategy
 
@@ -2341,11 +2343,11 @@ Human-paced tool usage and bounded dataset make explicit backpressure unnecessar
 
 ## 17.9 Graceful Degradation
 
-| Failure | Essential Capability | Disabled Capability |
-|---|---|---|
-| WebMCP unsupported | Human box/load UI | Agent tools |
-| Realtime unavailable | Direct query/refetch | live updates |
-| Report/chart issue | Load planning/approval | secondary analytics |
+| Failure              | Essential Capability   | Disabled Capability |
+| -------------------- | ---------------------- | ------------------- |
+| WebMCP unsupported   | Human box/load UI      | Agent tools         |
+| Realtime unavailable | Direct query/refetch   | live updates        |
+| Report/chart issue   | Load planning/approval | secondary analytics |
 
 ## 17.10 High Availability
 
@@ -2450,12 +2452,12 @@ Do not log auth tokens.
 
 ## 19.3 Log-Level Policy
 
-| Level | Usage |
-|---|---|
+| Level | Usage                                                                                                   |
+| ----- | ------------------------------------------------------------------------------------------------------- |
 | DEBUG | planner steps/local debugging; remove noisy upstream console logs from production build where practical |
-| INFO | stage/approval/commit/reset lifecycle |
-| WARN | blocked/stale plan, realtime disconnect |
-| ERROR | failed RPC/data operation/render-critical error |
+| INFO  | stage/approval/commit/reset lifecycle                                                                   |
+| WARN  | blocked/stale plan, realtime disconnect                                                                 |
+| ERROR | failed RPC/data operation/render-critical error                                                         |
 
 ## 19.4 Metrics Catalogue
 
@@ -2585,13 +2587,13 @@ Verify WebMCP tool schemas and RPC error codes against checked-in fixtures.
 
 ## 21.5 End-to-End Testing
 
-| Flow | Test | Environment |
-|---|---|---|
-| Demo bootstrap | anonymous auth + seed visible | Preview |
-| Candidate visualization | create plan shows ghost state only | Preview |
-| Approval block | pre-approval commit rejected | Preview/manual WebMCP |
-| Full happy path | stage → block → approve → commit → verify | Production demo before submission |
-| Reset | restores baseline after executed plan | Production demo |
+| Flow                    | Test                                      | Environment                       |
+| ----------------------- | ----------------------------------------- | --------------------------------- |
+| Demo bootstrap          | anonymous auth + seed visible             | Preview                           |
+| Candidate visualization | create plan shows ghost state only        | Preview                           |
+| Approval block          | pre-approval commit rejected              | Preview/manual WebMCP             |
+| Full happy path         | stage → block → approve → commit → verify | Production demo before submission |
+| Reset                   | restores baseline after executed plan     | Production demo                   |
 
 ## 21.6 Performance Testing
 
@@ -2771,11 +2773,11 @@ Vendor escalation: provider support/community as available
 
 For demo operations only:
 
-| Severity | Meaning | Response |
-|---|---|---|
-| LG-SEV-1 | Public demo or WebMCP workflow unusable | Fix immediately before/through judging window |
-| LG-SEV-2 | Major feature degraded but core flow works | Urgent |
-| LG-SEV-3 | Secondary UI/report issue | Best effort |
+| Severity | Meaning                                    | Response                                      |
+| -------- | ------------------------------------------ | --------------------------------------------- |
+| LG-SEV-1 | Public demo or WebMCP workflow unusable    | Fix immediately before/through judging window |
+| LG-SEV-2 | Major feature degraded but core flow works | Urgent                                        |
+| LG-SEV-3 | Secondary UI/report issue                  | Best effort                                   |
 
 ## 23.4 Incident Response
 
@@ -2842,13 +2844,13 @@ Potential post-hackathon anonymous-user cleanup is outside current scope.
 
 ## 25.1 Dependency Inventory
 
-| ID | Dependency | Provider | Criticality | Owner |
-|---|---|---|---|---|
-| DEP-001 | WebMCP API/browser | Chrome/OpenAI ecosystem | Critical | External |
-| DEP-002 | Supabase | Supabase | Critical | Kaushik configuration / vendor runtime |
-| DEP-003 | Vercel | Vercel | Critical | Kaushik configuration / vendor runtime |
-| DEP-004 | Three.js ecosystem | Open source | High | Project dependency |
-| DEP-005 | React/Vite ecosystem | Open source | High | Project dependency |
+| ID      | Dependency           | Provider                | Criticality | Owner                                  |
+| ------- | -------------------- | ----------------------- | ----------- | -------------------------------------- |
+| DEP-001 | WebMCP API/browser   | Chrome/OpenAI ecosystem | Critical    | External                               |
+| DEP-002 | Supabase             | Supabase                | Critical    | Kaushik configuration / vendor runtime |
+| DEP-003 | Vercel               | Vercel                  | Critical    | Kaushik configuration / vendor runtime |
+| DEP-004 | Three.js ecosystem   | Open source             | High        | Project dependency                     |
+| DEP-005 | React/Vite ecosystem | Open source             | High        | Project dependency                     |
 
 ## 25.2 Dependency Contract — WebMCP
 
@@ -2891,24 +2893,24 @@ React, Vite, React Three Fiber, Three.js, TanStack Query, Zod, React Router, and
 
 ## 25.6 Vendor Failure Strategy
 
-
 - WebMCP unavailable: display status and retain human UI.
 - Supabase unavailable: no protected writes; show error and do not fake approval/commit success.
 - Vercel unavailable: use provider rollback or alternate deployment only if prepared.
 - Corrupt vendor response: validate all expected structures before use.
 
 ---
+
 # 26. Configuration Management
 
 ## 26.1 Configuration Catalogue
 
-| Variable | Type | Required | Default | Sensitive |
-|---|---|---:|---|---:|
-| `VITE_SUPABASE_URL` | URL string | Yes | — | No |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | string | Yes | — | No (public client credential; still do not hard-code project config) |
-| `VITE_WEBMCP_DEMO_MODE` | boolean-like string | No | `true` for hackathon | No |
-| `VITE_DEMO_TRUCK_ID` | string | No | `TRK-042` | No |
-| `VITE_PLANNER_VERSION` | string | No | `planner-v1` | No |
+| Variable                        | Type                | Required | Default              |                                                            Sensitive |
+| ------------------------------- | ------------------- | -------: | -------------------- | -------------------------------------------------------------------: |
+| `VITE_SUPABASE_URL`             | URL string          |      Yes | —                    |                                                                   No |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | string              |      Yes | —                    | No (public client credential; still do not hard-code project config) |
+| `VITE_WEBMCP_DEMO_MODE`         | boolean-like string |       No | `true` for hackathon |                                                                   No |
+| `VITE_DEMO_TRUCK_ID`            | string              |       No | `TRK-042`            |                                                                   No |
+| `VITE_PLANNER_VERSION`          | string              |       No | `planner-v1`         |                                                                   No |
 
 Database-level configuration:
 
@@ -2935,9 +2937,9 @@ Truck dimensions and demo constraints are data, not deployment configuration, an
 
 ## 26.4 Feature Flags `[CONDITIONAL]`
 
-| Flag | Owner | Default | Expiry | Purpose |
-|---|---|---:|---|---|
-| `VITE_WEBMCP_DEMO_MODE` | Kaushik | true | Post-hackathon review | Enables judge-specific status/reset UI |
+| Flag                    | Owner   | Default | Expiry                | Purpose                                |
+| ----------------------- | ------- | ------: | --------------------- | -------------------------------------- |
+| `VITE_WEBMCP_DEMO_MODE` | Kaushik |    true | Post-hackathon review | Enables judge-specific status/reset UI |
 
 Avoid adding more flags unless a real release need appears.
 
@@ -3042,13 +3044,13 @@ Current upstream does not provide a verified `test` script.
 
 ## 27.10 Common Setup Problems
 
-| Problem | Cause | Solution |
-|---|---|---|
-| `document.modelContext` undefined | Browser/WebMCP not enabled | Use supported ChatGPT browser or current Chrome experimental setup |
-| Boxes fail to load | Supabase env/project/RLS issue | Check env, auth session, policies |
-| `APPROVAL_REQUIRED` after clicking approve | approval mutation failed/stale query | inspect plan status/RPC response and refetch |
-| 3D scene empty | no active positions/boxes or renderer error | reset demo, inspect state/console |
-| Cross-session data visible | RLS policy missing/wrong | stop public demo and fix policies |
+| Problem                                    | Cause                                       | Solution                                                           |
+| ------------------------------------------ | ------------------------------------------- | ------------------------------------------------------------------ |
+| `document.modelContext` undefined          | Browser/WebMCP not enabled                  | Use supported ChatGPT browser or current Chrome experimental setup |
+| Boxes fail to load                         | Supabase env/project/RLS issue              | Check env, auth session, policies                                  |
+| `APPROVAL_REQUIRED` after clicking approve | approval mutation failed/stale query        | inspect plan status/RPC response and refetch                       |
+| 3D scene empty                             | no active positions/boxes or renderer error | reset demo, inspect state/console                                  |
+| Cross-session data visible                 | RLS policy missing/wrong                    | stop public demo and fix policies                                  |
 
 ---
 
@@ -3308,29 +3310,29 @@ The browser agent is the AI reasoning layer. Deterministic domain tools maximize
 
 ## 30.1 Risk Register
 
-| ID | Risk | Probability | Impact | Mitigation | Owner |
-|---|---|---:|---:|---|---|
-| RISK-001 | Upstream README says MIT but root LICENSE is absent | Medium | High | Add explicit MIT LICENSE in fork and preserve attribution; verify reuse rights before submission | Kaushik |
-| RISK-002 | WebMCP API changes during hackathon | Medium | High | Minimal adapter, feature detection, test against current docs/browser daily | Kaushik |
-| RISK-003 | Approval appears cosmetic if enforcement stays client-side | High if not fixed | Critical | Protected DB/RPC state check; blocked pre-approval test | Kaushik |
-| RISK-004 | Simple heuristic produces poor/invalid layout | Medium | High | Freeze one deterministic seed and build validator first; bounded planner scope | Kaushik |
-| RISK-005 | Public demo sessions interfere | Medium | High | anonymous auth + RLS | Kaushik |
-| RISK-006 | Generic browser agent can potentially click approval UI | Environment dependent | Medium/High conceptual | Do not overclaim; define authority within WebMCP capability contract; no approval tool | Kaushik |
-| RISK-007 | Three.js rendering becomes unstable with candidate overlay | Medium | Medium | bounded package count; simple ghost overlay |
-| RISK-008 | Supabase project configuration or RLS blocks demo | Medium | High | pre-submission clean-session smoke tests |
-| RISK-009 | Existing upstream code contains hard-coded Supabase client config | Certain current | Medium | replace with new project env configuration |
-| RISK-010 | Scope creep into fleet/AI/optimization platform | High | High | enforce non-goals and build order |
+| ID       | Risk                                                              |           Probability |                 Impact | Mitigation                                                                                       | Owner   |
+| -------- | ----------------------------------------------------------------- | --------------------: | ---------------------: | ------------------------------------------------------------------------------------------------ | ------- |
+| RISK-001 | Upstream README says MIT but root LICENSE is absent               |                Medium |                   High | Add explicit MIT LICENSE in fork and preserve attribution; verify reuse rights before submission | Kaushik |
+| RISK-002 | WebMCP API changes during hackathon                               |                Medium |                   High | Minimal adapter, feature detection, test against current docs/browser daily                      | Kaushik |
+| RISK-003 | Approval appears cosmetic if enforcement stays client-side        |     High if not fixed |               Critical | Protected DB/RPC state check; blocked pre-approval test                                          | Kaushik |
+| RISK-004 | Simple heuristic produces poor/invalid layout                     |                Medium |                   High | Freeze one deterministic seed and build validator first; bounded planner scope                   | Kaushik |
+| RISK-005 | Public demo sessions interfere                                    |                Medium |                   High | anonymous auth + RLS                                                                             | Kaushik |
+| RISK-006 | Generic browser agent can potentially click approval UI           | Environment dependent | Medium/High conceptual | Do not overclaim; define authority within WebMCP capability contract; no approval tool           | Kaushik |
+| RISK-007 | Three.js rendering becomes unstable with candidate overlay        |                Medium |                 Medium | bounded package count; simple ghost overlay                                                      |
+| RISK-008 | Supabase project configuration or RLS blocks demo                 |                Medium |                   High | pre-submission clean-session smoke tests                                                         |
+| RISK-009 | Existing upstream code contains hard-coded Supabase client config |       Certain current |                 Medium | replace with new project env configuration                                                       |
+| RISK-010 | Scope creep into fleet/AI/optimization platform                   |                  High |                   High | enforce non-goals and build order                                                                |
 
 ## 30.2 Technical Debt Register
 
-| ID | Debt | Impact | Priority | Remediation |
-|---|---|---|---|---|
-| TD-001 | Upstream page components contain data/domain logic directly | Harder testing | High | extract planner/data adapters from LoadView |
-| TD-002 | Upstream algorithm is simplistic shelf packing | Limited plan quality | High | planner-v1 + validator, no optimality claim |
-| TD-003 | Upstream uses verbose console logging | Noisy demo/debug | Medium | remove/gate logs |
-| TD-004 | Current Supabase types are hand-written | Schema drift risk | Medium | generated types if time permits |
-| TD-005 | No current automated test script | Regression risk | High | add Vitest tests |
-| TD-006 | Current utilization simply sums package volume/truck volume | Does not prove physically valid packing | Medium | always pair utilization with validator |
+| ID     | Debt                                                        | Impact                                  | Priority | Remediation                                 |
+| ------ | ----------------------------------------------------------- | --------------------------------------- | -------- | ------------------------------------------- |
+| TD-001 | Upstream page components contain data/domain logic directly | Harder testing                          | High     | extract planner/data adapters from LoadView |
+| TD-002 | Upstream algorithm is simplistic shelf packing              | Limited plan quality                    | High     | planner-v1 + validator, no optimality claim |
+| TD-003 | Upstream uses verbose console logging                       | Noisy demo/debug                        | Medium   | remove/gate logs                            |
+| TD-004 | Current Supabase types are hand-written                     | Schema drift risk                       | Medium   | generated types if time permits             |
+| TD-005 | No current automated test script                            | Regression risk                         | High     | add Vitest tests                            |
+| TD-006 | Current utilization simply sums package volume/truck volume | Does not prove physically valid packing | Medium   | always pair utilization with validator      |
 
 ## 30.3 Known Limitations
 
@@ -3577,15 +3579,15 @@ Target primary judge workspace remains `/load` to minimize route churn. Optional
 
 ### Shared Trust/Authority Vocabulary `[TARGET]`
 
-| Label | Meaning |
-|---|---|
-| `READ ONLY` | Tool reads state and does not mutate candidate/active state |
-| `CHANGES CANDIDATE/PROPOSAL STATE` | Tool changes planning/proposal state but does not activate the load |
-| `HUMAN APPROVAL REQUIRED` | Active-plan commit is blocked until server-owned approval exists |
-| `APPROVED` | Exact staged snapshot was approved through the human UI |
-| `EXECUTED` | Exact approved snapshot became the active plan |
-| `APPLICATION DATA` | Result comes from LoadGuard-controlled synthetic/domain state |
-| `UNTRUSTED EXTERNAL CONTENT` | Reserved for future externally sourced data and must reflect real trust semantics |
+| Label                              | Meaning                                                                           |
+| ---------------------------------- | --------------------------------------------------------------------------------- |
+| `READ ONLY`                        | Tool reads state and does not mutate candidate/active state                       |
+| `CHANGES CANDIDATE/PROPOSAL STATE` | Tool changes planning/proposal state but does not activate the load               |
+| `HUMAN APPROVAL REQUIRED`          | Active-plan commit is blocked until server-owned approval exists                  |
+| `APPROVED`                         | Exact staged snapshot was approved through the human UI                           |
+| `EXECUTED`                         | Exact approved snapshot became the active plan                                    |
+| `APPLICATION DATA`                 | Result comes from LoadGuard-controlled synthetic/domain state                     |
+| `UNTRUSTED EXTERNAL CONTENT`       | Reserved for future externally sourced data and must reflect real trust semantics |
 
 `HUMAN APPROVAL REQUIRED`, `APPROVED`, and `EXECUTED` are LoadGuard application semantics, not WebMCP standardized annotations.
 
@@ -3610,14 +3612,14 @@ App
 
 ## 36.3 Client-Side State
 
-| State | Location | Persistence |
-|---|---|---|
-| selected package | React local | none |
-| camera/orbit | renderer | none |
-| candidate plan before stage | React/query-local | none |
-| active truck/boxes | query cache from DB | DB authoritative |
-| proposal status | query cache from DB | DB authoritative |
-| auth session | supabase-js browser storage | browser session persistence |
+| State                       | Location                    | Persistence                 |
+| --------------------------- | --------------------------- | --------------------------- |
+| selected package            | React local                 | none                        |
+| camera/orbit                | renderer                    | none                        |
+| candidate plan before stage | React/query-local           | none                        |
+| active truck/boxes          | query cache from DB         | DB authoritative            |
+| proposal status             | query cache from DB         | DB authoritative            |
+| auth session                | supabase-js browser storage | browser session persistence |
 
 ## 36.4 Browser Storage
 
@@ -3657,32 +3659,32 @@ Architecture/security references are used as engineering guidance only.
 
 ## 40.1 Troubleshooting Matrix
 
-| Symptom | Possible Cause | Diagnostic | Resolution |
-|---|---|---|---|
-| WebMCP tools absent | unsupported browser/API disabled | inspect `document.modelContext`; status component | use supported environment/current setup |
-| `get_load_state` fails | no auth/session or RLS | inspect Supabase session and query error | re-auth/reset/fix RLS |
-| candidate plan invalid | algorithm/seed constraint | run validator and inspect violation IDs | fix planner or seed, do not bypass validator |
-| commit blocked | plan not approved | inspect proposal status | human approves exact proposal |
-| commit says stale | active truck revision changed | compare base revision | regenerate/restage/reapprove |
-| candidate appears as active before approval | UI state bug | inspect active vs candidate data source | fix renderer; never bind active mesh to candidate state |
-| boxes from other session visible | RLS failure | use two clean sessions | stop demo and fix policies |
-| realtime stale | subscription disconnected | network/subscription logs | manual refetch/reconnect |
-| empty 3D scene | no active boxes/invalid positions | `get_load_state`, console | reset demo or fix positions |
+| Symptom                                     | Possible Cause                    | Diagnostic                                        | Resolution                                              |
+| ------------------------------------------- | --------------------------------- | ------------------------------------------------- | ------------------------------------------------------- |
+| WebMCP tools absent                         | unsupported browser/API disabled  | inspect `document.modelContext`; status component | use supported environment/current setup                 |
+| `get_load_state` fails                      | no auth/session or RLS            | inspect Supabase session and query error          | re-auth/reset/fix RLS                                   |
+| candidate plan invalid                      | algorithm/seed constraint         | run validator and inspect violation IDs           | fix planner or seed, do not bypass validator            |
+| commit blocked                              | plan not approved                 | inspect proposal status                           | human approves exact proposal                           |
+| commit says stale                           | active truck revision changed     | compare base revision                             | regenerate/restage/reapprove                            |
+| candidate appears as active before approval | UI state bug                      | inspect active vs candidate data source           | fix renderer; never bind active mesh to candidate state |
+| boxes from other session visible            | RLS failure                       | use two clean sessions                            | stop demo and fix policies                              |
+| realtime stale                              | subscription disconnected         | network/subscription logs                         | manual refetch/reconnect                                |
+| empty 3D scene                              | no active boxes/invalid positions | `get_load_state`, console                         | reset demo or fix positions                             |
 
 ## 40.2 Error Catalogue
 
-| Code | Meaning | Cause | Resolution |
-|---|---|---|---|
-| `WEBMCP_UNAVAILABLE` | agent API unavailable | browser support/config | use supported browser |
-| `AUTH_REQUIRED` | no Supabase session | anonymous auth failed | retry sign-in |
-| `INVALID_INPUT` | malformed values | form/tool input | correct input |
-| `INVALID_PLAN` | hard validation failure | collisions/constraints | create new plan |
-| `APPROVAL_REQUIRED` | staged but not approved | expected authority gate | human approves |
-| `PLAN_CHANGED` | snapshot mismatch | mutation/tamper | restage and reapprove |
-| `STALE_PLAN` | truck revision changed | concurrent change | replan |
-| `ALREADY_EXECUTED` | replay | repeated commit | reread active state |
-| `FORBIDDEN` | ownership/RLS | wrong session/access | correct auth/policy |
-| `DEPENDENCY_UNAVAILABLE` | Supabase/network failure | vendor/network | retry later/check status |
+| Code                     | Meaning                  | Cause                   | Resolution               |
+| ------------------------ | ------------------------ | ----------------------- | ------------------------ |
+| `WEBMCP_UNAVAILABLE`     | agent API unavailable    | browser support/config  | use supported browser    |
+| `AUTH_REQUIRED`          | no Supabase session      | anonymous auth failed   | retry sign-in            |
+| `INVALID_INPUT`          | malformed values         | form/tool input         | correct input            |
+| `INVALID_PLAN`           | hard validation failure  | collisions/constraints  | create new plan          |
+| `APPROVAL_REQUIRED`      | staged but not approved  | expected authority gate | human approves           |
+| `PLAN_CHANGED`           | snapshot mismatch        | mutation/tamper         | restage and reapprove    |
+| `STALE_PLAN`             | truck revision changed   | concurrent change       | replan                   |
+| `ALREADY_EXECUTED`       | replay                   | repeated commit         | reread active state      |
+| `FORBIDDEN`              | ownership/RLS            | wrong session/access    | correct auth/policy      |
+| `DEPENDENCY_UNAVAILABLE` | Supabase/network failure | vendor/network          | retry later/check status |
 
 ## 40.3 Diagnostic Entry Points
 
@@ -3800,52 +3802,52 @@ Target architecture extracts domain logic from inherited pages. The key maintain
 
 # 43. Open Questions
 
-| ID | Question | Owner | Due Date | Status |
-|---|---|---|---|---|
-| OQ-001 | What exact target GitHub repository URL/name will be used? | Kaushik | Before implementation commit | Open |
-| OQ-002 | What exact final judge seed package set produces the strongest valid candidate plan? | Kaushik | Before demo freeze | Open |
-| OQ-003 | What tested package-count limit preserves acceptable 3D interaction? | Kaushik | Before final docs | Open |
-| OQ-004 | Will protected transitions be pure Postgres RPC or Supabase Edge Functions + RPC? | Kaushik | During DB implementation | Open — RPC preferred for speed/atomicity |
-| OQ-005 | What final Vercel and Supabase regions are selected? | Kaushik | Deployment | Open |
-| OQ-006 | Does the upstream repository owner provide a standalone LICENSE elsewhere/tag, or should reuse rely on README MIT statement? | Kaushik | Before public submission | Open/critical |
+| ID     | Question                                                                                                                     | Owner   | Due Date                     | Status                                   |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------- | ---------------------------------------- |
+| OQ-001 | What exact target GitHub repository URL/name will be used?                                                                   | Kaushik | Before implementation commit | Open                                     |
+| OQ-002 | What exact final judge seed package set produces the strongest valid candidate plan?                                         | Kaushik | Before demo freeze           | Open                                     |
+| OQ-003 | What tested package-count limit preserves acceptable 3D interaction?                                                         | Kaushik | Before final docs            | Open                                     |
+| OQ-004 | Will protected transitions be pure Postgres RPC or Supabase Edge Functions + RPC?                                            | Kaushik | During DB implementation     | Open — RPC preferred for speed/atomicity |
+| OQ-005 | What final Vercel and Supabase regions are selected?                                                                         | Kaushik | Deployment                   | Open                                     |
+| OQ-006 | Does the upstream repository owner provide a standalone LICENSE elsewhere/tag, or should reuse rely on README MIT statement? | Kaushik | Before public submission     | Open/critical                            |
 
 ---
 
 # 44. Architecture Decision Summary
 
-| ADR | Decision | Status |
-|---|---|---|
+| ADR     | Decision                                 | Status   |
+| ------- | ---------------------------------------- | -------- |
 | ADR-001 | Reuse SmartLoad-3D React/Vite foundation | Accepted |
-| ADR-002 | Human-approved exact-plan commit | Accepted |
-| ADR-003 | Current WebMCP imperative API | Accepted |
-| ADR-004 | Deterministic client planner/validator | Accepted |
-| ADR-005 | Supabase anonymous auth + RLS | Accepted |
-| ADR-006 | No embedded LLM | Accepted |
+| ADR-002 | Human-approved exact-plan commit         | Accepted |
+| ADR-003 | Current WebMCP imperative API            | Accepted |
+| ADR-004 | Deterministic client planner/validator   | Accepted |
+| ADR-005 | Supabase anonymous auth + RLS            | Accepted |
+| ADR-006 | No embedded LLM                          | Accepted |
 
 ---
 
 # 45. Risk Summary
 
-| Risk | Severity | Owner | Status |
-|---|---|---|---|
-| RISK-001 upstream license-file gap | High | Kaushik | Open |
-| RISK-002 WebMCP experimental API | High | Kaushik | Open/managed |
-| RISK-003 approval enforcement not implemented yet | Critical until implemented | Kaushik | Open |
-| RISK-004 planner invalidity/scope | High | Kaushik | Open |
-| RISK-005 public session isolation | High | Kaushik | Open |
-| RISK-006 approval not human-presence attestation | Medium/High conceptual | Kaushik | Accepted limitation |
+| Risk                                              | Severity                   | Owner   | Status              |
+| ------------------------------------------------- | -------------------------- | ------- | ------------------- |
+| RISK-001 upstream license-file gap                | High                       | Kaushik | Open                |
+| RISK-002 WebMCP experimental API                  | High                       | Kaushik | Open/managed        |
+| RISK-003 approval enforcement not implemented yet | Critical until implemented | Kaushik | Open                |
+| RISK-004 planner invalidity/scope                 | High                       | Kaushik | Open                |
+| RISK-005 public session isolation                 | High                       | Kaushik | Open                |
+| RISK-006 approval not human-presence attestation  | Medium/High conceptual     | Kaushik | Accepted limitation |
 
 ---
 
 # 46. Technical Debt Summary
 
-| Debt | Priority | Owner | Target |
-|---|---|---|---|
-| TD-001 extract domain logic from pages | High | Kaushik | MVP |
-| TD-002 improve upstream packing heuristic | High | Kaushik | MVP bounded planner-v1 |
-| TD-003 remove noisy console logs | Medium | Kaushik | Before recording |
-| TD-004 generated Supabase types | Medium | Kaushik | If time permits |
-| TD-005 add automated tests | High | Kaushik | MVP |
+| Debt                                      | Priority | Owner   | Target                 |
+| ----------------------------------------- | -------- | ------- | ---------------------- |
+| TD-001 extract domain logic from pages    | High     | Kaushik | MVP                    |
+| TD-002 improve upstream packing heuristic | High     | Kaushik | MVP bounded planner-v1 |
+| TD-003 remove noisy console logs          | Medium   | Kaushik | Before recording       |
+| TD-004 generated Supabase types           | Medium   | Kaushik | If time permits        |
+| TD-005 add automated tests                | High     | Kaushik | MVP                    |
 
 ---
 
@@ -3857,8 +3859,6 @@ The architecture is derived from two product inputs that must remain traceable d
 2. **IncidentGuard human-authorized WebMCP design study** — capability-contract, shared-state, trust-semantics, exact-action approval, blocked-before-approval, and visible-ledger principles adapted to logistics.
 
 The IncidentGuard material is a **design source**, not a second runtime subsystem. LoadGuard does not implement service incidents, logs, deployments, or rollback operations.
-
-
 
 ## Project / Upstream Evidence
 
@@ -3891,58 +3891,58 @@ No compliance with external architecture/security standards is claimed.
 
 ## Appendix A — Glossary
 
-| Term | Meaning |
-|---|---|
-| Active plan | Load arrangement currently treated as operational by LoadGuard |
-| Candidate plan | Deterministically computed arrangement not yet staged/authorized |
-| Staged plan | Persisted immutable proposal awaiting human decision |
-| Approved plan | Staged proposal explicitly approved in application state |
-| Commit | Atomic activation of the exact stored approved plan |
-| WebMCP | Experimental API allowing pages to expose JavaScript-based tools to AI agents |
-| RLS | Postgres Row-Level Security |
-| Action ledger | Visible structured event history; not a compliance-grade immutable audit log |
-| Truck revision | Monotonic version of active truck/load state used to reject stale proposals |
+| Term           | Meaning                                                                       |
+| -------------- | ----------------------------------------------------------------------------- |
+| Active plan    | Load arrangement currently treated as operational by LoadGuard                |
+| Candidate plan | Deterministically computed arrangement not yet staged/authorized              |
+| Staged plan    | Persisted immutable proposal awaiting human decision                          |
+| Approved plan  | Staged proposal explicitly approved in application state                      |
+| Commit         | Atomic activation of the exact stored approved plan                           |
+| WebMCP         | Experimental API allowing pages to expose JavaScript-based tools to AI agents |
+| RLS            | Postgres Row-Level Security                                                   |
+| Action ledger  | Visible structured event history; not a compliance-grade immutable audit log  |
+| Truck revision | Monotonic version of active truck/load state used to reject stale proposals   |
 
 ## Appendix B — Acronyms
 
-| Acronym | Expansion |
-|---|---|
-| API | Application Programming Interface |
-| ADR | Architecture Decision Record |
-| RLS | Row-Level Security |
-| RPC | Remote Procedure Call |
-| SPA | Single-Page Application |
-| MVP | Minimum Viable Product |
-| SLO | Service-Level Objective |
-| RPO | Recovery Point Objective |
-| RTO | Recovery Time Objective |
+| Acronym | Expansion                         |
+| ------- | --------------------------------- |
+| API     | Application Programming Interface |
+| ADR     | Architecture Decision Record      |
+| RLS     | Row-Level Security                |
+| RPC     | Remote Procedure Call             |
+| SPA     | Single-Page Application           |
+| MVP     | Minimum Viable Product            |
+| SLO     | Service-Level Objective           |
+| RPO     | Recovery Point Objective          |
+| RTO     | Recovery Time Objective           |
 
 ## Appendix C — Diagram Index
 
-| ID | Diagram | Section | Target Source Path |
-|---|---|---|---|
-| DIA-001 | System context | §5.4 | `docs/diagrams/context.mmd` |
-| DIA-002 | Container architecture | §7.3 | `docs/diagrams/containers.mmd` |
-| DIA-003 | Dependency map | §7.4 | `docs/diagrams/dependencies.mmd` |
-| DIA-004 | Plan state machine | §8.6 | `docs/diagrams/plan-state.mmd` |
-| DIA-005 | Runtime sequence | §9.2 | `docs/diagrams/runtime.mmd` |
-| DIA-006 | Data ER diagram | §12.4 | `docs/diagrams/data-model.mmd` |
-| DIA-007 | Deployment | §15.3 | `docs/diagrams/deployment.mmd` |
+| ID      | Diagram                | Section | Target Source Path               |
+| ------- | ---------------------- | ------- | -------------------------------- |
+| DIA-001 | System context         | §5.4    | `docs/diagrams/context.mmd`      |
+| DIA-002 | Container architecture | §7.3    | `docs/diagrams/containers.mmd`   |
+| DIA-003 | Dependency map         | §7.4    | `docs/diagrams/dependencies.mmd` |
+| DIA-004 | Plan state machine     | §8.6    | `docs/diagrams/plan-state.mmd`   |
+| DIA-005 | Runtime sequence       | §9.2    | `docs/diagrams/runtime.mmd`      |
+| DIA-006 | Data ER diagram        | §12.4   | `docs/diagrams/data-model.mmd`   |
+| DIA-007 | Deployment             | §15.3   | `docs/diagrams/deployment.mmd`   |
 
 ## Appendix D — API / WebMCP Index
 
-| ID | API | Specification |
-|---|---|---|
-| API-WMCP-001A | `get_load_state` | §10.3 |
-| API-WMCP-001B | `get_package_constraints` | §10.3 |
-| API-WMCP-001C | `create_load_plan` | §10.3 |
-| API-WMCP-001D | `validate_load_plan` | §10.3 |
-| API-WMCP-001E | `stage_load_plan` | §10.3 |
-| API-WMCP-001F | `commit_load_plan` | §10.3 |
-| API-WMCP-001G | `get_action_ledger` | §10.3 |
-| API-RPC-001 | `approve_load_plan` | §10.1 / target SQL docs |
-| API-RPC-002 | `commit_load_plan` | §10.1 / target SQL docs |
-| API-RPC-003 | `reset_demo` | §10.1 / target SQL docs |
+| ID            | API                       | Specification           |
+| ------------- | ------------------------- | ----------------------- |
+| API-WMCP-001A | `get_load_state`          | §10.3                   |
+| API-WMCP-001B | `get_package_constraints` | §10.3                   |
+| API-WMCP-001C | `create_load_plan`        | §10.3                   |
+| API-WMCP-001D | `validate_load_plan`      | §10.3                   |
+| API-WMCP-001E | `stage_load_plan`         | §10.3                   |
+| API-WMCP-001F | `commit_load_plan`        | §10.3                   |
+| API-WMCP-001G | `get_action_ledger`       | §10.3                   |
+| API-RPC-001   | `approve_load_plan`       | §10.1 / target SQL docs |
+| API-RPC-002   | `commit_load_plan`        | §10.1 / target SQL docs |
+| API-RPC-003   | `reset_demo`              | §10.1 / target SQL docs |
 
 ## Appendix E — Event Index
 
@@ -3950,28 +3950,28 @@ No compliance with external architecture/security standards is claimed.
 
 ## Appendix F — Database Index
 
-| Database | Owner | Schema |
-|---|---|---|
+| Database          | Owner   | Schema                                                              |
+| ----------------- | ------- | ------------------------------------------------------------------- |
 | Supabase Postgres | Kaushik | `public`: trucks, boxes, load_plans, load_plan_items, action_ledger |
 
 ## Appendix G — Repository Index
 
-| Repository | Purpose | Owner |
-|---|---|---|
-| `Namdevx/SmartLoad-3D` | Upstream base | Namdevx/upstream |
-| `TBD LoadGuard repo` | Hackathon implementation | Kaushik |
+| Repository             | Purpose                  | Owner            |
+| ---------------------- | ------------------------ | ---------------- |
+| `Namdevx/SmartLoad-3D` | Upstream base            | Namdevx/upstream |
+| `TBD LoadGuard repo`   | Hackathon implementation | Kaushik          |
 
 ## Appendix H — Infrastructure Resource Index
 
-| Resource | Environment | Owner | IaC/Config |
-|---|---|---|---|
-| Vercel project | Production demo | Kaushik | project config/Git integration |
+| Resource         | Environment     | Owner   | IaC/Config                      |
+| ---------------- | --------------- | ------- | ------------------------------- |
+| Vercel project   | Production demo | Kaushik | project config/Git integration  |
 | Supabase project | Production demo | Kaushik | migrations + dashboard settings |
 
 ## Appendix I — Runbook Index
 
-| ID | Runbook | Owner |
-|---|---|---|
+| ID     | Runbook            | Owner   |
+| ------ | ------------------ | ------- |
 | RB-001 | Public Demo Broken | Kaushik |
 
 ## Appendix J — Compliance Evidence
@@ -4181,4 +4181,3 @@ The shipped implementation must additionally prove these combined-design invaria
 - material tool calls are visible in the shared UI and ledger;
 - the ledger records actions/results, not private chain-of-thought;
 - current WebMCP annotations are represented accurately and application-owned authority labels are not misrepresented as protocol annotations.
-
