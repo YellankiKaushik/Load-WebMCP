@@ -398,3 +398,5 @@ Commit safety: server-side commit preflight revalidates coverage and geometry im
 New tests: LG-019 through LG-026 reproduce the omitted-package live failure, prove stored proposals cannot ignore active omitted packages, show the retained-coordinate collision is rejected before staging/commit, verify complete TRK-042 + MED-901 coverage, verify proposal metrics, commit equivalence, post-commit validation, and unplaced-package stage/approval blocking.
 
 Live retest status: pending. The repair has passed local build, typecheck, lint, and test gates, but live Supabase/WebMCP retest must wait until the new forward migration is applied to the remote project.
+
+Repair repository verification: normal commit `93ba7a1e17d68b2071549a9ac032b681dd2a6460` pushed successfully to `origin/main`. Final `HEAD` equals final `origin/main` at that SHA, the working tree is clean, `.env` is absent remotely, `.env.example` is present, and the repair migration, updated LoadGuard code, reports, and tests are present on the remote branch.

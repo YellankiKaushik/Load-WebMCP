@@ -65,3 +65,5 @@ Repair: plans now represent the complete intended post-commit target snapshot. `
 New tests: LG-019 through LG-026 cover omitted package invalidation, retained-active collision prevention, complete TRK-042 + MED-901 planning, truthful proposal metrics, commit equivalence, post-commit active validation, and staging/approval coverage blocking.
 
 Live retest status: pending. Do not claim live PASS until the new migration is applied and the exact retest flow succeeds against the Supabase project.
+
+Repository verification: repair commit `93ba7a1e17d68b2071549a9ac032b681dd2a6460` was pushed normally to `origin/main`; final local and remote SHAs match and the working tree is clean. The new migration must still be applied through the normal Supabase deployment workflow before live retest.

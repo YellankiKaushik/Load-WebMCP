@@ -169,3 +169,5 @@ Database migration: `20260830190000_loadguard_plan_target_coverage.sql` is a for
 Repaired state contract: `load_plan_items` now represents the complete target layout. A target package without exactly one placement is a hard `UNPLACED_PACKAGE` / `PLAN_COVERAGE_MISMATCH` failure, so the approved proposal is the same package set and coordinate set that commit applies.
 
 Live retest status: pending. Remote destructive database actions were not performed during this repair pass.
+
+Repair sync verification: commit `93ba7a1e17d68b2071549a9ac032b681dd2a6460` was pushed with a normal `git push origin main`. Final `HEAD` and `origin/main` match at that SHA; the working tree is clean. Remote checks passed for `.env` absence, `.env.example`, `LICENSE`, all three reports, the forward migration, updated LoadGuard sources, and the test files.
