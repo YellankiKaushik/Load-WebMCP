@@ -380,3 +380,21 @@ Working tree clean? Yes after the synchronized commit push.
 Remote required files verified? Yes for `.env.example`, `LICENSE`, completion reports, latest migration, tests, and updated LoadGuard code. `.env` was absent from the remote tree listing.
 
 Final report-only verification commit: created after this section was updated; a commit cannot self-record its own SHA, so the exact final pushed HEAD is recorded in the final operator response.
+
+## LIVE INTEGRATION DEFECT FOUND AND REPAIRED
+
+Observed failure: the first live Supabase integration run completed `create_load_plan -> validate_load_plan -> stage_load_plan -> human approve -> commit_load_plan`, but the proposal represented only 7 placements and displayed 56.6% / 616 kg while the post-commit active state became 9/9 loaded, 78.7% / 1011 kg with hard collisions involving `PKG-103`, `PKG-104`, and `PKG-105`.
+
+Root cause: `src/lib/loadguard/planner.ts` validated only successfully placed package IDs, and `src/lib/loadguard.server.ts` validated stored proposals by filtering packages down to proposal placement IDs. Required active packages omitted from a proposal disappeared from validation, metrics, and staging decisions, but remained in the operational load after commit.
+
+Files changed: `.gitignore`, `src/lib/loadguard/planner.ts`, `src/lib/loadguard/validator.ts`, `src/lib/loadguard.server.ts`, `src/lib/loadguard/authority.ts`, `src/lib/loadguard/types.ts`, `src/lib/loadguard/seed.ts`, `src/integrations/supabase/types.ts`, `src/components/loadguard/panels.tsx`, `src/lib/loadguard/loadguard.test.ts`, and `supabase/migrations/20260830190000_loadguard_plan_target_coverage.sql`.
+
+Database migration: new forward migration `20260830190000_loadguard_plan_target_coverage.sql` adds `load_plans.target_box_ids`, binds the sorted target set into `canonical_plan_hash`, and adds `plan_has_complete_target_coverage` checks to `approve_load_plan` and `commit_load_plan`. Already-applied migrations were not edited.
+
+Why the repaired plan represents final active state: the target package set is now `all currently loaded packages + explicitly requested inbound packages`, or all packages for the default judge flow. The proposal must contain exactly one placement for every target package. Validation computes coverage, geometry, total utilization, and total weight over that target set, while `moves` remains only UI/reporting metadata.
+
+Commit safety: server-side commit preflight revalidates coverage and geometry immediately before calling the protected RPC. After RPC success, the server refetches the active load and verifies that active target positions match the approved proposal and that active validation has no hard violations.
+
+New tests: LG-019 through LG-026 reproduce the omitted-package live failure, prove stored proposals cannot ignore active omitted packages, show the retained-coordinate collision is rejected before staging/commit, verify complete TRK-042 + MED-901 coverage, verify proposal metrics, commit equivalence, post-commit validation, and unplaced-package stage/approval blocking.
+
+Live retest status: pending. The repair has passed local build, typecheck, lint, and test gates, but live Supabase/WebMCP retest must wait until the new forward migration is applied to the remote project.

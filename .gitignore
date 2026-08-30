@@ -19,9 +19,11 @@ dist-ssr
 .env
 .env.*
 !.env.example
+pnpm-lock.yaml
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
+supabase/.temp/
 
 # Editor directories and files
 .vscode/*

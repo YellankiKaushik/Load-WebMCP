@@ -7,6 +7,7 @@ export type AuthorityPlan = {
   planHash: string;
   approvedHash: string | null;
   sourceStateRevision: number;
+  targetBoxIds: string[];
   placements: Placement[];
   expiresAt: string | null;
   approvedAt: string | null;
@@ -22,6 +23,7 @@ export type AuthorityResult =
         | "APPROVAL_REQUIRED"
         | "INVALID_STATE_TRANSITION"
         | "PLAN_HASH_MISMATCH"
+        | "PLAN_COVERAGE_MISMATCH"
         | "STALE_PLAN"
         | "EXPIRED"
         | "ALREADY_EXECUTED";
@@ -44,8 +46,9 @@ function normalizedNumber(value: number) {
   return Math.round(value * 1000) / 1000;
 }
 
-function stablePlanPayload(placements: Placement[]) {
-  return [...placements]
+function stablePlanPayload(placements: Placement[], targetBoxIds: string[]) {
+  const targets = [...targetBoxIds].sort();
+  const items = [...placements]
     .sort((a, b) => a.sequence - b.sequence || a.boxCode.localeCompare(b.boxCode))
     .map((item) => ({
       boxId: item.boxId,
@@ -55,10 +58,15 @@ function stablePlanPayload(placements: Placement[]) {
       y: normalizedNumber(item.position.y),
       z: normalizedNumber(item.position.z),
     }));
+
+  return { targetBoxIds: targets, items };
 }
 
-export function canonicalPlanHash(placements: Placement[]) {
-  const payload = JSON.stringify(stablePlanPayload(placements));
+export function canonicalPlanHash(
+  placements: Placement[],
+  targetBoxIds = placements.map((item) => item.boxId),
+) {
+  const payload = JSON.stringify(stablePlanPayload(placements, targetBoxIds));
   let hash = 2166136261;
   for (let i = 0; i < payload.length; i += 1) {
     hash ^= payload.charCodeAt(i);
@@ -71,10 +79,23 @@ export function canTransition(from: PlanStatus, to: PlanStatus) {
   return ALLOWED_TRANSITIONS[from].includes(to);
 }
 
+export function hasCompleteTargetCoverage(targetBoxIds: string[], placements: Placement[]) {
+  if (!targetBoxIds.length) return false;
+  const target = new Set(targetBoxIds);
+  if (target.size !== targetBoxIds.length) return false;
+  const seen = new Set<string>();
+  for (const item of placements) {
+    if (!target.has(item.boxId)) return false;
+    if (seen.has(item.boxId)) return false;
+    seen.add(item.boxId);
+  }
+  return seen.size === target.size;
+}
+
 export function approveExactPlan(
   plan: AuthorityPlan | null,
   sessionKey: string,
-  observedHash = plan ? canonicalPlanHash(plan.placements) : null,
+  observedHash = plan ? canonicalPlanHash(plan.placements, plan.targetBoxIds) : null,
 ): AuthorityResult {
   if (!plan || plan.sessionKey !== sessionKey) return { ok: false, code: "NOT_FOUND" };
   if (plan.status !== "STAGED") {
@@ -82,6 +103,9 @@ export function approveExactPlan(
   }
   if (plan.expiresAt && new Date(plan.expiresAt).getTime() < Date.now()) {
     return { ok: false, code: "EXPIRED", status: plan.status };
+  }
+  if (!hasCompleteTargetCoverage(plan.targetBoxIds, plan.placements)) {
+    return { ok: false, code: "PLAN_COVERAGE_MISMATCH", status: plan.status };
   }
   if (plan.planHash !== observedHash) return { ok: false, code: "PLAN_HASH_MISMATCH" };
 
@@ -100,7 +124,7 @@ export function commitExactPlan(
   plan: AuthorityPlan | null,
   sessionKey: string,
   activeStateRevision: number,
-  observedHash = plan ? canonicalPlanHash(plan.placements) : null,
+  observedHash = plan ? canonicalPlanHash(plan.placements, plan.targetBoxIds) : null,
 ): AuthorityResult {
   if (!plan || plan.sessionKey !== sessionKey) return { ok: false, code: "NOT_FOUND" };
   if (plan.status === "EXECUTED") {
@@ -111,6 +135,9 @@ export function commitExactPlan(
   }
   if (plan.expiresAt && new Date(plan.expiresAt).getTime() < Date.now()) {
     return { ok: false, code: "EXPIRED", status: plan.status };
+  }
+  if (!hasCompleteTargetCoverage(plan.targetBoxIds, plan.placements)) {
+    return { ok: false, code: "PLAN_COVERAGE_MISMATCH", status: plan.status };
   }
   if (plan.approvedHash !== observedHash) return { ok: false, code: "PLAN_HASH_MISMATCH" };
   if (plan.sourceStateRevision !== activeStateRevision) return { ok: false, code: "STALE_PLAN" };

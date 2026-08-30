@@ -57,6 +57,7 @@ export type ViolationCode =
   | "INVALID_POSITION"
   | "DUPLICATE_PLACEMENT"
   | "UNKNOWN_PACKAGE"
+  | "UNPLACED_PACKAGE"
   | "FRAGILE_ELEVATED"
   | "LOW_UTILIZATION"
   | "HANDLING_MOVE_REQUIRED";
@@ -88,6 +89,9 @@ export type PlanErrorCode =
   | "EXPIRED"
   | "ALREADY_EXECUTED"
   | "EXECUTION_FAILED"
+  | "EXECUTION_VERIFICATION_FAILED"
+  | "PLAN_COVERAGE_MISMATCH"
+  | "VALIDATION_FAILED"
   | "RPC_FAILED";
 
 export type PlanSummary = {
@@ -99,6 +103,7 @@ export type PlanSummary = {
   planHash: string | null;
   approvedHash: string | null;
   sourceStateRevision: number | null;
+  targetBoxIds: string[] | null;
   utilizationPct: number | null;
   totalWeightKg: number | null;
   validation: ValidationResult | null;

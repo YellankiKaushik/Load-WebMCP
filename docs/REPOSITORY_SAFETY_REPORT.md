@@ -141,3 +141,31 @@ Remediation: split non-component exports from those UI files if warning-free lin
 
 LOW: Build emits chunk-size warnings for expected 3D/runtime chunks.
 Remediation: tune code splitting only if measured performance requires it.
+
+## LIVE INTEGRATION DEFECT FOUND AND REPAIRED
+
+Observed failure: live Supabase execution accepted a staged and human-approved proposal with only 7 placements, then committed into a 9-package active state that reported collisions between `PKG-103`/`PKG-104` and `PKG-103`/`PKG-105`.
+
+Root cause: validation was performed against only proposal placement IDs. Required packages omitted by the planner were not treated as hard failures, which made proposal metrics describe a subset while commit left omitted active packages in place.
+
+Files changed:
+
+- `.gitignore`
+- `src/lib/loadguard/planner.ts`
+- `src/lib/loadguard/validator.ts`
+- `src/lib/loadguard.server.ts`
+- `src/lib/loadguard/authority.ts`
+- `src/lib/loadguard/types.ts`
+- `src/lib/loadguard/seed.ts`
+- `src/integrations/supabase/types.ts`
+- `src/components/loadguard/panels.tsx`
+- `src/lib/loadguard/loadguard.test.ts`
+- `supabase/migrations/20260830190000_loadguard_plan_target_coverage.sql`
+
+New tests: LG-019 through LG-026 cover complete target coverage, omitted-package invalidation, retained-active collision prevention, truthful metrics, exact commit equivalence, post-commit validation, and unplaced-package stage/approval blocking.
+
+Database migration: `20260830190000_loadguard_plan_target_coverage.sql` is a forward-only migration. It adds `target_box_ids`, updates canonical hash binding, and blocks approval/commit when target coverage is incomplete.
+
+Repaired state contract: `load_plan_items` now represents the complete target layout. A target package without exactly one placement is a hard `UNPLACED_PACKAGE` / `PLAN_COVERAGE_MISMATCH` failure, so the approved proposal is the same package set and coordinate set that commit applies.
+
+Live retest status: pending. Remote destructive database actions were not performed during this repair pass.

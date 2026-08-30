@@ -186,6 +186,10 @@ export function ProposalPanel({
   });
   const violations = plan.validation?.violations ?? [];
   const warnings = plan.validation?.warnings ?? [];
+  const unplaced = violations.filter((violation) => violation.code === "UNPLACED_PACKAGE");
+  const targetCount = plan.targetBoxIds?.length ?? plan.placements.length;
+  const placedCount = plan.placements.length;
+  const validationValid = plan.validation?.valid ?? false;
 
   return (
     <div className="space-y-4">
@@ -214,16 +218,29 @@ export function ProposalPanel({
           Current util <span className="text-foreground">{state.utilizationPct}%</span>
         </div>
         <div>
-          Proposed util <span className="text-foreground">{plan.utilizationPct ?? "—"}%</span>
+          Proposed total util <span className="text-foreground">{plan.utilizationPct ?? "—"}%</span>
         </div>
         <div>
-          Weight <span className="text-foreground">{plan.totalWeightKg ?? "—"} kg</span>
+          Proposed total weight{" "}
+          <span className="text-foreground">{plan.totalWeightKg ?? "—"} kg</span>
+        </div>
+        <div>
+          Target <span className="text-foreground">{targetCount}</span>
+        </div>
+        <div>
+          Placed <span className="text-foreground">{placedCount}</span>
         </div>
         <div>
           Moved <span className="text-foreground">{moved.length}</span>
         </div>
         <div>
           Source rev <span className="text-foreground">{plan.sourceStateRevision ?? "—"}</span>
+        </div>
+        <div>
+          Validation{" "}
+          <span className={validationValid ? "text-success" : "text-destructive"}>
+            {validationValid ? "VALID" : "PLAN INVALID"}
+          </span>
         </div>
         <div>
           Expires{" "}
@@ -245,6 +262,15 @@ export function ProposalPanel({
         <div className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted-foreground">
           Validation
         </div>
+        {unplaced.length ? (
+          <ul className="mt-2 space-y-1 text-xs text-destructive">
+            {unplaced.map((violation, index) => (
+              <li key={`unplaced-${index}`}>
+                <span className="font-mono">UNPLACED</span> {violation.boxCodes.join(", ")}
+              </li>
+            ))}
+          </ul>
+        ) : null}
         {violations.length ? (
           <ul className="mt-2 space-y-1 text-xs text-destructive">
             {violations.map((violation, index) => (
@@ -275,7 +301,7 @@ export function ProposalPanel({
           <div className="flex gap-2">
             <button
               type="button"
-              disabled={busy}
+              disabled={busy || !validationValid || placedCount !== targetCount}
               onClick={onApprove}
               className="flex-1 rounded-md bg-success px-3 py-2 font-mono text-[0.7rem] uppercase tracking-[0.15em] text-background transition-opacity hover:opacity-90 disabled:opacity-50"
             >

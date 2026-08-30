@@ -8,6 +8,7 @@ import type {
   LedgerEvent,
   LoadState,
   Package,
+  Placement,
   PlanSummary,
   Truck,
   ValidationResult,
@@ -77,6 +78,46 @@ function toPackage(row: Record<string, unknown>): Package {
         ? null
         : { x: Number(row["pos_x"]), y: Number(row["pos_y"]), z: Number(row["pos_z"]) },
   };
+}
+
+function targetPackages(packages: Package[], includeCodes?: string[]) {
+  if (!includeCodes?.length) return packages;
+  const include = new Set(includeCodes);
+  return packages.filter((p) => p.loaded || include.has(p.code));
+}
+
+function packagesForTarget(packages: Package[], targetBoxIds: string[] | null) {
+  if (!targetBoxIds?.length) return null;
+  const byId = new Map(packages.map((pkg) => [pkg.id, pkg]));
+  const target = targetBoxIds.map((id) => byId.get(id));
+  return target.every(Boolean) ? (target as Package[]) : null;
+}
+
+function coverageMatches(targetBoxIds: string[] | null, placements: Placement[]) {
+  if (!targetBoxIds?.length) return false;
+  const target = new Set(targetBoxIds);
+  if (target.size !== targetBoxIds.length) return false;
+  const seen = new Set<string>();
+  for (const item of placements) {
+    if (!target.has(item.boxId)) return false;
+    if (seen.has(item.boxId)) return false;
+    seen.add(item.boxId);
+  }
+  return seen.size === target.size;
+}
+
+function equivalentPlacements(a: Placement[], b: Placement[]) {
+  const byId = new Map(a.map((item) => [item.boxId, item]));
+  if (byId.size !== b.length) return false;
+  return b.every((item) => {
+    const match = byId.get(item.boxId);
+    return (
+      match &&
+      Math.abs(match.position.x - item.position.x) <= 0.5 &&
+      Math.abs(match.position.y - item.position.y) <= 0.5 &&
+      Math.abs(match.position.z - item.position.z) <= 0.5
+    );
+  });
 }
 
 export async function resetScenario(sessionKey: string) {
@@ -186,6 +227,7 @@ async function planSummary(planId: string, sessionKey?: string): Promise<PlanSum
       row["source_state_revision"] === null || row["source_state_revision"] === undefined
         ? null
         : Number(row["source_state_revision"]),
+    targetBoxIds: Array.isArray(row["target_box_ids"]) ? (row["target_box_ids"] as string[]) : null,
     utilizationPct: plan.utilization_pct === null ? null : Number(plan.utilization_pct),
     totalWeightKg: plan.total_weight_kg === null ? null : Number(plan.total_weight_kg),
     validation: (plan.validation as ValidationResult | null) ?? null,
@@ -305,11 +347,10 @@ export async function getPackageConstraints(sessionKey: string, codes?: string[]
 
 export async function createCandidatePlan(sessionKey: string, includeCodes?: string[]) {
   const { truck, packages } = await loadTruckAndPackages(sessionKey);
-  const subject = includeCodes?.length
-    ? packages.filter((p) => p.loaded || includeCodes.includes(p.code))
-    : packages;
+  const subject = targetPackages(packages, includeCodes);
 
   const result = createLoadPlan(truck, subject);
+  const targetBoxIds = subject.map((pkg) => pkg.id).sort();
 
   const { count } = await supabaseAdmin
     .from("load_plans")
@@ -330,6 +371,7 @@ export async function createCandidatePlan(sessionKey: string, includeCodes?: str
       validation: result.validation as never,
       plan_code: planCode,
       source_state_revision: truck.stateRevision,
+      target_box_ids: targetBoxIds,
     } as never)
     .select()
     .single();
@@ -356,7 +398,7 @@ export async function createCandidatePlan(sessionKey: string, includeCodes?: str
     resourceType: "load_plan",
     resourceId: plan.id,
     result: result.validation.valid ? "success" : "blocked",
-    summary: `${planCode} (${ALGORITHM_VERSION}) drafted from revision ${truck.stateRevision}: ${result.placements.length} placements, ${result.validation.violations.length} violation(s), ${result.validation.utilizationPct}% utilization.`,
+    summary: `${planCode} (${ALGORITHM_VERSION}) drafted from revision ${truck.stateRevision}: ${result.placements.length}/${targetBoxIds.length} target placements, ${result.validation.violations.length} violation(s), ${result.validation.utilizationPct}% utilization.`,
   });
 
   return {
@@ -406,16 +448,32 @@ export async function validateLoad(sessionKey: string, planId?: string) {
   const summary = await planSummary(planId, sessionKey);
   if (!summary) return { ok: false as const, code: "NOT_FOUND" as const };
 
-  const ids = new Set(summary.placements.map((p) => p.boxId));
-  const validation = validatePlan(
-    truck,
-    packages.filter((p) => ids.has(p.id)),
-    summary.placements,
-  );
+  const target = packagesForTarget(packages, summary.targetBoxIds);
+  const validation = target
+    ? validatePlan(truck, target, summary.placements)
+    : ({
+        valid: false,
+        violations: [
+          {
+            code: "UNPLACED_PACKAGE",
+            severity: "hard",
+            boxCodes: [],
+            message: "Plan target package set is missing or no longer belongs to this session.",
+          },
+        ],
+        warnings: [],
+        score: 0,
+        utilizationPct: 0,
+        totalWeightKg: 0,
+      } satisfies ValidationResult);
 
   await supabaseAdmin
     .from("load_plans")
-    .update({ validation: validation as never })
+    .update({
+      validation: validation as never,
+      utilization_pct: validation.utilizationPct,
+      total_weight_kg: validation.totalWeightKg,
+    })
     .eq("id", planId)
     .eq("session_key", sessionKey);
 
@@ -459,6 +517,19 @@ export async function stagePlan(sessionKey: string, planId: string) {
     });
     return { ok: false as const, code: "STALE_PLAN" };
   }
+  if (!coverageMatches(summary.targetBoxIds, summary.placements)) {
+    await log(sessionKey, {
+      actor: "agent",
+      eventType: "stage",
+      toolName: "stage_load_plan",
+      resourceType: "load_plan",
+      resourceId: planId,
+      result: "blocked",
+      summary:
+        "Staging blocked: proposal does not contain exactly one placement for every target package.",
+    });
+    return { ok: false as const, code: "PLAN_COVERAGE_MISMATCH" };
+  }
 
   const check = await validateLoad(sessionKey, planId);
   if (!check.ok) return check;
@@ -472,7 +543,7 @@ export async function stagePlan(sessionKey: string, planId: string) {
       result: "blocked",
       summary: "Staging blocked: plan has hard violations.",
     });
-    return { ok: false as const, code: "HARD_VIOLATIONS", validation: check.validation };
+    return { ok: false as const, code: "VALIDATION_FAILED", validation: check.validation };
   }
 
   const { data: hash, error: hashError } = await supabaseAdmin.rpc("canonical_plan_hash", {
@@ -568,6 +639,60 @@ export async function rejectPlan(sessionKey: string, planId: string) {
 
 export async function commitPlan(sessionKey: string, planId: string) {
   const before = await planSummary(planId, sessionKey);
+  if (before) {
+    const { truck, packages } = await loadTruckAndPackages(sessionKey);
+    const target = packagesForTarget(packages, before.targetBoxIds);
+    const validation = target
+      ? validatePlan(truck, target, before.placements)
+      : ({
+          valid: false,
+          violations: [
+            {
+              code: "UNPLACED_PACKAGE",
+              severity: "hard",
+              boxCodes: [],
+              message: "Plan target package set is missing or no longer belongs to this session.",
+            },
+          ],
+          warnings: [],
+          score: 0,
+          utilizationPct: 0,
+          totalWeightKg: 0,
+        } satisfies ValidationResult);
+
+    if (!coverageMatches(before.targetBoxIds, before.placements)) {
+      await log(sessionKey, {
+        actor: "agent",
+        eventType: "commit",
+        toolName: "commit_load_plan",
+        resourceType: "load_plan",
+        resourceId: planId,
+        result: "blocked",
+        summary:
+          "Commit preflight blocked: approved proposal does not cover every target package exactly once.",
+      });
+      return {
+        ok: false as const,
+        code: "PLAN_COVERAGE_MISMATCH",
+        validation,
+        plan: before,
+      };
+    }
+
+    if (!validation.valid) {
+      await log(sessionKey, {
+        actor: "agent",
+        eventType: "commit",
+        toolName: "commit_load_plan",
+        resourceType: "load_plan",
+        resourceId: planId,
+        result: "blocked",
+        summary: "Commit preflight blocked: approved proposal no longer validates cleanly.",
+      });
+      return { ok: false as const, code: "VALIDATION_FAILED", validation, plan: before };
+    }
+  }
+
   const { data } = await supabaseAdmin.rpc("commit_load_plan", {
     p_session_key: sessionKey,
     p_plan_id: planId,
@@ -592,7 +717,43 @@ export async function commitPlan(sessionKey: string, planId: string) {
       : `Commit refused by database authority check (${result.code}).`,
   });
 
-  return { ...result, plan: await planSummary(planId, sessionKey) };
+  const plan = await planSummary(planId, sessionKey);
+  if (result.ok && before?.targetBoxIds) {
+    const active = await getLoadState(sessionKey, "system");
+    const targetActive = active.packages.filter((pkg) => before.targetBoxIds?.includes(pkg.id));
+    const activePlacements = targetActive
+      .filter((pkg) => pkg.loaded && pkg.position)
+      .map((pkg, sequence) => ({
+        boxId: pkg.id,
+        boxCode: pkg.code,
+        position: pkg.position!,
+        sequence,
+      }));
+    if (
+      !active.activeValidation.valid ||
+      !equivalentPlacements(before.placements, activePlacements)
+    ) {
+      await log(sessionKey, {
+        actor: "system",
+        eventType: "commit_verification",
+        toolName: "commit_load_plan",
+        resourceType: "load_plan",
+        resourceId: planId,
+        result: "failed",
+        summary:
+          "Post-commit verification failed: active load does not exactly match the approved target plan.",
+      });
+      return {
+        ...result,
+        ok: false as const,
+        code: "EXECUTION_VERIFICATION_FAILED",
+        activeValidation: active.activeValidation,
+        plan,
+      };
+    }
+  }
+
+  return { ...result, plan };
 }
 
 export async function getLedger(sessionKey: string, limit = 40): Promise<LedgerEvent[]> {

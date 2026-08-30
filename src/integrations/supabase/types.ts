@@ -186,6 +186,7 @@ export type Database = {
           source_state_revision: number | null;
           staged_at: string | null;
           status: string;
+          target_box_ids: string[] | null;
           total_weight_kg: number | null;
           truck_id: string;
           utilization_pct: number | null;
@@ -210,6 +211,7 @@ export type Database = {
           source_state_revision?: number | null;
           staged_at?: string | null;
           status?: string;
+          target_box_ids?: string[] | null;
           total_weight_kg?: number | null;
           truck_id: string;
           utilization_pct?: number | null;
@@ -234,6 +236,7 @@ export type Database = {
           source_state_revision?: number | null;
           staged_at?: string | null;
           status?: string;
+          target_box_ids?: string[] | null;
           total_weight_kg?: number | null;
           truck_id?: string;
           utilization_pct?: number | null;
@@ -295,6 +298,7 @@ export type Database = {
         Returns: Json;
       };
       canonical_plan_hash: { Args: { p_plan_id: string }; Returns: string };
+      plan_has_complete_target_coverage: { Args: { p_plan_id: string }; Returns: boolean };
       commit_load_plan: {
         Args: { p_plan_id: string; p_session_key: string };
         Returns: Json;

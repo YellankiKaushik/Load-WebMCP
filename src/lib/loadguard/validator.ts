@@ -36,6 +36,7 @@ export function validatePlan(
   truck: Truck,
   packages: Package[],
   placements: Placement[],
+  unplacedReasons: Record<string, string> = {},
 ): ValidationResult {
   const byId = new Map(packages.map((p) => [p.id, p]));
   const placed: Placed[] = [];
@@ -78,6 +79,17 @@ export function validatePlan(
       continue;
     }
     placed.push({ pkg, x: item.position.x, y: item.position.y, z: item.position.z });
+  }
+
+  for (const pkg of packages) {
+    if (seenPlacements.has(pkg.id)) continue;
+    const reason = unplacedReasons[pkg.code] ?? "MISSING_FROM_PROPOSAL";
+    violations.push({
+      code: "UNPLACED_PACKAGE",
+      severity: "hard",
+      boxCodes: [pkg.code],
+      message: `${pkg.code} is required in the target load but has no proposed placement (${reason}).`,
+    });
   }
 
   const truckNums = [truck.lengthCm, truck.widthCm, truck.heightCm, truck.maxWeightKg];
@@ -143,8 +155,8 @@ export function validatePlan(
   }
 
   // BR-VAL-003 — total weight.
-  const totalWeightKg = placed.reduce(
-    (sum, p) => sum + (Number.isFinite(p.pkg.weightKg) ? p.pkg.weightKg : 0),
+  const totalWeightKg = packages.reduce(
+    (sum, p) => sum + (Number.isFinite(p.weightKg) ? p.weightKg : 0),
     0,
   );
   if (truck.maxWeightKg > 0 && totalWeightKg > truck.maxWeightKg + 1e-6) {
@@ -199,7 +211,7 @@ export function validatePlan(
     }
   }
 
-  const usedVolume = placed.reduce((sum, p) => sum + volumeCm3(p.pkg), 0);
+  const usedVolume = packages.reduce((sum, p) => sum + volumeCm3(p), 0);
   const utilizationPct = truckVolumeCm3(truck)
     ? Math.round((usedVolume / truckVolumeCm3(truck)) * 1000) / 10
     : 0;

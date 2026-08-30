@@ -135,7 +135,7 @@ export const SEED_BOXES: SeedBox[] = [
     code: "MED-901",
     lengthCm: 80,
     widthCm: 60,
-    heightCm: 60,
+    heightCm: 55,
     weightKg: 18,
     destination: "Nashik Hospital",
     deliveryStop: 2,

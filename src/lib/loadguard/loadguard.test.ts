@@ -5,6 +5,7 @@ import {
   canonicalPlanHash,
   canTransition,
   commitExactPlan,
+  hasCompleteTargetCoverage,
   ledgerEvent,
   type AuthorityPlan,
 } from "./authority";
@@ -47,13 +48,15 @@ function placement(box: Package, position = { x: 0, y: 0, z: 0 }): Placement {
 function authorityPlan(overrides: Partial<AuthorityPlan> = {}): AuthorityPlan {
   const box = pkg({ id: "plan-box", code: "PLAN-BOX" });
   const placements = overrides.placements ?? [placement(box)];
+  const targetBoxIds = overrides.targetBoxIds ?? placements.map((item) => item.boxId);
   return {
     planId: "plan-1",
     sessionKey: "session-a",
     status: "STAGED",
-    planHash: canonicalPlanHash(placements),
+    planHash: canonicalPlanHash(placements, targetBoxIds),
     approvedHash: null,
     sourceStateRevision: 1,
+    targetBoxIds,
     placements,
     expiresAt: null,
     approvedAt: null,
@@ -146,6 +149,48 @@ describe("LoadGuard planner and validator", () => {
     expect(Number.isFinite(result.utilizationPct)).toBe(true);
   });
 
+  it("LG-019 omitted target packages invalidate a plan", () => {
+    const a = pkg({ id: "a", code: "A" });
+    const b = pkg({ id: "b", code: "B" });
+    const result = validatePlan(truck, [a, b], [placement(a)]);
+
+    expect(result.valid).toBe(false);
+    expect(result.violations).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "UNPLACED_PACKAGE", boxCodes: ["B"] }),
+      ]),
+    );
+  });
+
+  it("LG-020 stored proposal validation cannot ignore active omitted packages", () => {
+    const activeA = pkg({ id: "a", code: "A", position: { x: 0, y: 0, z: 0 } });
+    const activeB = pkg({ id: "b", code: "B", position: { x: 20, y: 0, z: 0 } });
+    const proposalRows = [placement(activeA, { x: 40, y: 0, z: 0 })];
+    const result = validatePlan(truck, [activeA, activeB], proposalRows);
+
+    expect(result.valid).toBe(false);
+    expect(result.violations.map((v) => v.code)).toContain("UNPLACED_PACKAGE");
+  });
+
+  it("LG-021 omitted active package collision is rejected before staging or commit", () => {
+    const activeA = pkg({ id: "a", code: "A", position: { x: 0, y: 0, z: 0 } });
+    const activeB = pkg({ id: "b", code: "B", position: { x: 40, y: 0, z: 0 } });
+    const partialProposal = [placement(activeA, activeB.position!)];
+    const repairedValidation = validatePlan(truck, [activeA, activeB], partialProposal);
+    const oldEffectiveUnion = validatePlan(
+      truck,
+      [activeA, activeB],
+      [
+        placement(activeA, activeB.position!),
+        { ...placement(activeB, activeB.position!), sequence: 1 },
+      ],
+    );
+
+    expect(oldEffectiveUnion.violations.map((v) => v.code)).toContain("COLLISION");
+    expect(repairedValidation.valid).toBe(false);
+    expect(repairedValidation.violations.map((v) => v.code)).toContain("UNPLACED_PACKAGE");
+  });
+
   it("LG-006 keeps candidate planning isolated from active package coordinates", () => {
     const packages = SEED_BOXES.map((box, index) =>
       pkg({ ...box, id: `seed-${index}`, position: box.position }),
@@ -155,6 +200,39 @@ describe("LoadGuard planner and validator", () => {
     createLoadPlan({ ...SEED_TRUCK, id: "truck-seed", stateRevision: 1 }, packages);
 
     expect(packages.map((box) => ({ code: box.code, position: box.position }))).toEqual(before);
+  });
+
+  it("LG-022 creates a complete valid judge plan for TRK-042 and MED-901", () => {
+    const packages = SEED_BOXES.map((box, index) =>
+      pkg({ ...box, id: `seed-${index}`, position: box.position }),
+    );
+    const seedTruck = { ...SEED_TRUCK, id: "truck-seed", stateRevision: 1 };
+    const first = createLoadPlan(seedTruck, packages);
+    const second = createLoadPlan(seedTruck, packages);
+
+    expect(first).toEqual(second);
+    expect(first.placements).toHaveLength(packages.length);
+    expect(first.unplaced).toEqual([]);
+    expect(first.validation.valid).toBe(true);
+    expect(first.validation.violations).toEqual([]);
+    expect(new Set(first.placements.map((item) => item.boxId))).toEqual(
+      new Set(packages.map((box) => box.id)),
+    );
+  });
+
+  it("LG-023 proposal metrics describe the complete target state", () => {
+    const packages = SEED_BOXES.map((box, index) =>
+      pkg({ ...box, id: `seed-${index}`, position: box.position }),
+    );
+    const seedTruck = { ...SEED_TRUCK, id: "truck-seed", stateRevision: 1 };
+    const plan = createLoadPlan(seedTruck, packages);
+    const validation = validatePlan(seedTruck, packages, plan.placements);
+
+    expect(plan.validation.totalWeightKg).toBe(validation.totalWeightKg);
+    expect(plan.validation.utilizationPct).toBe(validation.utilizationPct);
+    expect(plan.validation.totalWeightKg).toBe(
+      packages.reduce((sum, box) => sum + box.weightKg, 0),
+    );
   });
 
   it("LG-018 seed reset fixture validates TRK-042 and MED-901 in the requested band", () => {
@@ -208,6 +286,58 @@ describe("LoadGuard proposal authority state machine", () => {
 
     expect(result).toMatchObject({ ok: true, stateRevision: 2, itemsApplied: 1 });
     expect(result.ok ? result.plan.status : null).toBe("EXECUTED");
+  });
+
+  it("LG-024 active positions equal the approved complete proposal after commit", () => {
+    const a = pkg({ id: "a", code: "A", position: { x: 0, y: 0, z: 0 } });
+    const b = pkg({ id: "b", code: "B", position: null, loaded: false });
+    const placements = [
+      placement(a, { x: 0, y: 0, z: 0 }),
+      { ...placement(b, { x: 20, y: 0, z: 0 }), sequence: 1 },
+    ];
+    const targetBoxIds = [a.id, b.id];
+    const plan = authorityPlan({
+      placements,
+      targetBoxIds,
+      planHash: canonicalPlanHash(placements, targetBoxIds),
+    });
+    const approved = approveExactPlan(plan, "session-a");
+    const committed = approved.ok ? commitExactPlan(approved.plan, "session-a", 1) : approved;
+    const activePositions = new Map(placements.map((item) => [item.boxId, item.position]));
+
+    expect(committed).toMatchObject({ ok: true, itemsApplied: 2 });
+    expect(activePositions.get(a.id)).toEqual({ x: 0, y: 0, z: 0 });
+    expect(activePositions.get(b.id)).toEqual({ x: 20, y: 0, z: 0 });
+  });
+
+  it("LG-025 post-commit active validation remains clean for a valid complete proposal", () => {
+    const packages = SEED_BOXES.map((box, index) =>
+      pkg({ ...box, id: `seed-${index}`, position: box.position, loaded: true }),
+    );
+    const seedTruck = { ...SEED_TRUCK, id: "truck-seed", stateRevision: 1 };
+    const plan = createLoadPlan(seedTruck, packages);
+    const activeValidation = validatePlan(seedTruck, packages, plan.placements);
+
+    expect(activeValidation.valid).toBe(true);
+    expect(activeValidation.violations).toEqual([]);
+  });
+
+  it("LG-026 unplaced required packages cannot pass coverage for staging", () => {
+    const a = pkg({ id: "a", code: "A" });
+    const b = pkg({ id: "b", code: "B" });
+    const placements = [placement(a)];
+    const targetBoxIds = [a.id, b.id];
+    const incomplete = authorityPlan({
+      placements,
+      targetBoxIds,
+      planHash: canonicalPlanHash(placements, targetBoxIds),
+    });
+
+    expect(hasCompleteTargetCoverage(targetBoxIds, placements)).toBe(false);
+    expect(approveExactPlan(incomplete, "session-a")).toMatchObject({
+      ok: false,
+      code: "PLAN_COVERAGE_MISMATCH",
+    });
   });
 
   it("LG-013 rejects hash tampering after approval", () => {
