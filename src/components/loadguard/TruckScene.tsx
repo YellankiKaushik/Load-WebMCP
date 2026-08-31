@@ -88,16 +88,17 @@ function SceneContent({ state, candidate, highlight }: Props) {
 
   const active = state.packages.filter((p) => p.loaded && p.position);
 
-  const stopColor = (stop: number, fragile: boolean) => {
-    if (fragile) return "#f5a524";
+  const stopColor = (stop: number, fragile: boolean, priority: string) => {
+    if (priority === "urgent") return "#ff5a5f";
+    if (fragile) return "#f6b84a";
     const palette = ["#4c8bf5", "#2fb6a4", "#8b6cf3", "#c96f4a", "#5f7285"];
     return palette[(stop - 1) % palette.length]!;
   };
 
   return (
     <>
-      <color attach="background" args={["#0e1216"]} />
-      <fog attach="fog" args={["#0e1216", 12, 30]} />
+      <color attach="background" args={["#091016"]} />
+      <fog attach="fog" args={["#091016", 10, 28]} />
       <ambientLight intensity={0.45} />
       <directionalLight
         position={[6, 9, 5]}
@@ -136,7 +137,9 @@ function SceneContent({ state, candidate, highlight }: Props) {
                 pos.y * SCALE + size[1] / 2,
                 pos.z * SCALE + size[2] / 2,
               ]}
-              color={highlight === p.code ? "#ffffff" : stopColor(p.deliveryStop, p.fragile)}
+              color={
+                highlight === p.code ? "#ffffff" : stopColor(p.deliveryStop, p.fragile, p.priority)
+              }
               opacity={1}
             />
           );
@@ -159,15 +162,15 @@ function SceneContent({ state, candidate, highlight }: Props) {
                 item.position.y * SCALE + size[1] / 2,
                 item.position.z * SCALE + size[2] / 2,
               ]}
-              color="#39e6a4"
-              opacity={0.28}
+              color="#38d9ff"
+              opacity={0.22}
               wire
             />
           );
         })}
       </group>
 
-      <gridHelper args={[24, 24, "#1b2229", "#151b21"]} position={[0, -0.03, 0]} />
+      <gridHelper args={[24, 24, "#183240", "#111c24"]} position={[0, -0.03, 0]} />
       <OrbitControls
         makeDefault
         enablePan={false}
