@@ -21,8 +21,16 @@ Human authorization boundary: PASS
 Project classification:
 
 ```text
-READY FOR DEPLOYMENT / FINAL SUBMISSION PREPARATION
+PRODUCTION VERIFIED — READY FOR DEVPOST SUBMISSION
 ```
+
+Production URL:
+
+```text
+https://webmcp-openai.kaushikyellanki.workers.dev/
+```
+
+Production provider: Cloudflare Workers
 
 ## Repository and Secret Safety
 
@@ -38,7 +46,7 @@ The repository has previously been synchronized to `origin/main` using normal Gi
 - Real Supabase keys must not be committed.
 - `SUPABASE_SERVICE_ROLE_KEY` must remain server-only.
 
-Current verification for the 2026-08-31 documentation reconciliation pass:
+Current verification for the 2026-08-31 production documentation freeze:
 
 ```text
 .env ignored: yes
@@ -92,9 +100,9 @@ service_role = can execute
 
 for the protected authority RPCs.
 
-## Real WebMCP Verification
+## Production WebMCP Verification
 
-LoadGuard was opened in a real WebMCP-capable ChatGPT browser. The page reported:
+LoadGuard was opened in the OpenAI WebMCP-capable browser at the production URL. The page reported:
 
 ```text
 Tools registered on document.modelContext
@@ -147,6 +155,7 @@ Human approval through the UI verified:
 status: APPROVED
 approved hash == staged hash
 approval did NOT itself mutate active state
+human approval ledger entry recorded success
 ```
 
 Approved WebMCP commit verified:
@@ -172,10 +181,13 @@ utilization: 78.4%
 Idempotency was verified:
 
 ```text
-second commit -> ALREADY_EXECUTED
+ok: false
+code: ALREADY_EXECUTED
+status: EXECUTED
+items_applied: 9
 ```
 
-with no further operational mutation.
+with no further operational mutation. Active state remained 9/9 loaded, revision 2, 1011 kg, and 78.4% utilization.
 
 ## Action Ledger Verification
 
@@ -211,10 +223,11 @@ These are review warnings, not hard validation violations. They do not indicate 
 Required verification commands for this documentation update:
 
 ```text
-pnpm run build      PASS
-pnpm run typecheck  PASS
-pnpm run lint       PASS, 0 errors and 5 existing Fast Refresh warnings
-pnpm run test       PASS, 2 test files and 28 tests
+bun install --frozen-lockfile  PASS
+bun run build                  PASS
+bun run typecheck              PASS
+bun run lint                   PASS, 0 errors and 5 existing Fast Refresh warnings
+bun run test                   PASS, 2 test files and 28 tests
 git diff --check    PASS
 ```
 
@@ -222,7 +235,7 @@ The build retained known non-blocking Vite/TanStack and chunk-size warnings. No 
 
 ## Remaining Blockers
 
-None known after live Supabase and real WebMCP verification. Build, typecheck, lint, tests, and `git diff --check` were green in the 2026-08-31 reconciliation pass.
+None known after production deployment, live Supabase verification, production WebMCP verification, approved execution, and idempotency testing. Build, typecheck, lint, tests, and `git diff --check` were green in the 2026-08-31 production documentation freeze.
 
 ## Remaining Safety Notes
 

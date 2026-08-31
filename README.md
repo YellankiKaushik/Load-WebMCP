@@ -7,7 +7,7 @@ LoadGuard 3D is a WebMCP-enabled truck loading demo for the OpenAI WebMCP Challe
 Current status:
 
 ```text
-READY FOR DEPLOYMENT / FINAL SUBMISSION PREPARATION
+PRODUCTION VERIFIED — READY FOR DEVPOST SUBMISSION
 ```
 
 Core invariant:
@@ -19,9 +19,16 @@ model text != authorization
 
 The application and database are the authority.
 
-## Live Verification Status
+## Production Verification Status
 
-LoadGuard 3D has completed live Supabase and real WebMCP end-to-end verification.
+LoadGuard 3D has completed final production deployment and end-to-end WebMCP verification.
+
+Production deployment:
+
+```text
+Provider: Cloudflare Workers
+URL: https://webmcp-openai.kaushikyellanki.workers.dev/
+```
 
 Verified live Supabase state:
 
@@ -32,11 +39,21 @@ Verified live Supabase state:
 - RLS is enabled on all five core tables.
 - Protected RPC privileges are locked down: `anon` cannot execute, `authenticated` cannot execute, `service_role` can execute.
 
-Verified real WebMCP state:
+Verified production baseline:
 
-- LoadGuard opened in a real WebMCP-capable ChatGPT browser.
+- `TRK-042`
+- 8/9 loaded
+- 75.6% utilization
+- 993/1200 kg
+- `MED-901` inbound
+- Active validation valid
+- 3D scene working
+
+Verified production WebMCP state:
+
+- LoadGuard opened in the OpenAI WebMCP-capable browser.
 - The page reported `Tools registered on document.modelContext`.
-- Seven WebMCP tools were verified.
+- Exactly seven WebMCP tools were verified.
 - There is no human approval WebMCP tool.
 
 Verified judge workflow:
@@ -99,6 +116,8 @@ Verified staged proposal:
 
 ```text
 PLAN-002
+proposal id: a75f4db6-b1d2-4824-aa7c-7ad8f3677600
+status before approval: STAGED
 target packages: 9
 placements: 9
 unplaced: 0
@@ -126,13 +145,14 @@ The final valid plan may include non-blocking `FRAGILE_ELEVATED` review warnings
 
 ## Latest Local Verification
 
-The 2026-08-31 documentation reconciliation pass reran the release gate without changing application logic:
+The 2026-08-31 production documentation freeze reran the release gate without changing application logic:
 
 ```text
-pnpm run build      PASS
-pnpm run typecheck  PASS
-pnpm run lint       PASS, 0 errors and 5 existing Fast Refresh warnings
-pnpm run test       PASS, 2 test files and 28 tests
+bun install --frozen-lockfile  PASS
+bun run build                  PASS
+bun run typecheck              PASS
+bun run lint                   PASS, 0 errors and 5 existing Fast Refresh warnings
+bun run test                   PASS, 2 test files and 28 tests
 git diff --check    PASS
 ```
 

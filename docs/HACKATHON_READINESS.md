@@ -2,15 +2,21 @@
 
 Can we submit today?
 
-YES. LoadGuard 3D is now ready for deployment and final submission preparation, provided the final local verification commands remain green in the release environment.
+YES. LoadGuard 3D is production verified and ready for Devpost submission.
 
 ## Current Status
 
 ```text
-READY FOR DEPLOYMENT / FINAL SUBMISSION PREPARATION
+PRODUCTION VERIFIED — READY FOR DEVPOST SUBMISSION
 ```
 
-The previous blockers for live Supabase verification and live WebMCP host verification are resolved.
+Production deployment, WebMCP discovery, production authority testing, approved execution, and idempotency testing are complete.
+
+Production URL:
+
+```text
+https://webmcp-openai.kaushikyellanki.workers.dev/
+```
 
 ## Verified Working
 
@@ -22,6 +28,7 @@ The previous blockers for live Supabase verification and live WebMCP host verifi
 - Local and remote migration histories match.
 - RLS is enabled on all five core tables.
 - Protected authority RPCs are callable only by `service_role`.
+- Cloudflare Workers production deployment is live.
 - Real WebMCP registration works through `document.modelContext`.
 - Exactly seven WebMCP tools are exposed.
 - There is no human approval WebMCP tool.
@@ -75,9 +82,9 @@ authenticated = cannot execute
 service_role = can execute
 ```
 
-## Real WebMCP Verification
+## Production WebMCP Verification
 
-LoadGuard was opened in a real WebMCP-capable ChatGPT browser. The page reported:
+LoadGuard was opened in the OpenAI WebMCP-capable browser at the production URL. The page reported:
 
 ```text
 Tools registered on document.modelContext
@@ -108,6 +115,8 @@ revision 1
 75.6% utilization
 993/1200 kg
 MED-901 inbound
+active validation VALID
+3D scene working
 ```
 
 Agent workflow:
@@ -124,6 +133,8 @@ Fresh proposal:
 
 ```text
 PLAN-002
+proposal id: a75f4db6-b1d2-4824-aa7c-7ad8f3677600
+status before approval: STAGED
 target packages: 9
 placements: 9
 unplaced: 0
@@ -196,10 +207,13 @@ post-commit inspection
 Idempotency was manually verified:
 
 ```text
-second commit -> ALREADY_EXECUTED
+ok: false
+code: ALREADY_EXECUTED
+status: EXECUTED
+items_applied: 9
 ```
 
-No additional operational mutation occurred.
+No additional operational mutation occurred; active state remained 9/9 loaded, revision 2, 1011 kg, and 78.4% utilization.
 
 ## Non-Blocking Warnings
 
@@ -245,19 +259,18 @@ second commit -> ALREADY_EXECUTED
 - Confirm `.env` remains ignored and untracked.
 - Confirm deployment environment contains required Supabase variables.
 - Confirm `SUPABASE_SERVICE_ROLE_KEY` remains server-only.
-- Reset scenario before demo.
-- Run the WebMCP judge workflow once in the final demo environment.
 - Treat fragile elevation messages as warnings, not failures.
 
 ## Latest Local Verification
 
-The 2026-08-31 documentation reconciliation pass reran the required local quality gate without changing application logic, planner behavior, validator behavior, database authority semantics, WebMCP tool definitions, or UI architecture:
+The 2026-08-31 production documentation freeze reran the required local quality gate without changing application logic, planner behavior, validator behavior, database authority semantics, WebMCP tool definitions, or UI architecture:
 
 ```text
-pnpm run build      PASS
-pnpm run typecheck  PASS
-pnpm run lint       PASS, 0 errors and 5 existing Fast Refresh warnings
-pnpm run test       PASS, 2 test files and 28 tests
+bun install --frozen-lockfile  PASS
+bun run build                  PASS
+bun run typecheck              PASS
+bun run lint                   PASS, 0 errors and 5 existing Fast Refresh warnings
+bun run test                   PASS, 2 test files and 28 tests
 git diff --check    PASS
 ```
 
@@ -265,4 +278,4 @@ git diff --check    PASS
 
 ## Remaining Blockers
 
-None known after the live Supabase and real WebMCP verification. The latest local verification commands are green.
+None known after production deployment, live Supabase verification, production WebMCP verification, approved execution, and idempotency testing. The latest local verification commands are green.

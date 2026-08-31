@@ -2,9 +2,9 @@
 
 ## Executive Status
 
-Overall status: READY FOR DEPLOYMENT / FINAL SUBMISSION PREPARATION
+Overall status: PRODUCTION VERIFIED — READY FOR DEVPOST SUBMISSION
 
-Architecture compliance: VERIFIED. The local code path, live Supabase authority layer, and real WebMCP judge workflow have now been exercised end to end.
+Architecture compliance: VERIFIED. The Cloudflare Workers production deployment, live Supabase authority layer, and real WebMCP judge workflow have now been exercised end to end.
 
 Build: PASS
 Lint: PASS
@@ -14,6 +14,10 @@ Supabase migration verification: PASS
 Live Supabase authority verification: PASS
 Real WebMCP verification: PASS
 Judge demo readiness: PASS
+
+Production URL: https://webmcp-openai.kaushikyellanki.workers.dev/
+
+Production provider: Cloudflare Workers
 
 ## Verified Live Supabase State
 
@@ -58,15 +62,15 @@ service_role = can execute
 
 This verifies that browser roles cannot directly approve, reject, or commit load plans through protected authority RPCs.
 
-## Verified Real WebMCP Host
+## Verified Production WebMCP Host
 
-LoadGuard was opened in a real WebMCP-capable ChatGPT browser. The page reported:
+LoadGuard was opened in the OpenAI WebMCP-capable browser at the production URL. The page reported:
 
 ```text
 Tools registered on document.modelContext
 ```
 
-Seven WebMCP tools were verified:
+Exactly seven WebMCP tools were exposed:
 
 ```text
 get_load_state
@@ -82,7 +86,7 @@ There is intentionally no human approval WebMCP tool. Human approval remains a U
 
 ## Verified Real WebMCP Judge Workflow
 
-Clean fixture:
+Production baseline fixture:
 
 ```text
 TRK-042
@@ -91,9 +95,11 @@ revision 1
 75.6% utilization
 993/1200 kg
 MED-901 inbound
+active validation VALID
+3D scene working
 ```
 
-ChatGPT used WebMCP to run the proposal workflow:
+The agent used production WebMCP tools to run the proposal workflow:
 
 ```text
 get_load_state
@@ -107,6 +113,8 @@ Fresh proposal verified:
 
 ```text
 PLAN-002
+proposal id: a75f4db6-b1d2-4824-aa7c-7ad8f3677600
+status before approval: STAGED
 target packages: 9
 placements: 9
 unplaced: 0
@@ -142,7 +150,7 @@ approved hash == staged hash
 approval did NOT itself mutate active state
 ```
 
-ChatGPT then used WebMCP to commit the human-approved proposal. Verified response:
+The agent then used WebMCP to commit the human-approved proposal. Verified response:
 
 ```text
 EXECUTED
@@ -179,10 +187,13 @@ post-commit inspection
 An additional manual authority test verified:
 
 ```text
-second commit -> ALREADY_EXECUTED
+ok: false
+code: ALREADY_EXECUTED
+status: EXECUTED
+items_applied: 9
 ```
 
-with no second operational mutation.
+with no second operational mutation. Active state remained 9/9 loaded, revision 2, 1011 kg, and 78.4% utilization.
 
 ## Remaining Warning Behavior
 
@@ -250,13 +261,14 @@ The verified live workflow confirms this invariant in the application and databa
 
 ## Current Verification Commands
 
-The 2026-08-31 documentation reconciliation pass reran the required local checks without modifying application logic, planner behavior, validator behavior, database authority semantics, WebMCP tool definitions, or UI architecture:
+The 2026-08-31 production documentation freeze reran the required local checks without modifying application logic, planner behavior, validator behavior, database authority semantics, WebMCP tool definitions, or UI architecture:
 
 ```text
-pnpm run build      PASS
-pnpm run typecheck  PASS
-pnpm run lint       PASS, 0 errors and 5 existing Fast Refresh warnings
-pnpm run test       PASS, 2 test files and 28 tests
+bun install --frozen-lockfile  PASS
+bun run build                  PASS
+bun run typecheck              PASS
+bun run lint                   PASS, 0 errors and 5 existing Fast Refresh warnings
+bun run test                   PASS, 2 test files and 28 tests
 git diff --check    PASS
 ```
 
@@ -273,13 +285,12 @@ credential rotation required: no
 
 ## Remaining Risks
 
-P0 blockers: none known after live Supabase and real WebMCP verification. Build, lint, typecheck, tests, and `git diff --check` were green in the 2026-08-31 reconciliation pass.
+P0 blockers: none known after production deployment, live Supabase verification, production WebMCP discovery, authorization testing, approved execution, and idempotency testing. Build, lint, typecheck, tests, and `git diff --check` were green in the 2026-08-31 production documentation freeze.
 
 P1 before final submission:
 
 - Keep Supabase environment variables configured only in the deployment host.
 - Preserve `SUPABASE_SERVICE_ROLE_KEY` as server-only.
-- Repeat the judge flow once immediately before the final demo/submission window.
 - Keep the non-blocking fragile elevation warnings visible as review warnings.
 
 P2 after submission:
@@ -292,7 +303,7 @@ P2 after submission:
 LoadGuard 3D is now classified as:
 
 ```text
-READY FOR DEPLOYMENT / FINAL SUBMISSION PREPARATION
+PRODUCTION VERIFIED — READY FOR DEVPOST SUBMISSION
 ```
 
 This classification is based on completed live Supabase verification, real WebMCP host verification, validated human authorization boundaries, successful approved execution, post-commit active-load validation, idempotent replay behavior, and green local verification gates.
