@@ -62,7 +62,7 @@ function LoadGuardPage() {
     lg.approve.isPending || lg.reject.isPending || lg.commit.isPending || lg.reset.isPending;
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-[1480px] flex-col gap-5 overflow-x-hidden px-4 py-4 sm:px-6 lg:px-8">
+    <main className="app-shell">
       <CommandHeader
         registered={mcp.registered}
         toolNames={mcp.toolNames}
@@ -72,29 +72,24 @@ function LoadGuardPage() {
       />
 
       {lg.state.isLoading || !state ? (
-        <section className="surface-workspace flex min-h-[420px] items-center justify-center text-sm text-muted-foreground">
+        <section className="loading-surface" aria-live="polite">
           Loading dock state...
         </section>
       ) : (
         <>
+          <section className="page-intro" aria-labelledby="workspace-title">
+            <div>
+              <p className="eyebrow">Load workspace</p>
+              <h1 id="workspace-title">{state.truck.code} load workspace</h1>
+              <p>Plan and authorize the active truck load.</p>
+            </div>
+            <p className="trust-statement">Agent-native planning · Human-controlled execution</p>
+          </section>
+
           <MetricStrip state={state} />
 
-          <section className="grid min-w-0 gap-5 xl:grid-cols-[minmax(0,1fr)_420px]">
-            <div className="order-2 min-w-0 xl:order-1">
-              <SceneShell state={state} hasCandidate={Boolean(candidate?.length)}>
-                <Suspense
-                  fallback={
-                    <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-                      Initialising cargo view...
-                    </div>
-                  }
-                >
-                  <TruckScene state={state} candidate={candidate} highlight={hover} />
-                </Suspense>
-              </SceneShell>
-            </div>
-
-            <div className="order-1 min-w-0 xl:order-2">
+          <section className="workspace-grid" id="workspace" aria-label="Load planning workspace">
+            <div className="workspace-decision">
               <ProposalPanel
                 plan={plan}
                 state={state}
@@ -103,65 +98,87 @@ function LoadGuardPage() {
                 onReject={() => plan && lg.reject.mutate(plan.planId)}
               />
             </div>
+            <div className="workspace-visual">
+              <SceneShell state={state} hasCandidate={Boolean(candidate?.length)}>
+                <Suspense
+                  fallback={<div className="scene-loading">Initialising cargo view...</div>}
+                >
+                  <TruckScene state={state} candidate={candidate} highlight={hover} />
+                </Suspense>
+              </SceneShell>
+            </div>
           </section>
 
-          <Tabs defaultValue="manifest" className="surface-secondary min-w-0 p-2">
-            <TabsList className="h-auto w-full justify-start gap-1 overflow-x-auto rounded-md bg-background/70 p-1">
-              <TabsTrigger className="min-h-9 gap-2" value="manifest">
-                <ClipboardList className="h-4 w-4" aria-hidden="true" />
-                Manifest
-              </TabsTrigger>
-              <TabsTrigger className="min-h-9 gap-2" value="activity">
-                <Activity className="h-4 w-4" aria-hidden="true" />
-                Activity
-              </TabsTrigger>
-              <TabsTrigger className="min-h-9 gap-2" value="agent">
-                <Bot className="h-4 w-4" aria-hidden="true" />
-                Agent interface
-              </TabsTrigger>
-            </TabsList>
+          <section className="secondary-workspace" id="details" aria-label="Load details">
+            <Tabs defaultValue="manifest" className="min-w-0">
+              <TabsList className="workspace-tabs">
+                <TabsTrigger className="workspace-tab" value="manifest">
+                  <ClipboardList className="h-4 w-4" aria-hidden="true" />
+                  Manifest
+                </TabsTrigger>
+                <TabsTrigger className="workspace-tab" value="activity">
+                  <Activity className="h-4 w-4" aria-hidden="true" />
+                  Activity
+                </TabsTrigger>
+                <TabsTrigger className="workspace-tab" value="agent">
+                  <Bot className="h-4 w-4" aria-hidden="true" />
+                  WebMCP
+                </TabsTrigger>
+              </TabsList>
 
-            <TabsContent value="manifest" className="mt-3 space-y-4 p-2">
-              <div>
-                <h2 className="text-base font-semibold text-foreground">Manifest</h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Hover a row to highlight the package in the 3D workspace.
-                </p>
-              </div>
-              <PackageTable state={state} onHover={setHover} />
-              <ViolationList state={state} />
-            </TabsContent>
-
-            <TabsContent value="activity" className="mt-3 p-2">
-              <div className="mb-4">
-                <h2 className="text-base font-semibold text-foreground">Action ledger</h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Auditable agent, human, and system events without hidden reasoning.
-                </p>
-              </div>
-              <LedgerPanel events={lg.ledger.data ?? []} />
-            </TabsContent>
-
-            <TabsContent
-              value="agent"
-              className="mt-3 grid gap-4 p-2 lg:grid-cols-[minmax(0,1fr)_420px]"
-            >
-              <McpStatus registered={mcp.registered} toolNames={mcp.toolNames} />
-              <section className="rounded-lg border border-border/70 bg-background/45 p-4">
-                <div className="mb-4">
-                  <h2 className="text-base font-semibold text-foreground">Agent console</h2>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Same tool surface an MCP agent calls, retained for local demonstration.
-                  </p>
+              <TabsContent value="manifest" className="tab-content">
+                <div className="tab-heading">
+                  <div>
+                    <p className="eyebrow">Shipment detail</p>
+                    <h2>Manifest</h2>
+                  </div>
+                  <p>Hover a row to highlight the package in the 3D workspace.</p>
                 </div>
-                {lg.sessionKey ? (
-                  <Suspense fallback={null}>
-                    <AgentConsole sessionKey={lg.sessionKey} plan={plan} onChange={lg.invalidate} />
-                  </Suspense>
-                ) : null}
-              </section>
-            </TabsContent>
-          </Tabs>
+                <PackageTable state={state} onHover={setHover} />
+                <ViolationList state={state} />
+              </TabsContent>
+
+              <TabsContent value="activity" className="tab-content">
+                <div className="tab-heading">
+                  <div>
+                    <p className="eyebrow">Audit trail</p>
+                    <h2>Activity</h2>
+                  </div>
+                  <p>Human-readable history for agent, human, and system events.</p>
+                </div>
+                <LedgerPanel events={lg.ledger.data ?? []} />
+              </TabsContent>
+
+              <TabsContent value="agent" className="tab-content agent-tab-content">
+                <div className="tab-heading">
+                  <div>
+                    <p className="eyebrow">Connected capabilities</p>
+                    <h2>WebMCP</h2>
+                  </div>
+                  <p>Planning tools are available to the agent; authorization remains human-led.</p>
+                </div>
+                <McpStatus registered={mcp.registered} toolNames={mcp.toolNames} />
+                <section className="developer-demo">
+                  <div className="section-heading">
+                    <div>
+                      <p className="eyebrow">Local demonstration</p>
+                      <h3>Developer demo tools</h3>
+                    </div>
+                    <p>Exercise the same site tool surface used by an MCP agent.</p>
+                  </div>
+                  {lg.sessionKey ? (
+                    <Suspense fallback={null}>
+                      <AgentConsole
+                        sessionKey={lg.sessionKey}
+                        plan={plan}
+                        onChange={lg.invalidate}
+                      />
+                    </Suspense>
+                  ) : null}
+                </section>
+              </TabsContent>
+            </Tabs>
+          </section>
         </>
       )}
     </main>

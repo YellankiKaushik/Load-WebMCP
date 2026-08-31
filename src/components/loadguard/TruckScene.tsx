@@ -18,12 +18,12 @@ function Trailer({ l, w, h }: { l: number; w: number; h: number }) {
     <group>
       <mesh position={[l / 2, -0.02, w / 2]} receiveShadow>
         <boxGeometry args={[l, 0.04, w]} />
-        <meshStandardMaterial color="#3a3f46" roughness={0.85} metalness={0.25} />
+        <meshStandardMaterial color="#23364d" roughness={0.85} metalness={0.25} />
       </mesh>
       <mesh position={[l / 2, h / 2, w / 2]}>
         <boxGeometry args={[l, h, w]} />
         <meshStandardMaterial
-          color="#7f8894"
+          color="#9aacbf"
           transparent
           opacity={0.06}
           roughness={0.4}
@@ -32,7 +32,7 @@ function Trailer({ l, w, h }: { l: number; w: number; h: number }) {
       </mesh>
       <lineSegments position={[l / 2, h / 2, w / 2]}>
         <edgesGeometry args={[new THREE.BoxGeometry(l, h, w)]} />
-        <lineBasicMaterial color="#9aa6b2" transparent opacity={0.5} />
+        <lineBasicMaterial color="#afc4d8" transparent opacity={0.58} />
       </lineSegments>
       {/* Rear door plane at x = 0 */}
       <mesh position={[0.005, h / 2, w / 2]}>
@@ -97,8 +97,8 @@ function SceneContent({ state, candidate, highlight }: Props) {
 
   return (
     <>
-      <color attach="background" args={["#091016"]} />
-      <fog attach="fog" args={["#091016", 10, 28]} />
+      <color attach="background" args={["#111c2b"]} />
+      <fog attach="fog" args={["#111c2b", 10, 28]} />
       <ambientLight intensity={0.45} />
       <directionalLight
         position={[6, 9, 5]}
@@ -170,14 +170,14 @@ function SceneContent({ state, candidate, highlight }: Props) {
         })}
       </group>
 
-      <gridHelper args={[24, 24, "#183240", "#111c24"]} position={[0, -0.03, 0]} />
+      <gridHelper args={[24, 24, "#34506b", "#1d3046"]} position={[0, -0.03, 0]} />
       <OrbitControls
         makeDefault
         enablePan={false}
-        minDistance={4}
-        maxDistance={18}
+        minDistance={2.4}
+        maxDistance={10}
         maxPolarAngle={Math.PI / 2.1}
-        target={[0, H / 2, 0]}
+        target={[0, H * 0.32, 0]}
       />
     </>
   );
@@ -185,7 +185,7 @@ function SceneContent({ state, candidate, highlight }: Props) {
 
 export default function TruckScene(props: Props) {
   return (
-    <Canvas shadows dpr={[1, 2]} camera={{ position: [7, 5, 7], fov: 45 }}>
+    <Canvas shadows dpr={[1, 2]} camera={{ position: [3.6, 2.8, 3.6], fov: 36 }}>
       <SceneContent {...props} />
     </Canvas>
   );

@@ -66,8 +66,8 @@ export default function AgentConsole({ sessionKey, plan, onChange }: Props) {
   ];
 
   return (
-    <div className="space-y-3">
-      <div className="grid grid-cols-2 gap-2">
+    <div className="agent-console">
+      <div className="agent-console__actions">
         {buttons.map((b) => (
           <button
             key={b.key}
@@ -76,8 +76,8 @@ export default function AgentConsole({ sessionKey, plan, onChange }: Props) {
             onClick={() => call.mutate(b.key)}
             className={
               b.key === "commit"
-                ? "inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-destructive/45 bg-destructive/10 px-2 py-2 font-mono text-[0.68rem] font-semibold text-destructive transition-colors hover:bg-destructive/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-55"
-                : "inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-border bg-secondary/55 px-2 py-2 font-mono text-[0.68rem] font-semibold text-foreground transition-colors hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-55"
+                ? "agent-console__button agent-console__button--commit"
+                : "agent-console__button"
             }
           >
             {b.key === "commit" ? (
@@ -89,13 +89,13 @@ export default function AgentConsole({ sessionKey, plan, onChange }: Props) {
           </button>
         ))}
       </div>
-      <div className="rounded-md border border-border/60 bg-background/60 p-2.5">
+      <div className="agent-console__log">
         {log.length === 0 ? (
-          <p className="flex items-center gap-2 font-mono text-[0.65rem] text-muted-foreground">
+          <p className="agent-console__empty">
             <Terminal className="h-3.5 w-3.5" /> awaiting tool call...
           </p>
         ) : (
-          <ul className="space-y-1 font-mono text-[0.65rem]">
+          <ul className="agent-console__entries">
             {log.map((entry, i) => (
               <li key={i} className={entry.tone === "ok" ? "text-success" : "text-destructive"}>
                 {entry.tone === "ok" ? "OK " : "ERR "}
