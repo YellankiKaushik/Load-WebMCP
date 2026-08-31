@@ -288,7 +288,7 @@ get_action_ledger
 second commit -> ALREADY_EXECUTED
 ```
 
-The 3D scene renders active load as solid packages and proposed/candidate load as a green transparent wireframe. After commit, the approved proposal becomes the active load.
+The 3D scene renders active load as solid packages and proposed/candidate load as a cyan agent-blue transparent wireframe. After commit, the approved proposal becomes the active load.
 
 ## Reset
 
@@ -301,6 +301,7 @@ The normal site works without WebMCP. Tool registration is available only in a b
 ## Documentation
 
 - `docs/CODEX_COMPLETION_REPORT.md` - completion and live verification report
+- `docs/DESIGN_SYSTEM.md` - LoadGuard Mission Control visual and interaction system
 - `docs/HACKATHON_READINESS.md` - final readiness checklist
 - `docs/REPOSITORY_SAFETY_REPORT.md` - repository, secret, and authority safety status
 - `docs/Final Open AI - Web MCP.md` - original challenge-oriented documentation and attribution
