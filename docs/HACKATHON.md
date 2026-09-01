@@ -8,6 +8,8 @@ Tagline: Agent-native load planning with human-controlled execution.
 
 Production: https://webmcp-openai.kaushikyellanki.workers.dev/
 
+Live workspace: https://webmcp-openai.kaushikyellanki.workers.dev/workspace
+
 Repository: https://github.com/YellankiKaushik/Load-WebMCP
 
 ## Problem

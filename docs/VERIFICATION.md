@@ -6,6 +6,12 @@ Production URL:
 https://webmcp-openai.kaushikyellanki.workers.dev/
 ```
 
+Operational workspace:
+
+```text
+https://webmcp-openai.kaushikyellanki.workers.dev/workspace
+```
+
 ## Production Baseline
 
 Verified baseline fixture:
@@ -23,8 +29,8 @@ active validation VALID
 
 ## WebMCP Discovery
 
-Production was opened in a WebMCP-capable browser. The page reported tools registered on
-`document.modelContext`.
+The production workspace was opened in a WebMCP-capable browser. The page reported tools
+registered on `document.modelContext`.
 
 Verified tool count: 7
 

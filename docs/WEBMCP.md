@@ -4,6 +4,9 @@ LoadGuard uses WebMCP to expose a narrow, deterministic logistics capability sur
 the page itself. The browser agent interacts with `document.modelContext`; the website
 defines tool names, schemas, effects, and authority boundaries.
 
+The judge-facing landing page lives at `/`. The operational WebMCP workspace lives at
+`/workspace`, where the tool surface is registered.
+
 ## Tool Surface
 
 Exactly seven tools are registered:
