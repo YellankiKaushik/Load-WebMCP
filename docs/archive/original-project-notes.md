@@ -1,3 +1,13 @@
+# Original Project Notes
+
+This archived document preserves historical planning, upstream-reference, and attribution
+context from the original LoadGuard/SmartLoad transformation notes. It is not the current
+public README or authoritative deployment guide.
+
+Current project documentation starts at [docs/README.md](../README.md).
+
+---
+
 # LoadGuard 3D — Deep Technical Architecture & Engineering Documentation
 
 > **Document type:** Master Technical Architecture / Engineering Design Document  

@@ -1,12 +1,28 @@
-<!-- LOVABLE:BEGIN -->
+# Repository Agent Guide
 
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
+This repository is connected to Lovable. Do not rewrite published history: no force
+pushes, rebases, amendments, or squashes of commits that may already be pushed.
 
-<!-- LOVABLE:END -->
+When changing LoadGuard, preserve the verified product contract:
+
+- exactly seven WebMCP tools
+- no human approval WebMCP tool
+- deterministic planner and validator behavior
+- active/candidate separation
+- proposal hash and approved-hash binding
+- revision, expiry, session, idempotency, and database authority checks
+- Supabase RLS/RPC semantics and service-role boundary
+
+Use Bun and the committed `bun.lock`. Before commits, run:
+
+```sh
+bun install --frozen-lockfile
+bun run build
+bun run typecheck
+bun run lint
+bun run test
+git diff --check
+```
+
+Never commit `.env`, secret values, production credentials, or screenshots that reveal
+private project settings.

@@ -99,33 +99,6 @@ export function StatusBadge({
   );
 }
 
-export function PanelShell({
-  title,
-  subtitle,
-  children,
-  action,
-  className,
-}: {
-  title: string;
-  subtitle?: string;
-  children: ReactNode;
-  action?: ReactNode;
-  className?: string;
-}) {
-  return (
-    <section className={cn("subsection", className)}>
-      <header className="subsection-header">
-        <div>
-          <h2>{title}</h2>
-          {subtitle ? <p>{subtitle}</p> : null}
-        </div>
-        {action}
-      </header>
-      <div className="subsection-body">{children}</div>
-    </section>
-  );
-}
-
 export function CommandHeader({
   registered,
   toolNames,

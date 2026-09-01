@@ -1,4 +1,6 @@
 /.gitattributes text eol=lf
+/.env.example text eol=lf
+*.md text eol=lf
 src/**/*.ts text eol=lf
 src/**/*.tsx text eol=lf
 src/**/*.css text eol=lf
