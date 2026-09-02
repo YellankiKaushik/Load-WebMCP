@@ -7,6 +7,7 @@ deterministic 3D load proposal, and stage it for review while operational execut
 remains impossible until a human approves the exact staged plan.
 
 [Live demo](https://webmcp-openai.kaushikyellanki.workers.dev/) ·
+[Live workspace](https://webmcp-openai.kaushikyellanki.workers.dev/workspace) ·
 [Architecture](docs/ARCHITECTURE.md) · [WebMCP](docs/WEBMCP.md) ·
 [Security](docs/SECURITY.md) · [Verification](docs/VERIFICATION.md)
 
@@ -117,9 +118,10 @@ Key implementation areas:
 ```text
 src/
   components/loadguard/     UI, decision rail, manifest, 3D scene
+  components/showcase/      judge-facing presentation chrome and shared content
   lib/loadguard/            planner, validator, WebMCP adapter, tests
   integrations/supabase/    browser and server Supabase clients
-  routes/                   TanStack Start routes
+  routes/                   landing, workspace, architecture, WebMCP, verification
 supabase/
   migrations/               tables, RLS, protected RPC authority
 docs/

@@ -95,6 +95,75 @@
     padding: 0 2rem 3rem;
   }
 
+  .showcase-btn-primary,
+  .showcase-btn-secondary,
+  .showcase-btn-on-dark,
+  .showcase-btn-on-dark-muted {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.75rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-decoration: none;
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease,
+      background-color 160ms ease,
+      border-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .showcase-btn-primary {
+    background: #2563eb;
+    color: white;
+    box-shadow: 0 10px 24px rgb(37 99 235 / 18%);
+  }
+
+  .showcase-btn-secondary {
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #1e293b;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 4%);
+  }
+
+  .showcase-btn-on-dark {
+    background: white;
+    color: #0f172a;
+  }
+
+  .showcase-btn-on-dark-muted {
+    border: 1px solid rgb(255 255 255 / 18%);
+    background: rgb(255 255 255 / 7%);
+    color: white;
+  }
+
+  .showcase-btn-primary:hover,
+  .showcase-btn-secondary:hover,
+  .showcase-btn-on-dark:hover,
+  .showcase-btn-on-dark-muted:hover {
+    transform: translateY(-1px);
+  }
+
+  .showcase-btn-primary:hover {
+    background: #1d4ed8;
+    box-shadow: 0 14px 30px rgb(37 99 235 / 22%);
+  }
+
+  .showcase-btn-secondary:hover {
+    border-color: #bfdbfe;
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+
+  .showcase-btn-on-dark-muted:hover {
+    background: rgb(255 255 255 / 13%);
+  }
+
   .product-nav {
     display: flex;
     align-items: center;

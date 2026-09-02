@@ -77,12 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "LoadGuard 3D" },
+      { title: "LoadGuard 3D - Human-authorized WebMCP load planning" },
       {
         name: "description",
-        content: "Agent-assisted 3D truck load planning with human approval gates.",
+        content:
+          "Agent-native 3D truck load planning where WebMCP agents can inspect, plan, validate and stage proposals while humans retain authorization over operational execution.",
       },
       { property: "og:type", content: "website" },
+      {
+        property: "og:image",
+        content: "/loadguard-og.png",
+      },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
