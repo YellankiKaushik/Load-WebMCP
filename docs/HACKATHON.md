@@ -4,6 +4,10 @@ Project: LoadGuard 3D
 
 Challenge: OpenAI WebMCP Challenge 2026
 
+Creator: Kaushik Yellanki
+
+Built for the OpenAI WebMCP Challenge 2026.
+
 Tagline: Agent-native load planning with human-controlled execution.
 
 Production: https://webmcp-openai.kaushikyellanki.workers.dev/

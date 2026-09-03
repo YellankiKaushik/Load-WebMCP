@@ -1,7 +1,7 @@
 # Repository Agent Guide
 
-This repository is connected to Lovable. Do not rewrite published history: no force
-pushes, rebases, amendments, or squashes of commits that may already be pushed.
+Do not rewrite published history: no force pushes, rebases, amendments, or squashes of
+commits that may already be pushed.
 
 When changing LoadGuard, preserve the verified product contract:
 
