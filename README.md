@@ -4,9 +4,10 @@
 
 Designed and built by **Kaushik Yellanki** for the **OpenAI WebMCP Challenge 2026**.
 
-LoadGuard 3D lets a WebMCP-capable agent inspect a truck, create and validate a
-deterministic 3D load proposal, and stage it for review while operational execution
-remains impossible until a human approves the exact staged plan.
+LoadGuard 3D is a WebMCP-native logistics system where an agent can inspect
+operational state, create and validate a deterministic 3D load plan, stage it for
+review, and request execution while a human remains the only authority capable of
+approving the exact staged proposal.
 
 [Live demo](https://webmcp-openai.kaushikyellanki.workers.dev/) ·
 [Live workspace](https://webmcp-openai.kaushikyellanki.workers.dev/workspace) ·
@@ -203,23 +204,26 @@ degradation, session isolation, and the judge fixture reset.
 
 **Kaushik Yellanki**
 
-LoadGuard 3D was designed and built for the OpenAI WebMCP Challenge 2026.
+LoadGuard 3D was designed and built by Kaushik Yellanki for the OpenAI WebMCP
+Challenge 2026.
 
 GitHub: [https://github.com/YellankiKaushik](https://github.com/YellankiKaushik)
 
 ## Attribution
 
-LoadGuard 3D uses open-source frameworks and libraries including React, TypeScript,
-TanStack Start, Three.js, React Three Fiber, Supabase, Cloudflare Workers, Tailwind CSS,
-Zod, Vitest, and related packages listed in `package.json`.
+LoadGuard 3D was designed and built by Kaushik Yellanki for the OpenAI WebMCP
+Challenge 2026.
 
-This repository preserves attribution for SmartLoad-3D where required by the root
-`LICENSE`. LoadGuard's distinguishing work is the WebMCP tool surface, deterministic
-planner/validator hardening, exact-plan approval model, database-enforced commit
-authority, session isolation, idempotency, and auditable human-agent workflow.
+The project uses open-source libraries and, where applicable, incorporates or adapts
+open-source implementation patterns acknowledged in the repository and `LICENSE`.
 
-See [archived project notes](docs/archive/original-project-notes.md) for historical
-planning and upstream-reference context.
+LoadGuard's distinguishing implementation includes its WebMCP capability surface,
+deterministic planner and validator, exact-plan human authorization model,
+database-enforced execution authority, session isolation, idempotency, action ledger,
+judge scenario, and human-agent operational workflow.
+
+Historical planning material remains available in
+[archived project notes](docs/archive/original-project-notes.md).
 
 ## License
 

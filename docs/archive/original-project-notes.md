@@ -1,10 +1,10 @@
 # Original Project Notes
 
-This archived document preserves historical planning, upstream-reference, and attribution
-context from the original LoadGuard/SmartLoad transformation notes. It is not the current
-public README or authoritative deployment guide.
+This is archived historical material retained for provenance and internal context. It is
+not the current project description, public README, or authoritative deployment guide.
 
-Current project documentation starts at [docs/README.md](../README.md).
+Current project documentation is [README.md](../../README.md) and
+[docs/README.md](../README.md).
 
 ---
 

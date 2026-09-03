@@ -2,11 +2,9 @@
 
 Project: LoadGuard 3D
 
-Challenge: OpenAI WebMCP Challenge 2026
-
 Creator: Kaushik Yellanki
 
-Built for the OpenAI WebMCP Challenge 2026.
+Challenge: OpenAI WebMCP Challenge 2026
 
 Tagline: Agent-native load planning with human-controlled execution.
 
@@ -28,6 +26,16 @@ protect fragile cargo, and remain auditable.
 LoadGuard lets a WebMCP-capable agent inspect the active truck and package constraints,
 create a deterministic 3D candidate load plan, validate it, and stage it for human review.
 The operator then approves or rejects the exact staged proposal in the UI.
+
+Kaushik implemented LoadGuard as a site-defined operational contract: seven WebMCP tools
+for inspection, planning, validation, staging, execution request, and audit review, with
+approval deliberately kept outside the agent-callable surface.
+
+```text
+The agent reasons.
+The operator authorizes.
+The website defines and enforces the contract.
+```
 
 ## Technical Differentiation
 
@@ -54,14 +62,7 @@ The operator then approves or rejects the exact staged proposal in the UI.
 
 ## Why It Matters
 
-LoadGuard demonstrates a practical human-agent collaboration pattern for the web:
-
-```text
-agent-native planning
-human-controlled authorization
-site-defined contract
-database-enforced execution
-```
-
-The result is not a chat demo wrapped around a UI. The website itself owns the operational
-contract and exposes the safe parts of that contract to the agent.
+LoadGuard demonstrates a practical human-agent collaboration pattern for the web. The
+result is not a chat demo wrapped around a UI. The website itself owns the operational
+contract and exposes the safe parts of that contract to the agent while Supabase RPCs and
+RLS enforce execution authority.

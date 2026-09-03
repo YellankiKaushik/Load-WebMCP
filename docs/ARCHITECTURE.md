@@ -21,7 +21,7 @@ flowchart TD
 
 - `src/routes/index.tsx` owns the judge-facing presentation landing page.
 - `src/routes/workspace.tsx` owns the LoadGuard operational workspace route.
-- `src/components/loadguard/LoadGuardWorkspace.tsx` preserves the verified workspace composition and WebMCP registration path.
+- `src/components/loadguard/LoadGuardWorkspace.tsx` owns the verified workspace composition and WebMCP registration path.
 - `src/components/loadguard/TruckScene.tsx` renders active cargo and candidate plans with React Three Fiber.
 - `src/components/loadguard/panels.tsx` renders the product shell, metrics, decision rail, manifest, activity feed, and WebMCP status.
 - `src/components/loadguard/AgentConsole.tsx` keeps the local demo controls visually secondary while exercising the same application handlers.
